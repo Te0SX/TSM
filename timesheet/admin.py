@@ -9,4 +9,5 @@ admin.site.register(Timesheet)
 
 @admin.register(Shift)
 class ShiftAdmin(admin.ModelAdmin):
-    list_display = ('studentID', 'date', 'role', 'startHour', 'endHour', 'payment')
+    list_display = ('studentID', 'date', 'role', 'startHour', 'endHour', 'payment')     #column titles showed
+    ordering = ('date',)
