@@ -3,7 +3,7 @@ import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
 
-from .models import Shift, Timesheet
+from .models import Shift, Timesheet, Roles
 
 # Create your views here.
 def home(request):
@@ -30,5 +30,11 @@ def home(request):
 
 def all_timesheets(request):
     timesheet_list = Timesheet.objects.all()
+    payperrole = Roles.objects.all()
+    shift = Shift.objects.first()
+    payment = shift.payment
+    finalpayment = payperrole * payment
+
     return render(request, 'timesheet/timesheet_list.html',
-                  {'timesheet_list': timesheet_list})
+                  {'timesheet_list': timesheet_list,
+                   'payment': payment})
