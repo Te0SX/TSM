@@ -8,6 +8,6 @@
         <li>{{ sheets }}</li>
     {% endfor %}
 
-    {{ payment }}
+    {{ payment|floatformat:2 }}
     </ul>
 {% endblock %}

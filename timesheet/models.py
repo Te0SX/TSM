@@ -31,10 +31,11 @@ class Shift(models.Model):
     role = models.ForeignKey(Roles, blank=True, null=True, on_delete=models.CASCADE)
     startHour = models.DateTimeField('Time started working')
     endHour = models.DateTimeField('Time finished working')
-    amount = models.DecimalField('Hourly Payment', decimal_places=2, max_digits=10, default=5, editable=False) #hide it with no editable
 
     def payment(self):
-        return self.role.hourlyPay * 5
+        time = self.endHour - self.startHour                         #calculate time working
+        payment = round(self.role.hourlyPay * time.seconds / 60 / 60,2)      #hourlyPay * hours worked, rounded for 2 demicals
+        return payment
     # amount = models.IntegerField('automatic calculated payment per role')
 
     def __str__(self):
