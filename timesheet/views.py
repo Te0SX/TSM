@@ -2,8 +2,10 @@ from django.shortcuts import render
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
+from django.http import HttpResponseRedirect
 
 from .models import Shift, Timesheet, Roles
+from .form import ShiftForm
 
 # Create your views here.
 def home(request):
@@ -36,3 +38,16 @@ def all_timesheets(request):
     return render(request, 'timesheet/timesheet_list.html',
                   {'timesheet_list': timesheet_list,
                    'payment': payment})
+
+def add_shift(request):
+
+    if request.method == "POST":
+        form = ShiftForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/add_shift')
+    else:
+        form = ShiftForm
+
+
+    return render(request, 'timesheet/add_shift.html', {'form':form})
