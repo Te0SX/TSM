@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import ModelForm, DateInput
 from .models import Shift
+from tempus_dominus.widgets import DatePicker, TimePicker, DateTimePicker
 
 # Create a Shift form
 
@@ -19,19 +20,14 @@ class ShiftForm(ModelForm):
         model = Shift
         fields = ('studentID','role', 'startHour','endHour')
 
-        labels = {'studentID': 'Name of the student'}
-
         widgets = {
             'studentID': forms.Select(attrs={'class':'form-select'}),
-            # 'studentID': forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Name of the student'}),
             'role': forms.Select(attrs={'class':'form-select'}),
-            # 'startHour': forms.TextInput(attrs={'class' : "form-control datetimepicker-input"}),
-            'startHour' : forms.DateTimeInput(attrs={
-                    'class': 'form-control datetimepicker-input',
+            'startHour': DateTimePicker(attrs={
                     'data-target': '#datetimepicker1',
                 }),
-            'endHour': forms.DateTimeInput(attrs={
-                'class': 'form-control datetimepicker-input',
-                'data-target': '#datetimepicker1'
+            'endHour': DateTimePicker(attrs={
+                'data-target': '#datetimepicker2'
             })
         }
+

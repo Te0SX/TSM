@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
@@ -45,5 +45,16 @@ def add_shift(request):
     else:
         form = ShiftForm
 
-
     return render(request, 'timesheet/add_shift.html', {'form':form})
+
+def update_shift(request, shift_id):
+    shift = Shift.objects.get(pk=shift_id)
+    form = ShiftForm(request.POST or None, instance=shift)
+    if form.is_valid():
+        form.save()
+        return redirect('shifts')
+
+    return render(request, 'timesheet/update_shift.html', {
+        'shift': shift,
+        'form': form
+    })

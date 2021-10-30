@@ -1,0 +1,15 @@
+{% extends 'timesheet/base.html' %}
+
+    {% block content %}
+        <center>
+        <br/>
+        <h1>Update Shift</h1>
+        <br/>
+        <form action="" method=POST>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <br/>
+            <input type="submit" value="Submit" class="btn btn-secondary">
+        </form>
+    </center>
+    {% endblock %}

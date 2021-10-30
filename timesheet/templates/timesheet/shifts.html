@@ -22,6 +22,8 @@
                 <th scope="col">Start Time</th>
                 <th scope="col">End Time</th>
                 <th scope="col">Amount</th>
+                <th scope="col"></th>
+
             </tr>
           </thead>
             {% for shift in shifts %}
@@ -43,6 +45,9 @@
                     </td>
                     <td>
                     {{ shift.payment }}
+                    </td>
+                    <td align="center">
+                        <a href="{% url 'update-shift' shift.id %}" class="btn btn-outline-secondary btn-sm">Update</a>
                     </td>
             </tr>
 
