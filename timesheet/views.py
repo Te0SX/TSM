@@ -30,14 +30,10 @@ def home(request):
         "time": time,
     })
 
-def all_timesheets(request):
-    timesheet_list = Timesheet.objects.all()
-    shift = Shift.objects.first()
-    payment = shift.payment
+def shifts(request):
+    shifts = Shift.objects.all()
 
-    return render(request, 'timesheet/timesheet_list.html',
-                  {'timesheet_list': timesheet_list,
-                   'payment': payment})
+    return render(request, 'timesheet/shifts.html',{'shifts': shifts})
 
 def add_shift(request):
 

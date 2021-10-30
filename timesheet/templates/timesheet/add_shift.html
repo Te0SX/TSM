@@ -11,32 +11,34 @@
 
         Name of student: {{ form.studentID }}<br/> <br/>
         Role of the shift {{ form.role }} <br/> <br/>
-        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-           Start of the Shift <br/>
-            {{  form.startHour }}
-          <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-          </div>
-        </div>
-        <br/>
-         <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-             End of the shift
-            {{  form.endHour }}
-          <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
-            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-          </div>
-        </div>
-
-        <script>
-          $(function () {
-            $("#datetimepicker1").datetimepicker({
-              format: 'DD/MM/YYYY HH:mm',
-            });
-            $("#datetimepicker2").datetimepicker({
-              format: 'DD/MM/YYYY HH:mm',
-            });
-          });
-        </script>
+        {{  form.startHour }}
+        {{  form.endHour }}
+{#        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">#}
+{#           Start of the Shift <br/>#}
+{#            {{  form.startHour }}#}
+{#          <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">#}
+{#            <div class="input-group-text"><i class="fa fa-calendar"></i></div>#}
+{#          </div>#}
+{#        </div>#}
+{#        <br/>#}
+{#         <div class="input-group date" id="datetimepicker2" data-target-input="nearest">#}
+{#             End of the shift#}
+{#            {{  form.endHour }}#}
+{#          <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">#}
+{#            <div class="input-group-text"><i class="fa fa-calendar"></i></div>#}
+{#          </div>#}
+{#        </div>#}
+{##}
+{#        <script>#}
+{#          $(function () {#}
+{#            $("#datetimepicker1").datetimepicker({#}
+{#              format: 'DD/MM/YYYY HH:mm',#}
+{#            });#}
+{#            $("#datetimepicker2").datetimepicker({#}
+{#              format: 'DD/MM/YYYY HH:mm',#}
+{#            });#}
+{#          });#}
+{#        </script>#}
         <br/>
         <input type="submit" value="Submit" class="btn btn-primary">
 

@@ -1,0 +1,58 @@
+{% extends 'timesheet/base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TMS</title>
+</head>
+<body>
+    {% block content %}
+    <center>
+    <br>
+
+    <div class="container">
+        <h1>Timesheet</h1> <br/>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+                <th scope="col">StudentID</th>
+                <th scope="col">Date</th>
+                <th scope="col">Role</th>
+                <th scope="col">Start Time</th>
+                <th scope="col">End Time</th>
+                <th scope="col">Amount</th>
+            </tr>
+          </thead>
+            {% for shift in shifts %}
+                <tr>
+                    <td>
+                    {{ shift.studentID }}
+                    </td>
+                    <td>
+                    {{ shift.date }}
+                    </td>
+                    <td>
+                    {{ shift.role }}
+                    </td>
+                    <td>
+                    {{ shift.startHour }}
+                    </td>
+                    <td>
+                    {{ shift.endHour }}
+                    </td>
+                    <td>
+                    {{ shift.payment }}
+                    </td>
+            </tr>
+
+            {% endfor %}
+        </table>
+
+    </div>
+     {{ shift.studentID }}
+
+    </center>
+    {% endblock %}
+</body>
+</html>
