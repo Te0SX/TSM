@@ -58,3 +58,9 @@ def update_shift(request, shift_id):
         'shift': shift,
         'form': form
     })
+
+def delete_shift(request, shift_id):
+    shift = Shift.objects.get(pk=shift_id)
+    shift.delete()
+
+    return redirect('shifts')
