@@ -31,7 +31,7 @@ def home(request):
     })
 
 def shifts(request):
-    shifts = Shift.objects.all()
+    shifts = Shift.objects.all().order_by('-date')
 
     return render(request, 'timesheet/shifts.html',{'shifts': shifts})
 
