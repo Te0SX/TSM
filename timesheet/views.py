@@ -41,7 +41,7 @@ def add_shift(request):
         form = ShiftForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/add_shift')
+            return HttpResponseRedirect('shifts')
     else:
         form = ShiftForm
 
