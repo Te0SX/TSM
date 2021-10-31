@@ -17,10 +17,10 @@
           <thead>
             <tr>
                 <th scope="col">StudentID</th>
-                <th scope="col">Date</th>
+                <th scope="col">Date Added</th>
                 <th scope="col">Role</th>
-                <th scope="col">Start Time</th>
-                <th scope="col">End Time</th>
+                <th scope="col">Start of Shift</th>
+                <th scope="col">Finish of Shift</th>
                 <th scope="col">Amount</th>
                 <th scope="col">Modify</th>
                 <th scope="col">Delete</th>
@@ -34,7 +34,7 @@
                         {{ shift.studentID }}
                         </td>
                         <td>
-                        {{ shift.date }}
+                        {{ shift.date.date }}
                         </td>
                         <td>
                         {{ shift.role }}

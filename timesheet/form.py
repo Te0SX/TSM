@@ -1,7 +1,9 @@
 from django import forms
 from django.forms import ModelForm, DateInput
 from .models import Shift
-from tempus_dominus.widgets import DatePicker, TimePicker, DateTimePicker
+from tempus_dominus.widgets import DateTimePicker
+from django.contrib.auth.models import User
+
 
 # Create a Shift form
 

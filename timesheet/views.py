@@ -36,7 +36,6 @@ def shifts(request):
     return render(request, 'timesheet/shifts.html',{'shifts': shifts})
 
 def add_shift(request):
-
     if request.method == "POST":
         form = ShiftForm(request.POST)
         if form.is_valid():

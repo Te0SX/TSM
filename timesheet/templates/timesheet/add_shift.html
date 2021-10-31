@@ -1,52 +1,53 @@
 {% extends 'timesheet/base.html' %}
 
 {% block content %}
-    <center>
 
     <h1>Add a Shift to your Timesheet</h1>
-    <br/><br/><br/><br/>
+    <br/><br/>
     <form action="" method=POST>
         {% csrf_token %}
 
 
         Name of student: {{ form.studentID }}<br/> <br/>
+{#        <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ user }}" disabled>#}
         Role of the shift {{ form.role }} <br/> <br/>
-        {{  form.startHour }}<br/> <br/>
-        {{  form.endHour }}
+{#        {{  form.startHour }}<br/> <br/>#}
+{#        {{  form.endHour }}#}
 
-  
-{#        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">#}
-{#           Start of the Shift <br/>#}
-{#            {{  form.startHour }}#}
-{#          <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">#}
-{#            <div class="input-group-text"><i class="fa fa-calendar"></i></div>#}
-{#          </div>#}
-{#        </div>#}
-{#        <br/>#}
-{#         <div class="input-group date" id="datetimepicker2" data-target-input="nearest">#}
-{#             End of the shift#}
-{#            {{  form.endHour }}#}
-{#          <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">#}
-{#            <div class="input-group-text"><i class="fa fa-calendar"></i></div>#}
-{#          </div>#}
-{#        </div>#}
-{##}
-{#        <script>#}
-{#          $(function () {#}
-{#            $("#datetimepicker1").datetimepicker({#}
-{#              format: 'DD/MM/YYYY HH:mm',#}
-{#            });#}
-{#            $("#datetimepicker2").datetimepicker({#}
-{#                format: 'DD/MM/YYYY HH:mm',#}
-{#            });#}
-{#          });#}
-{##}
-{#        </script>#}
+{#        startHour box with calendar picker #}
+        <label for="disabledTextInput" class="form-label">Start of Shift</label>
+        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+            <div class="col-xs-2">{{  form.startHour }}</div>
+          <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+          </div>
+        </div>
+
+        <br/>
+
+        {#        endHour box with calendar picker #}
+        <label for="disabledTextInput" class="form-label">End of the Shift</label>
+         <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+            <div class="col-xs-2">{{  form.endHour }}</div>
+          <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+          </div>
+        </div>
+
+        <script>
+          $(function () {
+            $("#datetimepicker1").datetimepicker({
+              format: 'MM/DD/YYYY HH:mm',
+            });
+            $("#datetimepicker2").datetimepicker({
+                format: 'MM/DD/YYYY HH:mm',
+            });
+          });
+
+        </script>
 
         <br/>
         <input type="submit" value="Submit" class="btn btn-primary">
 
     </form>
-
-    </center>
 {% endblock %}
