@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 import calendar
 from calendar import HTMLCalendar
@@ -33,13 +34,15 @@ def home(request):
 def shifts(request):
     shifts = Shift.objects.all().order_by('-date')
 
-    return render(request, 'timesheet/shifts.html',{'shifts': shifts})
+    return render(request, 'timesheet/shifts.html', {'shifts': shifts})
 
 def add_shift(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = ShiftForm(request.POST)
         if form.is_valid():
-            form.save()
+            currentShift = form.save(commit=False)
+            currentShift.studentID = request.user       # Save the studentID instantly without input in the form
+            currentShift.save()
             return HttpResponseRedirect('shifts')
     else:
         form = ShiftForm

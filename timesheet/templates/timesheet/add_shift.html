@@ -7,12 +7,8 @@
     <form action="" method=POST>
         {% csrf_token %}
 
-
-        Name of student: {{ form.studentID }}<br/> <br/>
-{#        <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ user }}" disabled>#}
+        StudentID: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ user }}" disabled> <br/> <br/>
         Role of the shift {{ form.role }} <br/> <br/>
-{#        {{  form.startHour }}<br/> <br/>#}
-{#        {{  form.endHour }}#}
 
 {#        startHour box with calendar picker #}
         <label for="disabledTextInput" class="form-label">Start of Shift</label>

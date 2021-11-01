@@ -20,13 +20,14 @@ class ShiftForm(ModelForm):
 
     class Meta:
         model = Shift
-        fields = ('studentID','role', 'startHour','endHour')
+        exclude = ['studentID']         # Will be taken from the request
+        fields = ('role', 'startHour','endHour')
         labels = {
             'startHour': 'Start of Shift',
             'endHour': 'End of Shift',
             }
         widgets = {
-            'studentID': forms.Select(attrs={'class':'form-select'}),
+            # 'studentID': forms.Select(attrs={'class':'form-select'}),
             'role': forms.Select(attrs={'class':'form-select'}),
             'startHour': DateTimePicker(attrs={
                     'data-target': '#datetimepicker1',
