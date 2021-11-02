@@ -3,7 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from calendar import HTMLCalendar
 from datetime import datetime
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+import csv
 
 from .models import Shift, Timesheet, Roles
 from .form import ShiftForm
@@ -38,7 +39,7 @@ def shifts(request):
     shifts = Shift.objects.all().order_by('-date')
     userid = request.user.id
     #Paginator setup
-    p = Paginator(Shift.objects.filter(studentID=userid).order_by('-date'),4)
+    p = Paginator(Shift.objects.filter(studentID=userid).order_by('-date'),4)   #filter User's shifts only
     page = request.GET.get('page')
     shiftsPerPage = p.get_page(page)
 
@@ -82,8 +83,6 @@ def update_shift(request, shift_id):
         'form': form
     })
 
-
-
 def delete_shift(request, shift_id):
     shift = Shift.objects.get(pk=shift_id)
     shift.delete()
@@ -119,3 +118,23 @@ def warning(request, shift_id):
     shift = Shift.objects.get(pk=shift_id)
     if shift.verified:
         messages.success(request, "Shift #" + shift_id + " has been verified and can't be modified anymore")
+
+def shifts_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=shifts.csv'
+
+    # Create a csv writer
+    writer = csv.writer(response)
+
+    # Designate the Model
+    userid = request.user.id
+    shifts = Shift.objects.filter(studentID=userid).order_by('-date')
+
+    # Add column heading to the csv file
+    writer.writerow(['ShiftID', 'Date Added', 'Role', 'Start of Shift', 'Finish of Shift', 'Amount', 'Verified', 'Paid'])
+
+    #Loop through and output
+    for shift in shifts:
+        writer.writerow([shift.id, shift.date, shift.role, shift.startHour, shift.endHour, shift.payment(), shift.verified, shift.paid])
+
+    return response
