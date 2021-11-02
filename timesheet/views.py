@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-import calendar
+from django.contrib import messages
 from calendar import HTMLCalendar
 from datetime import datetime
 from django.http import HttpResponseRedirect
@@ -36,6 +36,11 @@ def shifts(request):
 
     return render(request, 'timesheet/shifts.html', {'shifts': shifts})
 
+def verified_shifts(request):
+    shifts = Shift.objects.all().order_by('-date')
+
+    return render(request, 'timesheet/verified_shifts.html', {'shifts': shifts})
+
 def add_shift(request):
     if request.method == 'POST':
         form = ShiftForm(request.POST)
@@ -43,6 +48,7 @@ def add_shift(request):
             currentShift = form.save(commit=False)
             currentShift.studentID = request.user       # Save the studentID instantly without input in the form
             currentShift.save()
+            messages.success(request, "Shift added successfully")
             return HttpResponseRedirect('shifts')
     else:
         form = ShiftForm
@@ -54,6 +60,7 @@ def update_shift(request, shift_id):
     form = ShiftForm(request.POST or None, instance=shift)
     if form.is_valid():
         form.save()
+        messages.success(request,"Shift #" +shift_id +" updated successfully")
         return redirect('shifts')
 
     return render(request, 'timesheet/update_shift.html', {
@@ -64,5 +71,21 @@ def update_shift(request, shift_id):
 def delete_shift(request, shift_id):
     shift = Shift.objects.get(pk=shift_id)
     shift.delete()
+    messages.success(request, "Shift #" +shift_id +" deleted successfully")
 
     return redirect('shifts')
+
+def verify_shift(request, shift_id):
+    shift = Shift.objects.get(pk=shift_id)
+    shift.verified = True
+    shift.save()
+    messages.success(request, "Shift #" +shift_id +" has been verified")
+
+    return redirect('shifts')
+
+def pay_shift(request, shift_id):
+    shift = Shift.objects.get(pk=shift_id)
+    shift.paid = True
+    messages.success(request, "Shift #" +shift_id +" has been paid")
+
+    return HttpResponseRedirect('shifts')

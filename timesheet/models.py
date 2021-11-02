@@ -32,6 +32,8 @@ class Shift(models.Model):
     role = models.ForeignKey(Roles, blank=True, null=True, on_delete=models.SET_NULL)
     startHour = models.DateTimeField('Time started working')
     endHour = models.DateTimeField('Time finished working')
+    verified = models.BooleanField(default=False)
+    paid = models.BooleanField(default=False)
 
     def payment(self):
         time = self.endHour - self.startHour                                 #calculate time working
