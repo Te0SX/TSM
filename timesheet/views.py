@@ -8,6 +8,9 @@ from django.http import HttpResponseRedirect
 from .models import Shift, Timesheet, Roles
 from .form import ShiftForm
 
+#import Pegination stuff
+from django.core.paginator import Paginator
+
 # Create your views here.
 def home(request):
     name = "John"
@@ -34,7 +37,15 @@ def home(request):
 def shifts(request):
     shifts = Shift.objects.all().order_by('-date')
 
-    return render(request, 'timesheet/shifts.html', {'shifts': shifts})
+    #Paginator setup
+    p = Paginator(Shift.objects.all().order_by('-date'),4)
+    page = request.GET.get('page')
+    shiftsPerPage = p.get_page(page)
+
+    return render(request, 'timesheet/shifts.html', {
+        'shifts': shifts,
+        'shiftsPerPage': shiftsPerPage,
+        })
 
 def verified_shifts(request):
     shifts = Shift.objects.all().order_by('-date')
@@ -57,16 +68,21 @@ def add_shift(request):
 
 def update_shift(request, shift_id):
     shift = Shift.objects.get(pk=shift_id)
-    form = ShiftForm(request.POST or None, instance=shift)
-    if form.is_valid():
-        form.save()
-        messages.success(request,"Shift #" +shift_id +" updated successfully")
+    if shift.verified:
+        messages.success(request, "Shift #" + shift_id + " has been already verified and can't be modified anymore")
         return redirect('shifts')
+    else:
+        form = ShiftForm(request.POST or None, instance=shift)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Shift #" +shift_id +" updated successfully")
 
     return render(request, 'timesheet/update_shift.html', {
         'shift': shift,
         'form': form
     })
+
+
 
 def delete_shift(request, shift_id):
     shift = Shift.objects.get(pk=shift_id)
@@ -77,15 +93,29 @@ def delete_shift(request, shift_id):
 
 def verify_shift(request, shift_id):
     shift = Shift.objects.get(pk=shift_id)
-    shift.verified = True
-    shift.save()
-    messages.success(request, "Shift #" +shift_id +" has been verified")
+    if shift.verified:
+        shift.verified = False
+        shift.save()
+        messages.success(request, "Shift #" + shift_id + " has been already unverified")
+    else:
+        shift.verified = True
+        shift.save()
+        messages.success(request, "Shift #" +shift_id +" has been verified")
 
     return redirect('shifts')
 
 def pay_shift(request, shift_id):
     shift = Shift.objects.get(pk=shift_id)
-    shift.paid = True
-    messages.success(request, "Shift #" +shift_id +" has been paid")
+    if shift.verified:
+        shift.paid = True
+        shift.save()
+        messages.success(request, "Shift #" + shift_id + " has been paid")
+    else:
+        messages.success(request, "Shift #" + shift_id + " hasn't been verified yet and can't be paid")
 
-    return HttpResponseRedirect('shifts')
+    return redirect('shifts')
+
+def warning(request, shift_id):
+    shift = Shift.objects.get(pk=shift_id)
+    if shift.verified:
+        messages.success(request, "Shift #" + shift_id + " has been verified and can't be modified anymore")
