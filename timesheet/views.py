@@ -36,9 +36,9 @@ def home(request):
 
 def shifts(request):
     shifts = Shift.objects.all().order_by('-date')
-
+    userid = request.user.id
     #Paginator setup
-    p = Paginator(Shift.objects.all().order_by('-date'),4)
+    p = Paginator(Shift.objects.filter(studentID=userid).order_by('-date'),4)
     page = request.GET.get('page')
     shiftsPerPage = p.get_page(page)
 

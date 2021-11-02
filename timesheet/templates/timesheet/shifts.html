@@ -13,12 +13,15 @@
 
     <div class="container">
         <h1>Timesheet of {{ user }}</h1>
+            <br> <br>
 
 {#        <div class="btn-group">#}
 {#              <a href="{% url 'shifts' %}" class="btn btn-primary active" aria-current="page">Waiting Approval</a>#}
 {#              <a href="{% url 'verified-shifts' %}" class="btn btn-primary">Verified</a>#}
 {#        </div>#}
-        <br/> <br/>
+{#        <br/>#}
+{#            <a class="btn btn-primary" href="{% url 'add-shift' %}" role="button">Add Shift</a>#}
+{#        <br/> <br/>#}
         <table class="table table-striped">
           <thead>
             <tr>
@@ -107,7 +110,9 @@
         </table>
 
     </div>
-    <br/>
+     <br/>
+            <a class="btn btn-primary" href="{% url 'add-shift' %}" role="button">Add Shift</a>
+        <br/> <br/>
 
 <!--Show number of pages> -->
    <nav aria-label="Page navigation example">
