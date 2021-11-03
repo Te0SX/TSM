@@ -69,24 +69,32 @@ def add_shift(request):
 
 def update_shift(request, shift_id):
     shift = Shift.objects.get(pk=shift_id)
-    if shift.verified:
-        messages.success(request, "Shift #" + shift_id + " has been already verified and can't be modified anymore")
-        return redirect('shifts')
-    else:
-        form = ShiftForm(request.POST or None, instance=shift)
-        if form.is_valid():
-            form.save()
-            messages.success(request,"Shift #" +shift_id +" updated successfully")
+    if request.user == shift.studentID:
+        if shift.verified:
+            messages.success(request, "Shift #" + shift_id + " has been already verified and can't be modified anymore")
+            return redirect('shifts')
+        else:
+            form = ShiftForm(request.POST or None, instance=shift)
+            if form.is_valid():
+                form.save()
+                messages.success(request,"Shift #" +shift_id +" updated successfully")
 
-    return render(request, 'timesheet/update_shift.html', {
+        return render(request, 'timesheet/update_shift.html', {
         'shift': shift,
-        'form': form
-    })
+        'form': form})
+
+    else:
+        messages.success(request, "You don't have permission to modify #" +shift_id +". Don't be sneaky!!!")
+        return redirect('shifts')
+
 
 def delete_shift(request, shift_id):
     shift = Shift.objects.get(pk=shift_id)
-    shift.delete()
-    messages.success(request, "Shift #" +shift_id +" deleted successfully")
+    if request.user == shift.studentID:
+        shift.delete()
+        messages.success(request, "Shift #" + shift_id +" deleted successfully")
+    else:
+        messages.success(request, "You don't have permission to delete #" + shift_id +". Don't be sneaky!!!")
 
     return redirect('shifts')
 
