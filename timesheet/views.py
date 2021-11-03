@@ -84,7 +84,7 @@ def update_shift(request, shift_id):
         'form': form})
 
     else:
-        messages.success(request, "You don't have permission to modify #" +shift_id +". Don't be sneaky!!!")
+        messages.success(request, "You don't have permission to modify #" + shift_id +". Don't be sneaky!!!")
         return redirect('shifts')
 
 
@@ -100,14 +100,17 @@ def delete_shift(request, shift_id):
 
 def verify_shift(request, shift_id):
     shift = Shift.objects.get(pk=shift_id)
-    if shift.verified:
-        shift.verified = False
-        shift.save()
-        messages.success(request, "Shift #" + shift_id + " has been already unverified")
+    if request.user.userprofile.title == 'Verifier':
+        if shift.verified:
+            shift.verified = False
+            shift.save()
+            messages.success(request, "Shift #" + shift_id + " has been already unverified")
+        else:
+            shift.verified = True
+            shift.save()
+            messages.success(request, "Shift #" +shift_id +" has been verified")
     else:
-        shift.verified = True
-        shift.save()
-        messages.success(request, "Shift #" +shift_id +" has been verified")
+        messages.success(request, "You don't have the permission to verify shifts")
 
     return redirect('shifts')
 

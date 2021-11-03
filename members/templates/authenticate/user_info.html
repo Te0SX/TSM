@@ -1,0 +1,21 @@
+{% extends 'timesheet/base.html' %}
+
+    {% block content %}
+        <h1>Update #{{ user.id }} Profile</h1>
+    <br>
+    <form action="" method=POST>
+        {% csrf_token %}
+
+        StudentID: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ user.user }}" disabled>
+        <br/> <br/>
+        {{ form.as_p }}
+        <br/>
+
+         <br/>
+        <input type="submit" value="Submit" class="btn btn-primary">
+
+    </form>
+
+
+    Copyright (c)
+    {% endblock %}

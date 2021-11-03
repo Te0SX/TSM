@@ -1,0 +1,27 @@
+{% extends 'timesheet/base.html' %}
+
+    {% block content %}
+        <h1>Register a new user</h1>
+    <br>
+    <form action="" method=POST>
+        {% csrf_token %}
+        <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Username</label>
+        <input type="text" class="form-control" name="username">
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" name="password">
+      </div>
+     <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">email</label>
+        <input type="email" class="form-control" name="email">
+      </div>
+
+
+      <input type="submit" value="Submit" class="btn btn-primary">
+    </form>
+
+
+    Copyright (c)
+    {% endblock %}

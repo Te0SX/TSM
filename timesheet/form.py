@@ -7,15 +7,6 @@ from django.contrib.auth.models import User
 
 # Create a Shift form
 
-# class DateForm(forms.Form):
-#     date = forms.DateTimeField(
-#         input_formats=['%d/%m/%Y %H:%M'],
-#         widget=forms.DateTimeInput(attrs={
-#             'class': 'form-control datetimepicker-input',
-#             'data-target': '#datetimepicker1'
-#         })
-#     )
-
 class ShiftForm(ModelForm):
 
     class Meta:
