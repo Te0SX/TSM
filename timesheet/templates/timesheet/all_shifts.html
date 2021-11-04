@@ -37,9 +37,8 @@
 
             </tr>
           </thead>
-            {% for shift in shiftsPerPage %}
-                {% if user == shift.studentID %}
-{#                    {% if shift.verified == False %}#}
+            {% for shift in shiftPerPage %}
+{#                {% if user == shift.studentID %}#}
                         <tr>
                             <td>
                             #{{ shift.id }}
@@ -103,8 +102,7 @@
                                 </a>
                             </td>
                         </tr>
-{#                    {% endif %}#}
-                {% endif %}
+{#                {% endif %}#}
             {% endfor %}
         </table>
 

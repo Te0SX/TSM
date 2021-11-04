@@ -48,6 +48,19 @@ def shifts(request):
         'shiftsPerPage': shiftsPerPage,
         })
 
+def all_shifts(request):
+    shifts = Shift.objects.all().order_by('-date')
+    userTitle = str(request.user.userprofile.title)
+
+    # Paginator setup
+    p = Paginator(shifts, 15)  # filter User's shifts only
+    page = request.GET.get('page')
+    shiftsPerPage = p.get_page(page)
+    return render(request, 'timesheet/all_shifts.html',
+              {'shifts': shifts,
+               'shiftPerPage': shiftsPerPage})
+
+
 def verified_shifts(request):
     shifts = Shift.objects.all().order_by('-date')
 
@@ -100,15 +113,18 @@ def delete_shift(request, shift_id):
 
 def verify_shift(request, shift_id):
     shift = Shift.objects.get(pk=shift_id)
-    if request.user.userprofile.title == 'Verifier':
+    userTitle = str(request.user.userprofile.title) # Without str, it's a Role object, gives an error
+    if userTitle == 'Verifier':
         if shift.verified:
             shift.verified = False
             shift.save()
-            messages.success(request, "Shift #" + shift_id + " has been already unverified")
+            messages.success(request, "Shift #" + shift_id + " has been unverified")
         else:
             shift.verified = True
             shift.save()
             messages.success(request, "Shift #" +shift_id +" has been verified")
+
+        return redirect('all-shifts')
     else:
         messages.success(request, "You don't have the permission to verify shifts")
 
@@ -116,12 +132,16 @@ def verify_shift(request, shift_id):
 
 def pay_shift(request, shift_id):
     shift = Shift.objects.get(pk=shift_id)
-    if shift.verified:
-        shift.paid = True
-        shift.save()
-        messages.success(request, "Shift #" + shift_id + " has been paid")
+    userTitle = str(request.user.userprofile.title) # Without str, it's a Role object, gives an error
+    if userTitle == 'Payer':
+        if shift.verified:
+            shift.paid = True
+            shift.save()
+            messages.success(request, "Shift #" + shift_id + " has been paid")
+        else:
+            messages.success(request, "Shift #" + shift_id + " hasn't been verified yet and can't be paid")
     else:
-        messages.success(request, "Shift #" + shift_id + " hasn't been verified yet and can't be paid")
+        messages.success(request, "You don't have the permission to verify payments")
 
     return redirect('shifts')
 

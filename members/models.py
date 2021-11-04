@@ -14,4 +14,4 @@ class UserProfile(models.Model):
     title = models.ForeignKey(UserRoles, blank=True, null=True, on_delete=models.SET_NULL) #Student, Verifier, FinancialGuy
 
     def __str__(self):
-        return self.phone + ' ' + self.title
+        return str(self.title)
