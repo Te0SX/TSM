@@ -5,7 +5,7 @@ urlpatterns = [
     path('', views.home, name="home"),
     path('home', views.home, name="home"),
     path('shifts', views.shifts, name="shifts"),
-    path('all_shifts', views.all_shifts, name="all-shifts"),
+    path('all_shifts', views.shifts, name="all-shifts"),
     path('add_shift', views.add_shift, name="add-shift"),
     path('verified_shifts', views.verified_shifts, name="verified-shifts"),
 

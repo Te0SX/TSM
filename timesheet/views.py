@@ -37,29 +37,27 @@ def home(request):
 
 def shifts(request):
     shifts = Shift.objects.all().order_by('-date')
-    userid = request.user.id
-    #Paginator setup
-    p = Paginator(Shift.objects.filter(studentID=userid).order_by('-date'),4)   #filter User's shifts only
-    page = request.GET.get('page')
-    shiftsPerPage = p.get_page(page)
-
-    return render(request, 'timesheet/shifts.html', {
-        'shifts': shifts,
-        'shiftsPerPage': shiftsPerPage,
-        })
-
-def all_shifts(request):
-    shifts = Shift.objects.all().order_by('-date')
     userTitle = str(request.user.userprofile.title)
+    #Students view
+    if userTitle == 'Student':
+        userid = request.user.id
+        #Paginator setup
+        p = Paginator(Shift.objects.filter(studentID=userid).order_by('-date'),4)   #filter User's shifts only
+        page = request.GET.get('page')
+        shiftsPerPage = p.get_page(page)
 
-    # Paginator setup
-    p = Paginator(shifts, 15)  # filter User's shifts only
-    page = request.GET.get('page')
-    shiftsPerPage = p.get_page(page)
-    return render(request, 'timesheet/all_shifts.html',
-              {'shifts': shifts,
-               'shiftPerPage': shiftsPerPage})
+        return render(request, 'timesheet/shifts.html', {
+            'shiftsPerPage': shiftsPerPage,
+            })
+    # Verifier & Payer view
+    else:
+        p = Paginator(shifts, 10)  # filter User's shifts only
+        page = request.GET.get('page')
+        shiftsPerPage = p.get_page(page)
 
+        return render(request, 'timesheet/all_shifts.html', {
+            'shiftPerPage': shiftsPerPage
+            })
 
 def verified_shifts(request):
     shifts = Shift.objects.all().order_by('-date')
