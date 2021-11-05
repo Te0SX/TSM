@@ -3,9 +3,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from members.form import userForm
+from django.contrib.auth.forms import UserCreationForm
+from django.core.paginator import Paginator
 
 # Create your views here.
-from members.models import UserProfile
+from members.models import UserProfile, UserRoles
 
 
 def login_user(request):
@@ -30,8 +32,10 @@ def logout_user(request):
 
 def user_list(request):
     users = User.objects.all()
-
-    return render(request, 'authenticate/user_list.html', {'users': users})
+    p = Paginator(users.order_by('id'), 5)  # filter User's shifts only
+    page = request.GET.get('page')
+    usersPerPage = p.get_page(page)
+    return render(request, 'authenticate/user_list.html', {'users': usersPerPage})
 
 def user_info(request, user_id):
     userSelected = User.objects.get(pk=user_id)
@@ -41,5 +45,24 @@ def user_info(request, user_id):
         form.save()
         userSelected.save()
         messages.success(request, "User has been promoted")
+        return redirect('user-list')
+
 
     return render(request, 'authenticate/user_info.html', {'user': userSelected, 'form': form})
+
+def register_user(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        new_user = User.objects.create_user(username, email, password)
+
+        new_profile, created = UserProfile.objects.get_or_create(user=new_user)
+
+        new_user.save()
+        new_profile.save()
+        messages.success(request, "User has been registered")
+
+        return redirect('user-info', new_user.id)
+
+    return render(request, 'authenticate/register_user.html', {})

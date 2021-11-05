@@ -1,10 +1,13 @@
 {% extends 'timesheet/base.html' %}
 
     {% block content %}
+    <center>
+
         <h1>User lists</h1>
     <br>
     <form action="" method=POST>
         {% csrf_token %}
+
         <table class="table">
           <thead>
             <tr>
@@ -36,7 +39,30 @@
         </table>
 
     </form>
+                <a class="btn btn-primary" href="{% url 'register-user' %}" role="button">Register User</a> <br/><br/>
 
+<!--Show number of pages> -->
+   <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        {% if users.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ users.previous_page_number }}">Previous</a></li>
+        {% else %}
+            <li class="page-item disabled">
+              <a class="page-link">Previous</a>
+            </li>
+        {% endif %}
 
+          <li class="page-item"><a class="page-link" href="#">Page {{ users.number }} of {{ users.paginator.num_pages }}</a> </li>
+        <!-- Page number -->
+        {% if users.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ users.next_page_number }}">Next</a></li>
+        {% else %}
+            <li class="page-item disabled">
+              <a class="page-link">Previous</a>
+            </li>
+        {% endif %}
+      </ul>
+    </nav>
+    </center>
     Copyright (c)
     {% endblock %}

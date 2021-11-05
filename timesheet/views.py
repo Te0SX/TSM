@@ -67,6 +67,7 @@ def verified_shifts(request):
     return render(request, 'timesheet/verified_shifts.html', {'shifts': shifts})
 
 def add_shift(request):
+    # TODO add requirementfor user to be Student
     if request.method == 'POST':
         form = ShiftForm(request.POST)
         if form.is_valid():
@@ -178,3 +179,4 @@ def shifts_csv(request):
         writer.writerow([shift.id, shift.date, shift.role, shift.startHour, shift.endHour, shift.payment(), shift.verified, shift.paid])
 
     return response
+

@@ -17,3 +17,4 @@ class userForm(ModelForm):
             'title': forms.Select(attrs={'class':'form-select'}),
 
         }
+
