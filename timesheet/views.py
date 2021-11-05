@@ -114,36 +114,45 @@ def delete_shift(request, shift_id):
 def verify_shift(request, shift_id):
     shift = Shift.objects.get(pk=shift_id)
     userTitle = str(request.user.userprofile.title) # Without str, it's a Role object, gives an error
+    isAdmin = request.user.is_superuser # If user is Admin, True
     if userTitle == 'Verifier':
-        if shift.verified:
+        if shift.verified and shift.paid is False:
             shift.verified = False
             shift.save()
             messages.success(request, "Shift #" + shift_id + " has been unverified")
+        elif shift.verified and shift.paid is True:
+            messages.success(request, "Shift #" + shift_id + " has been paid and can't be unverified")
         else:
             shift.verified = True
             shift.save()
             messages.success(request, "Shift #" +shift_id +" has been verified")
-
+        return redirect('all-shifts')
+    elif userTitle == 'Payer' or isAdmin:
+        messages.success(request, "You don't have the permission to verify shifts")
         return redirect('all-shifts')
     else:
         messages.success(request, "You don't have the permission to verify shifts")
-
-    return redirect('shifts')
+        return redirect('shifts')
 
 def pay_shift(request, shift_id):
     shift = Shift.objects.get(pk=shift_id)
     userTitle = str(request.user.userprofile.title) # Without str, it's a Role object, gives an error
+    isAdmin = request.user.is_superuser # If user is Admin, True
     if userTitle == 'Payer':
         if shift.verified:
             shift.paid = True
             shift.save()
             messages.success(request, "Shift #" + shift_id + " has been paid")
+            return redirect('all-shifts')
         else:
             messages.success(request, "Shift #" + shift_id + " hasn't been verified yet and can't be paid")
+            return redirect('all-shifts')
+    elif userTitle == 'Verifier' or isAdmin:
+        messages.success(request, "You don't have the permission to verify payments")
+        return redirect('all-shifts')
     else:
         messages.success(request, "You don't have the permission to verify payments")
-
-    return redirect('shifts')
+        return redirect('shifts')
 
 def warning(request, shift_id):
     shift = Shift.objects.get(pk=shift_id)
