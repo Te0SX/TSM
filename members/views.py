@@ -64,16 +64,16 @@ def register_user(request):
         else:
             form = RegisterUserForm
 
-    return render(request, 'authenticate/register_user.html', {'form':form})
+    return render(request, 'authenticate/register_user.html', {'form': form})
 
 
 def user_profile(request, user_id):
     userSelected = User.objects.get(pk=user_id)
-    form = UserForm(request.POST or None, instance=userSelected)
+    form = RegisterUserForm(request.POST or None, instance=request.user)
+    profileForm = UserForm(request.POST or None, instance=request.user.userprofile)
     if request.method == "POST":
-        email = request.POST['email']
-        # password = request.POST['password']
         if form.is_valid():
-            userSelected.save()
-            form.save()
-    return render(request, 'authenticate/user_profile.html', {'form': form})
+            user = form.save()
+            profileForm.save()
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+    return render(request, 'authenticate/user_profile.html', {'form': form, 'profileForm': profileForm})

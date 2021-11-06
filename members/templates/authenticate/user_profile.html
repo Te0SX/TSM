@@ -8,11 +8,13 @@
 
         StudentID: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ user.username }}" disabled> <br/> <br/>
         User Role: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ user.userprofile.title }}" disabled> <br/> <br/>
-        <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email</label>
-        <input type="text" class="form-control" name="email" aria-describedby="emailHelp">
-      </div>
-        Phone: {{ form.phone }}
+{#        <div class="mb-3">#}
+{#        <label for="exampleInputEmail1" class="form-label">Email</label>#}
+{#        <input type="text" class="form-control" name="email" aria-describedby="emailHelp">#}
+{#      </div>#}
+        {{ form.as_p }} <br/>
+        Phone: {{ profileForm.phone }}
+
         <br/>
 
          <br/>
