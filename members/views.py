@@ -2,10 +2,9 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from members.form import userForm
 from django.contrib.auth.forms import UserCreationForm
 from django.core.paginator import Paginator
-
+from .form import RegisterUserForm, UserForm
 # Create your views here.
 from members.models import UserProfile, UserRoles
 
@@ -40,7 +39,7 @@ def user_list(request):
 def user_info(request, user_id):
     userSelected = User.objects.get(pk=user_id)
     userSelected, created = UserProfile.objects.get_or_create(user=userSelected)
-    form = userForm(request.POST or None, instance=userSelected)
+    form = UserForm(request.POST or None, instance=userSelected)
     if form.is_valid():
         form.save()
         userSelected.save()
@@ -51,18 +50,30 @@ def user_info(request, user_id):
     return render(request, 'authenticate/user_info.html', {'user': userSelected, 'form': form})
 
 def register_user(request):
+    form = RegisterUserForm(request.POST)
     if request.method == "POST":
-        username = request.POST['username']
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(username=username,password=password)
+            new_profile, created = UserProfile.objects.get_or_create(user=user)
+            messages.success(request,("Registration successful."))
+            return redirect('user-info', user.id)
+
+        else:
+            form = RegisterUserForm
+
+    return render(request, 'authenticate/register_user.html', {'form':form})
+
+
+def user_profile(request, user_id):
+    userSelected = User.objects.get(pk=user_id)
+    form = UserForm(request.POST or None, instance=userSelected)
+    if request.method == "POST":
         email = request.POST['email']
-        password = request.POST['password']
-        new_user = User.objects.create_user(username, email, password)
-
-        new_profile, created = UserProfile.objects.get_or_create(user=new_user)
-
-        new_user.save()
-        new_profile.save()
-        messages.success(request, "User has been registered")
-
-        return redirect('user-info', new_user.id)
-
-    return render(request, 'authenticate/register_user.html', {})
+        # password = request.POST['password']
+        if form.is_valid():
+            userSelected.save()
+            form.save()
+    return render(request, 'authenticate/user_profile.html', {'form': form})

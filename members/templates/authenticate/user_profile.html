@@ -1,0 +1,25 @@
+{% extends 'timesheet/base.html' %}
+
+    {% block content %}
+        <h1>{{ user.get_username }}'s Profile</h1>
+    <br>
+    <form action="" method=POST>
+        {% csrf_token %}
+
+        StudentID: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ user.username }}" disabled> <br/> <br/>
+        User Role: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ user.userprofile.title }}" disabled> <br/> <br/>
+        <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email</label>
+        <input type="text" class="form-control" name="email" aria-describedby="emailHelp">
+      </div>
+        Phone: {{ form.phone }}
+        <br/>
+
+         <br/>
+        <input type="submit" value="Update" class="btn btn-primary">
+
+    </form>
+
+
+    Copyright (c)
+    {% endblock %}

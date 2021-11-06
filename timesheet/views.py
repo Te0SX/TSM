@@ -90,14 +90,16 @@ def update_shift(request, shift_id):
             if form.is_valid():
                 form.save()
                 messages.success(request,"Shift #" +shift_id +" updated successfully")
+                return redirect('shifts')
 
         return render(request, 'timesheet/update_shift.html', {
-        'shift': shift,
-        'form': form})
+                'shift': shift,
+                'form': form})
 
     else:
         messages.success(request, "You don't have permission to modify #" + shift_id +". Don't be sneaky!!!")
         return redirect('shifts')
+
 
 
 def delete_shift(request, shift_id):
