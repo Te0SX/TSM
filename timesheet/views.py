@@ -180,3 +180,12 @@ def shifts_csv(request):
 
     return response
 
+def salary(request, user_id):
+    userid = User.objects.get(pk=user_id)
+    shifts = Shift.objects.filter(studentID=userid, verified=True, paid=False).order_by('-date')
+    salaryToBePaid = 0
+    for shift in shifts:
+        salaryToBePaid = salaryToBePaid + shift.payment()
+        salaryToBePaid = round(salaryToBePaid, 2)
+    return render(request, 'timesheet/salary.html',{'shifts': shifts, 'salaryToBePaid': salaryToBePaid})
+

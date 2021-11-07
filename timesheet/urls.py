@@ -15,4 +15,7 @@ urlpatterns = [
     path('delete_shift/<shift_id>', views.delete_shift, name='delete-shift'),
     path('verify_shift/<shift_id>', views.verify_shift, name='verify-shift'),
     path('pay_shift/<shift_id>', views.pay_shift, name='pay-shift'),
+
+    path('salary/<user_id>', views.salary, name='salary'),
+
 ]
