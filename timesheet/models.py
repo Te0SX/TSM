@@ -29,7 +29,7 @@ class Shift(models.Model):
     # studentID = models.ForeignKey(Student, blank=True, null=True, on_delete=models.CASCADE)
     studentID = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
     date = models.DateTimeField('Date added', auto_now_add=True)
-    role = models.ForeignKey(Roles, blank=True, null=True, on_delete=models.SET_NULL)
+    role = models.ForeignKey(Roles, null=True, on_delete=models.SET_NULL)
     startHour = models.DateTimeField('Time started working')
     endHour = models.DateTimeField('Time finished working')
     verified = models.BooleanField(default=False)
