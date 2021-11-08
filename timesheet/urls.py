@@ -17,5 +17,8 @@ urlpatterns = [
     path('pay_shift/<shift_id>', views.pay_shift, name='pay-shift'),
 
     path('salary/<user_id>', views.salary, name='salary'),
+    path('pay_salary/<user_id>', views.pay_salary, name='pay-salary'),
+    path('user_salary_list', views.user_salary_list, name='user-salary-list'),
+
 
 ]

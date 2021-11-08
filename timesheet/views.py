@@ -116,16 +116,30 @@ def verify_shift(request, shift_id):
     shift = Shift.objects.get(pk=shift_id)
     userTitle = str(request.user.userprofile.title) # Without str, it's a Role object, gives an error
     isAdmin = request.user.is_superuser # If user is Admin, True
+
+    ownerID = shift.studentID
+    salary = ownerID.userprofile.salary
+
     if userTitle == 'Verifier':
         if shift.verified and shift.paid is False:
             shift.verified = False
             shift.save()
+
+            salary -= float(shift.payment())
+            ownerID.userprofile.salary = salary
+            ownerID.userprofile.save()
+
             messages.success(request, "Shift #" + shift_id + " has been unverified")
         elif shift.verified and shift.paid is True:
             messages.success(request, "Shift #" + shift_id + " has been paid and can't be unverified")
         else:
             shift.verified = True
             shift.save()
+
+            salary += float(shift.payment())
+            ownerID.userprofile.salary = salary
+            ownerID.userprofile.save()
+
             messages.success(request, "Shift #" +shift_id +" has been verified")
         return redirect('all-shifts')
     elif userTitle == 'Payer' or isAdmin:
@@ -181,11 +195,41 @@ def shifts_csv(request):
     return response
 
 def salary(request, user_id):
-    userid = User.objects.get(pk=user_id)
-    shifts = Shift.objects.filter(studentID=userid, verified=True, paid=False).order_by('-date')
-    salaryToBePaid = 0
+    user = User.objects.get(pk=user_id)
+    shifts = Shift.objects.filter(studentID=user, verified=True, paid=False).order_by('-date')
+    salary = 0
     for shift in shifts:
-        salaryToBePaid = salaryToBePaid + shift.payment()
-        salaryToBePaid = round(salaryToBePaid, 2)
-    return render(request, 'timesheet/salary.html',{'shifts': shifts, 'salaryToBePaid': salaryToBePaid})
+        salary = salary + shift.payment()
 
+    salary = round(salary, 2)
+    # user.userprofile.salary = salary
+    # user.userprofile.save()
+
+    return render(request, 'timesheet/salary.html',{'shifts': shifts, 'salary': salary})
+
+def pay_salary(request, user_id):
+    user = User.objects.get(pk=user_id)
+    shifts = Shift.objects.filter(studentID=user, verified=True, paid=False).order_by('-date')
+    userTitle = str(request.user.userprofile.title)
+
+    if userTitle == 'Payer':
+        for shift in shifts:
+            shift.paid = True
+            shift.save()
+
+        user.userprofile.salary = 0
+        user.userprofile.save()
+        messages.success(request, "Shifts has been paid")
+    else:
+        messages.success(request, "You don't have permissions to pay salaries")
+
+    return redirect('user-salary-list')
+
+
+def user_salary_list(request):
+    users = User.objects.all()
+
+    p = Paginator(users.order_by('id'), 5)  # filter User's shifts only
+    page = request.GET.get('page')
+    usersPerPage = p.get_page(page)
+    return render(request, 'timesheet/user_salary_list.html', {'users': usersPerPage})

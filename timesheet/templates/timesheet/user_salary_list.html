@@ -1,0 +1,72 @@
+{% extends 'timesheet/base.html' %}
+
+    {% block content %}
+    <center>
+
+        <h1>User lists</h1>
+    <br>
+    <form action="" method=POST>
+        {% csrf_token %}
+
+        <table class="table">
+          <thead>
+            <tr>
+                <th scope="col">UserID</th>
+                <th scope="col">email</th>
+                <th scope="col">Remaining Amount</th>
+                <th scope="col">Pay</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.get_username }}</td>
+                    <td>{{ user.email }} </td>
+                    <td>{{ user.userprofile.salary }}</td>
+                    <td align="center">
+                                <a href="{% url 'pay-salary' user.id %}">
+                                    {% if user.userprofile.salary > 0 %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="green" class="bi bi-credit-card" viewBox="0 0 16 16">
+                                          <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
+                                          <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/>
+                                        </svg>
+                                    {% else %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" class="bi bi-credit-card" viewBox="0 0 16 16">
+                                          <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
+                                          <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/>
+                                        </svg>
+                                    {% endif %}
+                                </a>
+                </tr>
+             {% endfor %}
+            </tr>
+          </tbody>
+        </table>
+
+    </form>
+
+<!--Show number of pages> -->
+   <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        {% if users.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ users.previous_page_number }}">Previous</a></li>
+        {% else %}
+            <li class="page-item disabled">
+              <a class="page-link">Previous</a>
+            </li>
+        {% endif %}
+
+          <li class="page-item"><a class="page-link" href="#">Page {{ users.number }} of {{ users.paginator.num_pages }}</a> </li>
+        <!-- Page number -->
+        {% if users.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ users.next_page_number }}">Next</a></li>
+        {% else %}
+            <li class="page-item disabled">
+              <a class="page-link">Previous</a>
+            </li>
+        {% endif %}
+      </ul>
+    </nav>
+    </center>
+    Copyright (c)
+    {% endblock %}
