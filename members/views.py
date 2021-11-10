@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.core.paginator import Paginator
-from .form import RegisterUserForm, UserForm
+from .form import RegisterUserForm, UserForm, UserFormUpdate
 # Create your views here.
 from members.models import UserProfile, UserRoles
 
@@ -29,25 +29,6 @@ def logout_user(request):
     messages.success(request, ("Logout successfully"))
     return redirect('home')
 
-def user_list(request):
-    users = User.objects.all()
-    p = Paginator(users.order_by('id'), 5)  # filter User's shifts only
-    page = request.GET.get('page')
-    usersPerPage = p.get_page(page)
-    return render(request, 'authenticate/user_list.html', {'users': usersPerPage})
-
-def user_info(request, user_id):
-    userSelected = User.objects.get(pk=user_id)
-    userSelected, created = UserProfile.objects.get_or_create(user=userSelected)
-    form = UserForm(request.POST or None, instance=userSelected)
-    if form.is_valid():
-        form.save()
-        userSelected.save()
-        messages.success(request, "User has been promoted")
-        return redirect('user-list')
-
-
-    return render(request, 'authenticate/user_info.html', {'user': userSelected, 'form': form})
 
 def register_user(request):
     form = RegisterUserForm(request.POST)
@@ -67,13 +48,40 @@ def register_user(request):
     return render(request, 'authenticate/register_user.html', {'form': form})
 
 
+def user_list(request):
+    users = User.objects.all()
+    p = Paginator(users.order_by('id'), 5)  # filter User's shifts only
+    page = request.GET.get('page')
+    usersPerPage = p.get_page(page)
+    return render(request, 'authenticate/user_list.html', {'users': usersPerPage})
+
+# Admin view of update profile
+def user_info(request, user_id):
+    userSelected = User.objects.get(pk=user_id)
+    userSelected, created = UserProfile.objects.get_or_create(user=userSelected)
+    form = UserForm(request.POST or None, instance=userSelected)
+    if form.is_valid():
+        form.save()
+        userSelected.save()
+        messages.success(request, "User has been promoted")
+        return redirect('user-list')
+
+
+    return render(request, 'authenticate/user_info.html', {'user': userSelected, 'form': form})
+
+# User's view of update profile
 def user_profile(request, user_id):
     userSelected = User.objects.get(pk=user_id)
+    userSelected, created = UserProfile.objects.get_or_create(user=userSelected)
     form = RegisterUserForm(request.POST or None, instance=request.user)
-    profileForm = UserForm(request.POST or None, instance=request.user.userprofile)
+    profileForm = UserFormUpdate(request.POST or None, instance=userSelected)
     if request.method == "POST":
         if form.is_valid():
             user = form.save()
-            profileForm.save()
+            if profileForm.is_valid():
+                profileForm.save()
+            else:
+                messages.success(request, ("userForm isn't valid"))
+
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
     return render(request, 'authenticate/user_profile.html', {'form': form, 'profileForm': profileForm})
