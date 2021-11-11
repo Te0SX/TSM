@@ -12,8 +12,22 @@
     <br>
 
     <div class="container">
-        <h1>Timesheet of {{ user }}</h1>
+        <h2>Remaining Salary for {{ user }}</h2>
             <br> <br>
+
+    <div class="container" >
+      <div class="row align-items-start">
+        <div class="col">
+          Total Amount:  £{{ user.userprofile.salary }}
+        </div>
+        <div class="col">
+
+        </div>
+      </div>
+    </div>
+      <br/><br/>
+
+
 {#        <div class="btn-group">#}
 {#              <a href="{% url 'shifts' %}" class="btn btn-primary active" aria-current="page">Waiting Approval</a>#}
 {#              <a href="{% url 'verified-shifts' %}" class="btn btn-primary">Verified</a>#}
@@ -22,6 +36,7 @@
 {#            <a class="btn btn-primary" href="{% url 'add-shift' %}" role="button">Add Shift</a>#}
 {#        <br/> <br/>#}
 
+        <h3>List of Verified Shifts To Be Paid </h3>
         <table class="table table-striped">
           <thead>
             <tr>
@@ -35,10 +50,9 @@
                 <th scope="col">Verified</th>
                 <th scope="col">Paid</th>
 
-
             </tr>
           </thead>
-            {% for shift in shiftsPerPage %}
+            {% for shift in shifts %}
                 {% if user == shift.studentID %}
 {#                    {% if shift.verified == False %}#}
                         <tr>

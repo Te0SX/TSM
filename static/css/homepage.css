@@ -1,0 +1,60 @@
+/*buttons*/
+.btn-xl {
+        padding: 1rem 2rem
+    }
+.btn-primary{
+    background-color: #00648b;
+    border-color: #093a63;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+}
+.btn-primary:hover {
+    background-color: #007ff4;
+    border-color: #007ff4;
+    color: #fff;
+}
+
+/* Paginator*/
+.pagination > li > a
+{
+    background-color: white;
+    color: #00648b;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    color: #5a5a5a;
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+.pagination > .active > a
+{
+    color: white;
+    background-color: #5A4181 !Important;
+    border: solid 1px #5A4181 !Important;
+}
+
+.pagination > .active > a:hover
+{
+    background-color: #5A4181 !Important;
+    border: solid 1px #5A4181;
+}
+
+/* Navigator */
+
+* {
+
+}
+
+/* Body */
+body {
+    background-image: linear-gradient(#f4f4f4, #ffffff);}
+h1{
+    color: #00648b;
+    text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);;
+}
+

@@ -1,0 +1,39 @@
+.navbar-custom {
+    background-color: #093a63;
+}/* change the brand and text color */
+.navbar-custom .navbar-brand {
+    color: rgba(255,255,255,1); }
+.navbar-custom .navbar-text {
+    color: rgba(255,255,255,.8);
+}/* change the link color */
+.navbar-custom .navbar-nav .nav-link {
+    color: rgba(255,255,255,.8);
+}/* change the color of active or hovered links */
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+    color: #ffffff;
+}
+
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.custom-toggler.navbar-toggler {
+  border-color: rgba(255,255,255,.8);
+}
+
+.btn-xl {
+        padding: 1rem 2rem
+    }
+.btn-primary-nav{
+    background-color: #093a63;
+    border-color: #093a63;
+    color: #fff
+
+}
+.btn-primary-nav:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    /*border-color: #007ff4;*/
+    color: #000;
+}
+

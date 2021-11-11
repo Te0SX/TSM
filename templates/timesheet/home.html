@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% extends 'timesheet/base.html' %}
+{%  load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TMS</title>
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+
+</head>
+
+<body>
+
+    {% block content %}
+            <div class="container">
+                <center>
+                    <br>
+
+                    {{ cal|safe }}
+                    <br/><br/><br/><br/>
+                    As of {{ time }}
+                    <br/><br/>
+                    Copyright (c) {{  current_year }}
+                    </center>
+            </div>
+    {% endblock %}
+
+</body>

@@ -1,4 +1,6 @@
 <!doctype html>
+{% load staticfiles %}
+
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -21,10 +23,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha256-XPTBwC3SBoWHSmKasAk01c08M6sIA5gF5+sRxqak2Qs=" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha256-z0oKYg6xiLq3yJGsp/LsY9XykbweQlHl42jHv2XTBz4=" crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+
     <title>base</title>
-    <style>
-        body {background: #f4f4f4;}
-    </style>
+
   </head>
   <body>
     {% include 'timesheet/navbar.html' %}
