@@ -13,6 +13,7 @@
     color: #fff;
 }
 
+/**/
 /* Paginator*/
 .pagination > li > a
 {
@@ -44,17 +45,101 @@
     border: solid 1px #5A4181;
 }
 
-/* Navigator */
-
-* {
-
-}
-
 /* Body */
+
+html {
+    height: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background: white;
+    background-repeat:no-repeat;
+    background: linear-gradient(#f5f5f8, #eeeeee);
+}
 body {
-    background-image: linear-gradient(#f4f4f4, #ffffff);}
+    background-color: transparent;
+}
 h1{
     color: #00648b;
     text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);;
 }
 
+ /**/
+ /*Carousel */
+/**/
+.carousel-item{
+    height:32rem;
+    /*background:#255;*/
+    color:white;
+    position: relative;
+    background-size: auto;
+}
+/*shadow overlay of pictures*/
+.controller-image:after{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000000;
+    opacity: 0.2;
+}
+/* Container of text */
+.sliderContainer{
+    position:absolute;
+    bottom:50px;
+    left:300px;
+    right:0;
+    padding-bottom:50px;
+
+}
+
+.controller-image{
+    position: absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    top:0;
+    background-position: bottom;
+    background-size:cover;
+}
+
+h1-car{
+    font-size: 4vw;
+    text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.6);;
+    color: white;
+}
+h1-car:after{
+    content:"\a";
+    white-space: pre;
+}
+
+p-car{
+    white-space: pre-line;
+    font-size: 1.5vw;
+    text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.6);;
+    color: white;
+}
+
+p-car:after{
+    content:"\a \a";
+    white-space: pre;
+}
+.btn-carousel {
+    color: rgba(255,255,255,.8);
+    background-color: rgba(12, 60, 97, 0.9);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 0px 10px rgba(114, 154, 234, 0.3);
+}
+
+.btn-carousel:hover {
+    color: #ffffff;
+    background-color: rgba(12, 60, 97, 1);
+    border-color: rgba(249, 249, 250, 0.64);
+    box-shadow: 0px 0px 10px rgba(249, 249, 250, 0.30);
+}
+
+/* end of carousel*/

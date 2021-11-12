@@ -30,10 +30,8 @@
   </head>
   <body>
     {% include 'timesheet/navbar.html' %}
-    <br/>
-    <h1></h1>
 
-    <div class="container">
+    <div class=".container">
         {% if messages %}
             {%  for message in messages %}
                 <div class="alert alert-warning" role="alert">
@@ -41,9 +39,10 @@
                 </div>
             {% endfor %}
         {% endif %}
-        {% block content %}
-        {% endblock %}
     </div>
+
+   {% block content %}
+    {% endblock %}
 
   </body>
 </html>

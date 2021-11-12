@@ -12,17 +12,50 @@
 <body>
 
     {% block content %}
-            <div class="container">
-                <center>
-                    <br>
-
-                    {{ cal|safe }}
-                    <br/><br/><br/><br/>
-                    As of {{ time }}
-                    <br/><br/>
-                    Copyright (c) {{  current_year }}
-                    </center>
+   <div id="slider" class="carousel slide carousel-fade" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#slider" data-slide-to="0" class="active"></li>
+        <li data-target="#slider" data-slide-to="1"></li>
+        <li data-target="#slider" data-slide-to="2"></li>
+    </ol>
+        <div class="carousel-inner"> <!--A class to wrap other div for our slider.-->
+    <!-- add data-interval="milliseconds" to the class carousel-item if anyone of you want the duration of the slides to be longer or shorter.-->
+            <div class="carousel-item active">
+                <div class="controller-image" style="background-image:url(/static/images/uofg.jpg);"></div>
+                <div class = "sliderContainer">
+                    <h1-car>UG TMS</h1-car>
+                    <p-car>Welcome to the University of Glasgow Timesheet Management service. </p-car>
+                    <a href="{% url 'login' %}" class="btn btn-lg btn-carousel">Log In</a>
+                </div>
             </div>
+            <div class="carousel-item">
+                <div class="controller-image" style="background-image:url(/static/images/uofg1.jpg);"></div>
+                <div class = "sliderContainer">
+                    <h1-car>About</h1-car>
+                    <p-car>Students can use this service to manage their timesheet.</p-car>
+                    <a href="{% url 'login' %}" class="btn btn-lg btn-carousel"> More Information </a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="controller-image" style="background-image:url(/static/images/uofg2.jpg);"></div>
+                <div class = "sliderContainer">
+                    <h1-car>Support</h1-car>
+                    <p-car>For any inquire or request for a new account, contact us.</p-car>
+                    <a href="#" class="btn btn-lg btn-carousel">Support</a>
+                </div>
+            </div>
+        </div>
+        <a href="#slider" class="carousel-control-prev" role="button" data-slide="prev">
+            <span class="sr-only">Previous Arrow</span>
+            <span class="carousel-control-prev-icon"aria-hidden="true">
+            </span>
+        </a>
+        <a href="#slider" class="carousel-control-next" role="button" data-slide="next">
+            <span class="sr-only">Next Arrow</span>
+            <span class="carousel-control-next-icon"aria-hidden="true">
+            </span>
+        </a>
+    </div>
     {% endblock %}
 
 </body>
