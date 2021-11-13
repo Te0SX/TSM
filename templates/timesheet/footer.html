@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+
+</head>
+<body>
+
+<!-- Footer -->
+<footer class="page-footer font-small pt-4 bg-white">
+
+  <!-- Footer Links -->
+  <div class="container text-center text-md-left ">
+
+    <!-- Grid row -->
+    <div class="row ">
+
+      <!-- Grid column -->
+      <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+
+        <!-- Content -->
+        <h6 class="text-uppercase font-weight-bold">University of Glasgow</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>TMS is a Timesheet Management Service for recruited UofG student to manage their time sheets and payrolls</p>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+        <!-- Links -->
+        <h6 class="text-uppercase font-weight-bold">Navigate</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>
+          <a href="https://www.gla.ac.uk/">Official Site</a>
+        </p>
+        <p>
+          <a href="https://www.gla.ac.uk/news/">News</a>
+        </p>
+        <p>
+          <a href="https://www.gla.ac.uk/explore/accessibility/">Accessibility</a>
+        </p>
+        <p>
+          <a href="https://www.gla.ac.uk/legal/privacy/">Cookies & Privacy</a>
+        </p>
+
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+        <!-- Links -->
+        <h6 class="text-uppercase font-weight-bold">Useful links</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>
+          <a href="{% url 'login' %}">Your Account</a>
+        </p>
+        <p>
+          <a href="https://sharepoint.gla.ac.uk">MyGlasgow</a>
+        </p>
+        <p>
+          <a href="https://moodle.gla.ac.uk">Moodle</a>
+        </p>
+
+
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+
+        <!-- Links -->
+        <h6 class="text-uppercase font-weight-bold">Contact</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p> <i class="fas fa-map-marker-alt"></i> Glasgow, G12 8QQ, Scotland</p>
+
+        <p> <i class="fas fa-phone"></i> +44 (0) 141 330 2000</p>
+        <p> <i class="fas fa-envelope"></i>
+          <a href="https://www.gla.ac.uk/connect/contact/"> Contact us</a>
+        </p>
+
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Links -->
+
+</footer>
+<footer-copyright>
+     <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2021 Copyright: UofG
+  </div>
+  <!-- Copyright -->
+</footer-copyright>
+
+<!-- Footer -->
+
+</body>
+</html>

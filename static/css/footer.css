@@ -1,0 +1,30 @@
+
+body{
+    /*color of text*/
+    color: #093a63;
+}
+
+/* color of links*/
+a {
+  color: #093a63;
+}
+
+/* visited link */
+a:visited {
+  color: #093a63;
+}
+
+/* mouse over link */
+a:hover {
+  color: #008f9c;
+}
+
+/* selected link */
+a:active {
+  color: #9e75b2;
+}
+
+.footer-copyright{
+    color: #ffffff;
+    background-color: #093a63;
+}
