@@ -5,21 +5,19 @@
 <head>
     <meta charset="UTF-8">
     <title>TMS</title>
-    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
 
 </head>
 <body>
     {% block content %}
     <center>
 
-    <div class="container">
+    <div class="container p-3">
         <h1>Timesheet</h1>
-            <br>
+       <hr/>
            <a class="btn btn-primary " href="{% url 'add-shift' %}" role="button">Add Shift</a> <a class="btn btn-primary" href="{% url 'shift-csv' %}" role="button">Export CSV</a>
-        <br/> <br/>
 
         {# timesheet table #}
-        <table class="table table-striped shadow p-3 mb-5 bg-white rounded">
+        <table class="table table-striped shadow my-4 bg-white">
           <thead>
             <tr>
                 <th scope="col">ShiftID</th>
@@ -124,13 +122,12 @@
             <li class="page-item"><a class="page-link" href="?page={{ shiftsPerPage.next_page_number }}">Next</a></li>
         {% else %}
             <li class="page-item disabled">
-              <a class="page-link">Previous</a>
+              <a class="page-link">Next</a>
             </li>
         {% endif %}
       </ul>
     </nav>
-
-    <br/> <br/>
+    <br/>
     </center>
     {% endblock %}
 </body>

@@ -56,7 +56,7 @@ def shifts(request):
         shiftsPerPage = p.get_page(page)
 
         return render(request, 'timesheet/all_shifts.html', {
-            'shiftPerPage': shiftsPerPage
+            'shiftsPerPage': shiftsPerPage
             })
 
 def verified_shifts(request):
@@ -65,19 +65,25 @@ def verified_shifts(request):
     return render(request, 'timesheet/verified_shifts.html', {'shifts': shifts})
 
 def add_shift(request):
-    # TODO add requirementfor user to be Student
-    if request.method == 'POST':
-        form = ShiftForm(request.POST)
-        if form.is_valid():
-            currentShift = form.save(commit=False)
-            currentShift.studentID = request.user       # Save the studentID instantly without input in the form
-            currentShift.save()
-            messages.success(request, "Shift added successfully")
-            return HttpResponseRedirect('shifts')
-    else:
-        form = ShiftForm
+    userTitle = str(request.user.userprofile.title) # Without str, it's a Role object, gives an error
+    form = ShiftForm(request.POST)
+    if userTitle == 'Student':
+        if request.method == 'POST':
+            if form.is_valid():
+                currentShift = form.save(commit=False)
+                currentShift.studentID = request.user       # Save the studentID instantly without input in the form
+                currentShift.save()
+                messages.success(request, "Shift added successfully")
+                return HttpResponseRedirect('shifts')
+        else:
+            form = ShiftForm
 
-    return render(request, 'timesheet/add_shift.html', {'form':form})
+        return render(request, 'timesheet/add_shift.html', {'form': form})
+
+    else:
+        messages.success(request, "You don't permission to add a shift")
+        return redirect('shifts')
+
 
 def update_shift(request, shift_id):
     shift = Shift.objects.get(pk=shift_id)
@@ -183,14 +189,21 @@ def shifts_csv(request):
 
     # Designate the Model
     userid = request.user.id
-    shifts = Shift.objects.filter(studentID=userid).order_by('-date')
-
-    # Add column heading to the csv file
-    writer.writerow(['ShiftID', 'Date Added', 'Role', 'Start of Shift', 'Finish of Shift', 'Amount', 'Verified', 'Paid'])
-
-    #Loop through and output
-    for shift in shifts:
-        writer.writerow([shift.id, shift.date, shift.role, shift.startHour, shift.endHour, shift.payment(), shift.verified, shift.paid])
+    userTitle = str(request.user.userprofile.title) # Without str, it's a Role object, gives an error
+    if userTitle == 'Student':
+        shifts = Shift.objects.filter(studentID=userid).order_by('-date')
+        # Add column heading to the csv file
+        writer.writerow(['ShiftID', 'Date Added', 'Role', 'Start of Shift', 'Finish of Shift', 'Amount', 'Verified', 'Paid'])
+        # Loop through and output
+        for shift in shifts:
+            writer.writerow(
+                [shift.id, shift.date, shift.role, shift.startHour, shift.endHour, shift.payment(), shift.verified,shift.paid])
+    else:
+        shifts = Shift.objects.all().order_by('-date')
+        writer.writerow(['ShiftID', 'StudentID', 'Date Added', 'Role', 'Start of Shift', 'Finish of Shift', 'Amount', 'Verified', 'Paid'])
+        for shift in shifts:
+            writer.writerow(
+                [shift.id, shift.studentID, shift.date, shift.role, shift.startHour, shift.endHour, shift.payment(), shift.verified, shift.paid])
 
     return response
 
@@ -198,6 +211,9 @@ def salary(request, user_id):
     user = User.objects.get(pk=user_id)
     shifts = Shift.objects.filter(studentID=user, verified=True, paid=False).order_by('-date')
     salary = 0
+
+
+
     for shift in shifts:
         salary = salary + shift.payment()
 
@@ -233,3 +249,6 @@ def user_salary_list(request):
     page = request.GET.get('page')
     usersPerPage = p.get_page(page)
     return render(request, 'timesheet/user_salary_list.html', {'users': usersPerPage})
+
+def about(request):
+    return render(request, 'timesheet/about.html', {})

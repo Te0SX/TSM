@@ -26,24 +26,23 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
     <title>base</title>
 
   </head>
   <body>
-    {% include 'timesheet/navbar.html' %}
 
-    <div class=".container">
+    {% include 'timesheet/navbar.html' %}
+    <div class="container">
         {% if messages %}
             {%  for message in messages %}
-                <div class="alert alert-warning" role="alert">
+              <center>  <div class="alert alert-warning p-3 w-50" role="alert">
                  {{ message }}
-                </div>
+                </div> </center>
             {% endfor %}
         {% endif %}
     </div>
-
    {% block content %}
     {% endblock %}
 

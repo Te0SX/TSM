@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% extends 'timesheet/base.html' %}
+{% load static %}
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About</title>
+
+</head>
+<body>
+{% block content %}
+
+
+<div class="container shadow w-75 p-3 mb-5 my-5 bg-white rounded">
+
+    <h2 id="about"> About TMS </h2>
+
+    <p>  Universities often recruit several undergraduate and postgraduate students as lab assistants, tutors, or to
+        assist with marking of student assignments or projects. Following recruitment, lab assistants and/or tutors will normally have to submit monthly timesheets with details of hours worked.
+        These timesheets will have to be signed off by a suitable member of staff before they can receive payments.
+    </p>
+    <p>Timesheet Management Service's purpose is provide an easy to use web application to automate these processes.
+        All users, from students to staff, should be able to use the service without requiring any tech skills and knowledge.
+    </p>
+    <p>
+        Students are able to submit worked shifts to their timesheets and keep track of their monthly payrolls. <br>
+        Verifier staff is able to verify submitted shifts by all students and the Payer is able to pay the reamining verified amount to the students.
+    </p>
+
+</div>
+    <br>
+
+{% endblock %}
+</body>
+</html>

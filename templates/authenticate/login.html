@@ -1,22 +1,25 @@
 {% extends 'timesheet/base.html' %}
 
     {% block content %}
-        <h1>Login</h1>
     <br>
-    <form action="" method=POST>
-        {% csrf_token %}
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Username</label>
-        <input type="text" class="form-control" name="username" aria-describedby="emailHelp">
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" name="password">
-      </div>
+    <div class="container shadow w-50 p-3 my-5 bg-white rounded">
+        <center><h1>Login</h1></center>
 
-      <input type="submit" value="Submit" class="btn btn-primary">
-    </form>
+        <form action="" method=POST>
+            {% csrf_token %}
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Username</label>
+            <input type="text" class="form-control" name="username" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password">
+          </div>
 
+          <center><input type="submit" value="Submit" class="btn btn-primary"></center>
+        </form>
+          <hr class="my-4">
+          For any issue, <a href="https://www.gla.ac.uk/connect/contact/"> contact us</a>
+    </div>
 
-    Copyright (c)
     {% endblock %}

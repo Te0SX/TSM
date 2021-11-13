@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 {% extends 'timesheet/base.html' %}
-{%  load static %}
+{% load staticfiles %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>TMS</title>
-    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
 </head>
 
@@ -24,16 +25,16 @@
                 <div class="controller-image" style="background-image:url(/static/images/uofg.jpg);"></div>
                 <div class = "sliderContainer">
                     <h1-car>UG TMS</h1-car>
-                    <p-car>Welcome to the University of Glasgow Timesheet Management service. </p-car>
+                    <p-car>Welcome to the University of Glasgow Timesheet Management Service. </p-car>
                     <a href="{% url 'login' %}" class="btn btn-lg btn-carousel">Log In</a>
                 </div>
             </div>
             <div class="carousel-item">
                 <div class="controller-image" style="background-image:url(/static/images/uofg1.jpg);"></div>
                 <div class = "sliderContainer">
-                    <h1-car>About</h1-car>
+                    <h1-car>Your Timesheet</h1-car>
                     <p-car>Students can use this service to manage their timesheet.</p-car>
-                    <a href="{% url 'login' %}" class="btn btn-lg btn-carousel"> More Information </a>
+                    <a href="{% url 'about' %}" class="btn btn-lg btn-carousel"> About TMS </a>
                 </div>
             </div>
             <div class="carousel-item">
