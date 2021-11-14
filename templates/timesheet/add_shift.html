@@ -1,49 +1,64 @@
+<!DOCTYPE html>
 {% extends 'timesheet/base.html' %}
+{%  load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TMS</title>
 
-{% block content %}
+</head>
+<body>
+    {% block content %}
 
-    <h1>Add a Shift to your Timesheet</h1>
-    <br/><br/>
-    <form action="" method=POST>
-        {% csrf_token %}
+    <div class="container p-3">
+           <center><h1>Add a shift to your Timesheet</h1></center>
+           <hr/>
+        <div class="container shadow w-50 p-3 mb-5 my-5 bg-white rounded">
 
-        StudentID: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ user }}" disabled> <br/> <br/>
-        Role of the shift {{ form.role }} <br/> <br/>
+            <form action="" method=POST>
+                {% csrf_token %}
 
-{#        startHour box with calendar picker #}
-        <label for="disabledTextInput" class="form-label">Start of Shift</label>
-        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-            <div class="col-xs-2">{{  form.startHour }}</div>
-          <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-          </div>
+                StudentID: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ user }}" disabled> <br/> <br/>
+                Role of the shift {{ form.role }} <br/> <br/>
+
+        {#        startHour box with calendar picker #}
+                <label for="disabledTextInput" class="form-label">Start of Shift</label>
+                <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                    <div class="col-xs-2">{{  form.startHour }}</div>
+                  <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                  </div>
+                </div>
+
+                <br/>
+
+                {#        endHour box with calendar picker #}
+                <label for="disabledTextInput" class="form-label">End of the Shift</label>
+                <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+                    <div class="col-xs-2 ">{{  form.endHour }}</div>
+                <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                  </div>
+                </div>
+
+                <script>
+                  $(function () {
+                    $("#datetimepicker1").datetimepicker({
+                      format: 'MM/DD/YYYY HH:mm',
+                    });
+                    $("#datetimepicker2").datetimepicker({
+                        format: 'MM/DD/YYYY HH:mm',
+                    });
+                  });
+
+                </script>
+
+                <br/>
+                <center><input type="submit" value="Submit" class="btn btn-primary"></center>
+
+            </form>
         </div>
 
-        <br/>
-
-        {#        endHour box with calendar picker #}
-        <label for="disabledTextInput" class="form-label">End of the Shift</label>
-         <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-            <div class="col-xs-2">{{  form.endHour }}</div>
-          <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
-            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-          </div>
-        </div>
-
-        <script>
-          $(function () {
-            $("#datetimepicker1").datetimepicker({
-              format: 'MM/DD/YYYY HH:mm',
-            });
-            $("#datetimepicker2").datetimepicker({
-                format: 'MM/DD/YYYY HH:mm',
-            });
-          });
-
-        </script>
-
-        <br/>
-        <input type="submit" value="Submit" class="btn btn-primary">
-
-    </form>
+    </div>
+</body>
 {% endblock %}

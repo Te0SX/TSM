@@ -212,8 +212,6 @@ def salary(request, user_id):
     shifts = Shift.objects.filter(studentID=user, verified=True, paid=False).order_by('-date')
     salary = 0
 
-
-
     for shift in shifts:
         salary = salary + shift.payment()
 
