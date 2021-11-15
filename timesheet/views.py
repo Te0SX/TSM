@@ -241,15 +241,45 @@ def pay_salary(request, user_id):
 
 
 def user_salary_list(request):
-    users = User.objects.all()
-
+    users = User.objects.all().exclude(is_superuser=True)
     p = Paginator(users.order_by('id'), 5)  # filter User's shifts only
     page = request.GET.get('page')
     usersPerPage = p.get_page(page)
+
     return render(request, 'timesheet/user_salary_list.html', {'users': usersPerPage})
+
+def user_timesheets_list(request):
+    users = User.objects.filter(userprofile__title=1)
+    p = Paginator(users.order_by('id'), 10)  # filter User's shifts only
+    page = request.GET.get('page')
+    usersPerPage = p.get_page(page)
+
+    return render(request, 'timesheet/user_timesheets_list.html', {'users': usersPerPage})
+
 
 def about(request):
     return render(request, 'timesheet/about.html', {})
 
 def support(request):
     return render(request, 'timesheet/support.html', {})
+
+def shifts_of(request, user_id):
+    userid = User.objects.get(pk=user_id)
+    shifts = Shift.objects.filter(studentID=user_id).order_by('-date')
+    userTitle = str(request.user.userprofile.title)
+    # Students view
+    if userTitle == 'Verifier':
+        # Paginator setup
+        p = Paginator(shifts, 4)  # filter User's shifts only
+        page = request.GET.get('page')
+        shiftsPerPage = p.get_page(page)
+
+        return render(request, 'timesheet/shifts_of.html', {
+            'shiftsPerPage': shiftsPerPage,
+            'user': userid,
+        })
+    # if someone tries to sneak into someone's else timesheet
+    else:
+        messages.success(request, "You don't have permissions to view this page. Gtfo.")
+
+        return redirect('shifts')

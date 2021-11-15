@@ -23,5 +23,6 @@ urlpatterns = [
     path('pay_salary/<user_id>', views.pay_salary, name='pay-salary'),
     path('user_salary_list', views.user_salary_list, name='user-salary-list'),
 
-
+    path('shifts/<user_id>', views.shifts_of, name='shifts-of'),
+    path('user_timesheets_list', views.user_timesheets_list, name='user-timesheets-list')
 ]
