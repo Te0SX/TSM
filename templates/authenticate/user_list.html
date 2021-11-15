@@ -1,14 +1,16 @@
 {% extends 'timesheet/base.html' %}
 
     {% block content %}
+<div class="container p-3">
     <center>
-
-        <h1>User lists</h1>
-    <br>
+        <h1>Users</h1>
+      <hr/>
     <form action="" method=POST>
         {% csrf_token %}
+        <br>
+        <a class="btn btn-primary" href="{% url 'register-user' %}" role="button">Register User</a>
 
-        <table class="table">
+        <table class="table table-striped shadow my-4 bg-white">
           <thead>
             <tr>
                 <th scope="col">UserID</th>
@@ -39,7 +41,6 @@
         </table>
 
     </form>
-                <a class="btn btn-primary" href="{% url 'register-user' %}" role="button">Register User</a> <br/><br/>
 
 <!--Show number of pages> -->
    <nav aria-label="Page navigation example">
@@ -64,5 +65,5 @@
       </ul>
     </nav>
     </center>
-    Copyright (c)
+</div>
     {% endblock %}

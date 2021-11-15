@@ -32,9 +32,10 @@
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a></li>
             {#  if user is Admin  #}
             {% if user.is_superuser %}
-                <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'user-list' %}">User List</a> </li>
+                <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'user-list' %}">Users</a> </li>
+                <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'user-salary-list' %}">Salaries</a> </li>
+                <li class="nav-item"> <a class="nav-link" aria-current="page" href="{% url 'all-shifts' %}">Shifts</a> </li>
                 <li class="nav-item"> <a class="nav-link" aria-current="page" href="/admin">Admin Panel</a></li>
-                <li class="nav-item"> <a class="nav-link" aria-current="page" href="{% url 'all-shifts' %}">All Shifts</a> </li>
             {% endif %}
             {#  if user is Student  #}
             {% if user|has_role:"Student" %}
@@ -44,9 +45,10 @@
             {% elif user|has_role:"Verifier"  %}
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'shifts' %}">All Shifts</a> </li>
            {#  if user is Payer  #}
-            {% else %}
+            {% elif user|has_role:"Payer" %}
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'user-salary-list' %}">Salary List</a> </li>
             {% endif %}
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'support' %}">Support</a> </li>
         {% else %}
         {% endif %}
 

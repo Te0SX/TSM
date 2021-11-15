@@ -2,13 +2,14 @@
 
     {% block content %}
     <center>
-
-        <h1>User lists</h1>
-    <br>
+<div class="container p-3">
+    <h1>Salaries</h1>
+    <hr/>
+{#    <br>#}
     <form action="" method=POST>
         {% csrf_token %}
 
-        <table class="table">
+        <table class="table table-striped shadow my-4 bg-white">
           <thead>
             <tr>
                 <th scope="col">UserID</th>
@@ -44,7 +45,6 @@
         </table>
 
     </form>
-
 <!--Show number of pages> -->
    <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
@@ -68,5 +68,5 @@
       </ul>
     </nav>
     </center>
-    Copyright (c)
     {% endblock %}
+</div>

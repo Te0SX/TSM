@@ -250,3 +250,6 @@ def user_salary_list(request):
 
 def about(request):
     return render(request, 'timesheet/about.html', {})
+
+def support(request):
+    return render(request, 'timesheet/support.html', {})
