@@ -1,12 +1,10 @@
 from django.contrib import admin
-from .models import Roles, Shift, Student, Timesheet
+from .models import Roles, Shift
 from members.models import UserProfile, UserRoles
 
 # Register your models here.
 admin.site.register(Roles)
 # admin.site.register(Shift)
-admin.site.register(Student)
-admin.site.register(Timesheet)
 # admin.site.register(UserRoles)
 
 @admin.register(Shift)

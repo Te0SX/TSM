@@ -15,115 +15,52 @@
         <h1>Salary</h1>
        <hr/>
 
-        <div class="container shadow w-50 p-3 mb-5 my-5 bg-white rounded" >
-          Verified Total Amount:  £{{ user.userprofile.salary }}
+        <div class="container shadow w-50 p-3 mb-5 my-5 bg-white rounded font-weight-bold fs-3" >
+          Verified Remaining Amount:  £{{ user.userprofile.salary }}
                    <hr/>
         </div>
 
-        <h3>List of Verified Shifts To Be Paid </h3>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-                <th scope="col">ShiftID</th>
-                <th scope="col">Date Added</th>
-                <th scope="col">Role</th>
-                <th scope="col">Start of Shift</th>
-                <th scope="col">Finish of Shift</th>
-                <th scope="col">Amount</th>
-                <th scope="col">Modify</th>
-                <th scope="col">Verified</th>
-                <th scope="col">Paid</th>
+        <h3> Paid Salaries </h3>
+        <table class="table table-striped shadow my-4 bg-white">
+              <thead>
+                <tr>
+                    <th scope="col">PaymentID</th>
+                    <th scope="col">Date Paid</th>
+                    <th scope="col">Amount</th>
 
-            </tr>
-          </thead>
-            {% for shift in shifts %}
-                {% if user == shift.studentID %}
-{#                    {% if shift.verified == False %}#}
-                        <tr>
-                            <td>
-                            #{{ shift.id }}
-                            </td>
-                            <td>
-                            {{ shift.date.date }}
-                            </td>
-                            <td>
-                            {{ shift.role }}
-                            </td>
-                            <td>
-                            {{ shift.startHour }}
-                            </td>
-                            <td>
-                            {{ shift.endHour }}
-                            </td>
-                            <td>
-                            {{ shift.payment }}
-                            </td>
-                            <td align="center">
-                                <a href="{% url 'update-shift' shift.id %}">
-                                    {% if shift.verified %}
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="grey" class="bi bi-pencil" viewBox="0 0 16 16">
-                                      <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-                                    </svg>
-                                    {% else %}
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                                      <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-                                    </svg>
-                                    {% endif %}
-                                </a>
-                            </td>
-                            <td align="center">
-                                <a href="{% url 'verify-shift' shift.id %}">
-                                    {% if shift.verified %}
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#007ff4" class="bi bi-file-earmark-check" viewBox="0 0 16 16">
-                                      <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
-                                      <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-                                    </svg>
-                                    {% else %}
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="grey" class="bi bi-file-earmark-check" viewBox="0 0 16 16">
-                                      <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
-                                      <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-                                    </svg>
-                                    {% endif %}
-                                </a>
-                            </td>
-                            <td align="center">
-                                <a href="{% url 'pay-shift' shift.id %}">
-                                    {% if shift.paid %}
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="green" class="bi bi-credit-card" viewBox="0 0 16 16">
-                                          <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
-                                          <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/>
-                                        </svg>
-                                    {% else %}
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="grey" class="bi bi-credit-card" viewBox="0 0 16 16">
-                                          <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
-                                          <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/>
-                                        </svg>
-                                    {% endif %}
-                                </a>
-                            </td>
-                        </tr>
-{#                    {% endif %}#}
-                {% endif %}
+                </tr>
+              </thead>
+            {% for salary in salariesPerPage %}
+                <tr>
+                    <td>
+                    #{{ salary.id }}
+                    </td>
+                    <td>
+                    {{ salary.date.date }}
+                    </td>
+                    <td>
+                    £{{ salary.amount }}
+                    </td>
+                </tr>
             {% endfor %}
         </table>
 
-    </div>
-
+    
 <!--Show number of pages> -->
    <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
-        {% if shiftsPerPage.has_previous %}
-            <li class="page-item"><a class="page-link" href="?page={{ shiftsPerPage.previous_page_number }}">Previous</a></li>
+        {% if salariesPerPage.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ salariesPerPage.previous_page_number }}">Previous</a></li>
         {% else %}
             <li class="page-item disabled">
               <a class="page-link">Previous</a>
             </li>
         {% endif %}
 
-          <li class="page-item"><a class="page-link" href="#">Page {{ shiftsPerPage.number }} of {{ shiftsPerPage.paginator.num_pages }}</a> </li>
+          <li class="page-item"><a class="page-link" href="#">Page {{ salariesPerPage.number }} of {{ salariesPerPage.paginator.num_pages }}</a> </li>
         <!-- Page number -->
-        {% if shiftsPerPage.has_next %}
-            <li class="page-item"><a class="page-link" href="?page={{ shiftsPerPage.next_page_number }}">Next</a></li>
+        {% if salariesPerPage.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ salariesPerPage.next_page_number }}">Next</a></li>
         {% else %}
             <li class="page-item disabled">
               <a class="page-link">Previous</a>
@@ -132,7 +69,6 @@
       </ul>
     </nav>
 
-    <br/> <br/>
     </center>
     {% endblock %}
 </body>

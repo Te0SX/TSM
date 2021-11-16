@@ -6,7 +6,7 @@ from datetime import datetime
 from django.http import HttpResponseRedirect, HttpResponse
 import csv
 
-from .models import Shift, Timesheet, Roles
+from .models import Shift, Salary
 from .form import ShiftForm
 
 #import Pegination stuff
@@ -209,21 +209,21 @@ def shifts_csv(request):
 
 def salary(request, user_id):
     user = User.objects.get(pk=user_id)
+
     shifts = Shift.objects.filter(studentID=user, verified=True, paid=False).order_by('-date')
-    salary = 0
+    salaries = Salary.objects.filter(studentID=user).order_by('-date')
 
-    for shift in shifts:
-        salary = salary + shift.payment()
+    #Paginator for Paid Salaries, to show only # number per page
+    p = Paginator(salaries, 5)  # filter User's shifts only
+    page = request.GET.get('page')
+    salariesPerPage = p.get_page(page)
 
-    salary = round(salary, 2)
-    # user.userprofile.salary = salary
-    # user.userprofile.save()
-
-    return render(request, 'timesheet/salary.html',{'shifts': shifts, 'salary': salary})
+    return render(request, 'timesheet/salary.html',{'shifts': shifts, 'salary': salary, 'salariesPerPage': salariesPerPage})
 
 def pay_salary(request, user_id):
     user = User.objects.get(pk=user_id)
     shifts = Shift.objects.filter(studentID=user, verified=True, paid=False).order_by('-date')
+    salary = Salary.objects.create()
     userTitle = str(request.user.userprofile.title)
 
     if userTitle == 'Payer':
@@ -231,9 +231,14 @@ def pay_salary(request, user_id):
             shift.paid = True
             shift.save()
 
+        #Add a new payment to paid salaries of user
+        salary.studentID = user
+        salary.amount = user.userprofile.salary
+        salary.save()
+
         user.userprofile.salary = 0
         user.userprofile.save()
-        messages.success(request, "Shifts has been paid")
+        messages.success(request, "Payment has been processed")
     else:
         messages.success(request, "You don't have permissions to pay salaries")
 
