@@ -14,6 +14,8 @@
           <thead>
             <tr>
                 <th scope="col">UserID</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
                 <th scope="col">Role</th>
                 <th scope="col">email</th>
                 <th scope="col">Phone</th>
@@ -24,6 +26,8 @@
             {% for user in users %}
                 <tr>
                     <td>{{ user.get_username }}</td>
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.last_name }}</td>
                     <td>{{ user.userprofile.title }} </td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.userprofile.phone }}</td>

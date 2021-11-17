@@ -1,6 +1,8 @@
 {% extends 'timesheet/base.html' %}
 
     {% block content %}
+<div class="container shadow w-50 p-3 mb-5 my-5 bg-white rounded" >
+
         <h1>{{ user.user.get_username }}'s Profile</h1>
     <br>
     <form action="" method=POST>
@@ -15,7 +17,6 @@
         <input type="submit" value="Update" class="btn btn-primary">
 
     </form>
+</div>
 
-
-    Copyright (c)
     {% endblock %}

@@ -1,19 +1,29 @@
 {% extends 'timesheet/base.html' %}
 
     {% block content %}
-        <h1>Register a new user </h1>
+<div class="container shadow w-50 p-3 mb-5 my-5 bg-white rounded" >
+
+        <center><h1>Register a new user </h1></center>
     <br>
     <form action="" method=POST>
         {% csrf_token %}
 
-        {{ form.as_p }}
-        <br/>
+{#        {{ form.as_p }}#}
+        Username: {{ form.username }} <br><br>
+        First Name: {{ form.first_name }}<br><br>
+        Last Name: {{ form.last_name }}<br><br>
+        Email: {{ form.email }}<br><br>
+        Password: {{ form.password1 }}<br><br>
+        Password Confirmation: {{ form.password2 }}<br>
+        <hr/>
+        - Password can't be too similar to your other personal information. <br>
+        - Password must contain at least 8 characters.<br>
+        - Password can't be a commonly used password.<br>
+        - Password can't be entirely numeric.<br>
 
          <br/>
         <input type="submit" value="Submit" class="btn btn-primary">
 
     </form>
-
-
-    Copyright (c)
+</div>
     {% endblock %}

@@ -5,46 +5,50 @@
 <head>
     <meta charset="UTF-8">
     <title>TMS</title>
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
 </head>
 <body>
+
     {% block content %}
     <center>
 
+
     <div class="container p-3">
         <h1>Salary</h1>
-       <hr/>
+        <hr/>
+    <div class="container-salary-table w-50">
 
-        <div class="container shadow w-50 p-3 mb-5 my-5 bg-white rounded font-weight-bold fs-3" >
-          Verified Remaining Amount:  £{{ user.userprofile.salary }}
-                   <hr/>
+        <div class="container shadow p-3 mb-5 my-5 bg-white rounded font-weight-bold">
+            <p-amount>Verified Remaining Amount:  £{{ user.userprofile.salary }}</p-amount>
         </div>
+        <hr/>
 
-        <h3> Paid Salaries </h3>
-        <table class="table table-striped shadow my-4 bg-white">
-              <thead>
-                <tr>
-                    <th scope="col">PaymentID</th>
-                    <th scope="col">Date Paid</th>
-                    <th scope="col">Amount</th>
+        <h4> Paid Salaries </h4>
+            <table class="table table-striped shadow my-4 bg-white square">
+                  <thead>
+                    <tr>
+                        <th scope="col">PaymentID</th>
+                        <th scope="col">Date Paid</th>
+                        <th scope="col">Amount</th>
 
-                </tr>
-              </thead>
-            {% for salary in salariesPerPage %}
-                <tr>
-                    <td>
-                    #{{ salary.id }}
-                    </td>
-                    <td>
-                    {{ salary.date.date }}
-                    </td>
-                    <td>
-                    £{{ salary.amount }}
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-
+                    </tr>
+                  </thead>
+                {% for salary in salariesPerPage %}
+                    <tr>
+                        <td>
+                        #{{ salary.id }}
+                        </td>
+                        <td>
+                        {{ salary.date.date }}
+                        </td>
+                        <td>
+                        £{{ salary.amount }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+    </div>
     
 <!--Show number of pages> -->
    <nav aria-label="Page navigation example">

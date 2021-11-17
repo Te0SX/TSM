@@ -49,7 +49,7 @@ def register_user(request):
 
 
 def user_list(request):
-    users = User.objects.all()
+    users = User.objects.all().exclude(is_superuser=True)
     p = Paginator(users.order_by('id'), 5)  # filter User's shifts only
     page = request.GET.get('page')
     usersPerPage = p.get_page(page)
@@ -63,7 +63,7 @@ def user_info(request, user_id):
     if form.is_valid():
         form.save()
         userSelected.save()
-        messages.success(request, "User has been promoted")
+        messages.success(request, "User's profile has been updated")
         return redirect('user-list')
 
 
