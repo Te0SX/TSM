@@ -147,7 +147,7 @@ def verify_shift(request, shift_id):
             ownerID.userprofile.save()
 
             messages.success(request, "Shift #" +shift_id +" has been verified")
-        return redirect('all-shifts')
+        return redirect('shifts-of', shift.studentID.id)
     elif userTitle == 'Payer' or isAdmin:
         messages.success(request, "You don't have the permission to verify shifts")
         return redirect('all-shifts')
