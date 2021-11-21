@@ -84,4 +84,7 @@ def user_profile(request, user_id):
                 messages.success(request, ("userForm isn't valid"))
 
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+    else:
+        messages.success(request, ("form isn't valid"))
+
     return render(request, 'authenticate/user_profile.html', {'form': form, 'profileForm': profileForm})
