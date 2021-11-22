@@ -17,7 +17,6 @@
 
             <form action="" method=POST>
                 {% csrf_token %}
-
                 StudentID: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ user }}" disabled> <br/> <br/>
                 Role of the shift {{ form.role }} <br/> <br/>
 
@@ -33,7 +32,7 @@
                 <br/>
 
                 {#        endHour box with calendar picker #}
-                <label for="disabledTextInput" class="form-label">End of the Shift</label>
+                <label for="disabledTextInput" class="form-label">End of Shift</label>
                 <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
                     <div class="col-xs-2 ">{{  form.endHour }}</div>
                 <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
@@ -55,6 +54,8 @@
 
                 <br/>
                 <center><input type="submit" value="Submit" class="btn btn-primary"></center>
+                <hr/>
+                {{ form.non_field_errors }}
 
             </form>
         </div>

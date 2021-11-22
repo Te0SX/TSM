@@ -1,5 +1,6 @@
 import datetime
 
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -29,6 +30,11 @@ class Shift(models.Model):
         time = self.endHour - self.startHour                                 #calculate time working
         payment = round(self.role.hourlyPay * time.seconds / 60 / 60,2)      #hourlyPay * hours worked, rounded for 2 demicals
         return payment
+
+    def clean(self, *args, **kwargs):
+        if self.startHour > self.endHour :
+            raise ValidationError('Start of the Shift is not earlier than the End of the Shift')
+        return super().clean(*args, **kwargs)
 
     def __str__(self):
         return str(self.studentID)
