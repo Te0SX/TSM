@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.core.paginator import Paginator
-from .form import RegisterUserForm, UserForm, UserFormUpdate
+from .form import RegisterUserForm, UserForm, UserFormUpdate, UserProfileUpdate
 # Create your views here.
 from members.models import UserProfile, UserRoles
 
@@ -73,7 +73,7 @@ def user_info(request, user_id):
 def user_profile(request, user_id):
     userSelected = User.objects.get(pk=user_id)
     userSelected, created = UserProfile.objects.get_or_create(user=userSelected)
-    form = RegisterUserForm(request.POST or None, instance=request.user)
+    form = UserProfileUpdate(request.POST or None, instance=request.user)
     profileForm = UserFormUpdate(request.POST or None, instance=userSelected)
     if request.method == "POST":
         if form.is_valid():
