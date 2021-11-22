@@ -131,7 +131,7 @@ def verify_shift(request, shift_id):
             shift.verified = False
             shift.save()
 
-            salary -= float(shift.payment())
+            salary -= shift.payment()
             ownerID.userprofile.salary = salary
             ownerID.userprofile.save()
 
@@ -142,7 +142,7 @@ def verify_shift(request, shift_id):
             shift.verified = True
             shift.save()
 
-            salary += float(shift.payment())
+            salary += shift.payment()
             ownerID.userprofile.salary = salary
             ownerID.userprofile.save()
 

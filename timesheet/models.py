@@ -42,7 +42,7 @@ class Shift(models.Model):
 class Salary(models.Model):
     studentID = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
     date = models.DateTimeField('Date added', auto_now_add=True)
-    amount = models.IntegerField('Amount paid', default=0)
+    amount = models.FloatField('Amount paid', default=0)
 
     def __int__(self):
         return self.amount
