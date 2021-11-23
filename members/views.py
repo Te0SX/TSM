@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.paginator import Paginator
 from .form import RegisterUserForm, UserForm, UserFormUpdate, UserProfileUpdate
 # Create your views here.
-from members.models import UserProfile, UserRoles
+from members.models import UserProfile
 
 
 def login_user(request):

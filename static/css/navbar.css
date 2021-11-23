@@ -31,6 +31,14 @@
     color: #fff
 
 }
+
+.btn-primary-nav:visited{
+    background-color: #093a63;
+    border-color: #093a63;
+    color: #fff
+
+}
+
 .btn-primary-nav:hover {
     background-color: rgba(255, 255, 255, 0.9);
     /*border-color: #007ff4;*/
