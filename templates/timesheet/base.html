@@ -37,8 +37,9 @@
     {% include 'timesheet/navbar.html' %}
     <div class="container">
         {% if messages %}
+            <br/>
             {%  for message in messages %}
-              <center>  <div class="alert alert-warning p-3 w-50" role="alert">
+              <center>  <div class="alert alert-warning w-50" role="alert">
                  {{ message }}
                 </div> </center>
             {% endfor %}

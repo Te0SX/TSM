@@ -75,13 +75,16 @@ def add_shift(request):
                 currentShift.save()
                 messages.success(request, "Shift added successfully")
                 return HttpResponseRedirect('shifts')
+            else:
+                messages.success(request, "Start of the Shift is not earlier than the End of the Shift. Try again.")
+                return HttpResponseRedirect('add_shift')
         else:
             form = ShiftForm
 
         return render(request, 'timesheet/add_shift.html', {'form': form})
 
     else:
-        messages.success(request, "You don't permission to add a shift")
+        messages.success(request, "You don't have permissions to add a shift")
         return redirect('shifts')
 
 
@@ -273,7 +276,7 @@ def shifts_of(request, user_id):
     shifts = Shift.objects.filter(studentID=user_id).order_by('-date')
     userTitle = str(request.user.userprofile.title)
     # Students view
-    if userTitle == 'Verifier':
+    if userTitle == 'Verifier' or userTitle == 'Admin':
         # Paginator setup
         p = Paginator(shifts, 4)  # filter User's shifts only
         page = request.GET.get('page')

@@ -17,7 +17,7 @@ def login_user(request):
         if user is not None:
             login(request, user)
             messages.success(request, ("Welcome back " + username))
-            return redirect('shifts')             # Redirect to a success page.
+            return redirect('home')             # Redirect to a success page.
         else:
             messages.success(request,("There was an error login in, try again"))
             return redirect('login')  # Redirect to a success page.
@@ -84,7 +84,7 @@ def user_profile(request, user_id):
                 messages.success(request, ("userForm isn't valid"))
 
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-    else:
-        messages.success(request, ("form isn't valid"))
+        else:
+            messages.success(request, ("form isn't valid"))
 
     return render(request, 'authenticate/user_profile.html', {'form': form, 'profileForm': profileForm})
