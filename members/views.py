@@ -4,9 +4,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.core.paginator import Paginator
-from .form import RegisterUserForm, UserForm, UserFormUpdate
+from .form import RegisterUserForm, UserForm, UserFormUpdate, UserProfileUpdate, UserPasswordUpdate
 # Create your views here.
-from members.models import UserProfile, UserRoles
+from members.models import UserProfile
 
 
 def login_user(request):
@@ -17,7 +17,7 @@ def login_user(request):
         if user is not None:
             login(request, user)
             messages.success(request, ("Welcome back " + username))
-            return redirect('shifts')             # Redirect to a success page.
+            return redirect('home')             # Redirect to a success page.
         else:
             messages.success(request,("There was an error login in, try again"))
             return redirect('login')  # Redirect to a success page.
@@ -71,17 +71,51 @@ def user_info(request, user_id):
 
 # User's view of update profile
 def user_profile(request, user_id):
-    userSelected = User.objects.get(pk=user_id)
-    userSelected, created = UserProfile.objects.get_or_create(user=userSelected)
-    form = RegisterUserForm(request.POST or None, instance=request.user)
-    profileForm = UserFormUpdate(request.POST or None, instance=userSelected)
-    if request.method == "POST":
-        if form.is_valid():
-            user = form.save()
-            if profileForm.is_valid():
-                profileForm.save()
+    userid = User.objects.get(pk=user_id)
+    if request.user == userid or request.user.is_superuser:
+        userSelected, created = UserProfile.objects.get_or_create(user=userid)
+        form = UserProfileUpdate(request.POST or None, instance=userid)
+        profileForm = UserFormUpdate(request.POST or None, instance=userSelected)
+        if request.method == "POST":
+            if form.is_valid():
+                user = form.save()
+                if profileForm.is_valid():
+                    profileForm.save()
+                    messages.success(request, ("Profile updated successfully"))
+                else:
+                    messages.success(request, ("userForm isn't valid"))
             else:
-                messages.success(request, ("userForm isn't valid"))
+                messages.success(request, ("form isn't valid"))
+            # Redirect user based on if the user is Student or Admin
+            if request.user.is_superuser:
+                return redirect('user-list')
+            else:
+                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                return redirect('user-profile', user_id)
+    else:
+        messages.success(request, "You don't have permission to view other users informations")
+        return redirect('home')
 
-            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-    return render(request, 'authenticate/user_profile.html', {'form': form, 'profileForm': profileForm})
+    return render(request, 'authenticate/user_profile.html', {'form': form, 'profileForm': profileForm, 'userid': userid})
+
+
+def user_password(request,user_id):
+    userid = User.objects.get(pk=user_id)
+    if request.user == userid or request.user.is_superuser:
+        form = UserPasswordUpdate(request.POST or None, instance=userid)
+        if request.method == "POST":
+            if form.is_valid():
+                user = form.save()
+                messages.success(request, ("Password updated successfully"))
+            else:
+                messages.success(request, ("form isn't valid"))
+            # Redirect user based on if the user is Student or Admin
+            if request.user.is_superuser:
+                return redirect('user-list')
+            else:
+                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                return redirect('user-profile', user_id)
+    else:
+        messages.success(request, "You don't have permission to visit that page")
+        return redirect('home')
+    return render(request, 'authenticate/user_password.html', {'form': form, 'userid': userid})

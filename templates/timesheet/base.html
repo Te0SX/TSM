@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 {% load staticfiles %}
 
 <html lang="en">
@@ -27,18 +27,20 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <!-- Import my basic stylesheet css -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}"/>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-
-    <title>base</title>
-
+    <title>
+        {% block title %}{% endblock %}
+    </title>
   </head>
   <body>
 
     {% include 'timesheet/navbar.html' %}
     <div class="container">
         {% if messages %}
+            <br/>
             {%  for message in messages %}
-              <center>  <div class="alert alert-warning p-3 w-50" role="alert">
+              <center>  <div class="alert alert-warning w-50" role="alert">
                  {{ message }}
                 </div> </center>
             {% endfor %}

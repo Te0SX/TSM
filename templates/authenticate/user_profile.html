@@ -1,33 +1,36 @@
 {% extends 'timesheet/base.html' %}
+{% load has_role %}
 
-    {% block content %}
+{% block title %}Profile of {{ userid }} | UGTMS{% endblock %}
+
+{% block content %}
 
 <div class="container shadow w-50 p-3 mb-5 my-5 bg-white rounded" >
-    <center><h1> Update {{ user.get_username }}'s Details</h1></center> <br>
+<div class="container w-75 bg-white rounded" >
+    <center><h1>Profile of {{ userid }}</h1></center> <br>
     <form action="" method=POST>
         {% csrf_token %}
 
-        StudentID: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ user.username }}" disabled> <br/> <br/>
-        User Role: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ user.userprofile.title }}" disabled> <br/> <br/>
+        StudentID: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ userid.username }}" disabled> <br/> <br/>
+        User Role: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ userid.userprofile.title }}" disabled> <br/> <br/>
 
         First Name: {{ form.first_name }}<br><br>
         Last Name: {{ form.last_name }}<br><br>
         Email: {{ form.email }}<br><br>
-        Password: {{ form.password1 }}<br><br>
-        Password Confirmation: {{ form.password2 }}<br><br>
+
         Phone: {{ profileForm.phone }}<br>
-        <hr/>
-        - Password can't be too similar to your other personal information. <br>
-        - Password must contain at least 8 characters.<br>
-        - Password can't be a commonly used password.<br>
-        - Password can't be entirely numeric.<br>
-
         <br/>
+        <div class="text-center">
+            {% if request.user|has_role:"Student" %}
+                <a class="btn btn-warning" href="{% url 'user-password' userid.id %}" role="button">Change Password</a>
+            {% endif %}
+            <input type="submit" value="Update Profile" class="btn btn-primary">
+        </div>
 
-         <br/>
-        <input type="submit" value="Update" class="btn btn-primary">
 
     </form>
 </div>
+</div>
+
 
     {% endblock %}

@@ -1,22 +1,14 @@
-<!DOCTYPE html>
 {% extends 'timesheet/base.html' %}
 {%  load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>TMS</title>
-        <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
-</head>
-<body>
+{% block title %}Salary | UGTMS{% endblock %}
 
-    {% block content %}
-    <center>
+{% block content %}
+<center>
 
-
-    <div class="container p-3">
-        <h1>Salary</h1>
-        <hr/>
+<div class="container p-3">
+    <h1>Salary</h1>
+    <hr/>
     <div class="container-salary-table w-50">
 
         <div class="container shadow p-3 mb-5 my-5 bg-white rounded font-weight-bold">
@@ -49,9 +41,9 @@
                 {% endfor %}
             </table>
     </div>
-    
-<!--Show number of pages> -->
-   <nav aria-label="Page navigation example">
+
+    <!--Show number of pages> -->
+    <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
         {% if salariesPerPage.has_previous %}
             <li class="page-item"><a class="page-link" href="?page={{ salariesPerPage.previous_page_number }}">Previous</a></li>
@@ -72,8 +64,6 @@
         {% endif %}
       </ul>
     </nav>
-
-    </center>
-    {% endblock %}
-</body>
-</html>
+</div>
+</center>
+{% endblock %}

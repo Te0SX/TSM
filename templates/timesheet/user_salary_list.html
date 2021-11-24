@@ -1,11 +1,12 @@
 {% extends 'timesheet/base.html' %}
 
+{% block title %}Salaries | UGTMS{% endblock %}
+
 {% block content %}
 <center>
 <div class="container p-3">
     <h1>Salaries</h1>
     <hr/>
-{#    <br>#}
     <form action="" method=POST>
         {% csrf_token %}
 

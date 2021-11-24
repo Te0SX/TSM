@@ -5,7 +5,6 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Navbar</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
@@ -17,7 +16,7 @@
 
     <div class="logo"><img src="/static/images/logo.png" width=50% height=50%  /> </div>
 
-    <a class="navbar-brand" href="{% url 'home' %}">TMS</a>
+    <a class="navbar-brand" href="{% url 'home' %}">UGTMS</a>
  {# Button that appears when screen becomes too small and categories disappear #}
     <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu">
         <span class="navbar-toggler-icon"></span>
@@ -26,15 +25,13 @@
     <div class="collapse navbar-collapse" id="navbarMenu">
 {# categories on the left   #}
       <ul class="navbar-nav ml-auto">
-
-
         {% if request.user.is_authenticated %}
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a></li>
             {#  if user is Admin  #}
             {% if request.user.is_superuser %}
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'user-list' %}">Users</a> </li>
+                <li class="nav-item"> <a class="nav-link" aria-current="page" href="{% url 'user-timesheets-list' %}">Timesheets</a> </li>
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'user-salary-list' %}">Salaries</a> </li>
-                <li class="nav-item"> <a class="nav-link" aria-current="page" href="{% url 'all-shifts' %}">Shifts</a> </li>
                 <li class="nav-item"> <a class="nav-link" aria-current="page" href="/admin">Admin Panel</a></li>
             {% endif %}
             {#  if user is Student  #}
