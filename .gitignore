@@ -2,3 +2,4 @@ __pycacher__/
 *.pyc
 __pycache__
 db.sqlite3
+**/migrations
