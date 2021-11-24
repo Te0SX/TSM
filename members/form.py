@@ -41,11 +41,18 @@ class UserFormUpdate(ModelForm):
             'phone': 'phone number',
             }
 
-class UserProfileUpdate(UserCreationForm):
+class UserProfileUpdate(forms.ModelForm):
     email = forms.EmailField()
     first_name = forms.CharField(max_length=50)
     last_name = forms.CharField(max_length=50)
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'password1', 'password2')
+        exclude = ('password1', 'password2')
+        fields = ('first_name', 'last_name', 'email')
+
+
+class UserPasswordUpdate(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ('password1', 'password2')

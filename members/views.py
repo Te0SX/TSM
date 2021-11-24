@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.core.paginator import Paginator
-from .form import RegisterUserForm, UserForm, UserFormUpdate, UserProfileUpdate
+from .form import RegisterUserForm, UserForm, UserFormUpdate, UserProfileUpdate, UserPasswordUpdate
 # Create your views here.
 from members.models import UserProfile
 
@@ -97,3 +97,25 @@ def user_profile(request, user_id):
         return redirect('home')
 
     return render(request, 'authenticate/user_profile.html', {'form': form, 'profileForm': profileForm, 'userid': userid})
+
+
+def user_password(request,user_id):
+    userid = User.objects.get(pk=user_id)
+    if request.user == userid or request.user.is_superuser:
+        form = UserPasswordUpdate(request.POST or None, instance=userid)
+        if request.method == "POST":
+            if form.is_valid():
+                user = form.save()
+                messages.success(request, ("Password updated successfully"))
+            else:
+                messages.success(request, ("form isn't valid"))
+            # Redirect user based on if the user is Student or Admin
+            if request.user.is_superuser:
+                return redirect('user-list')
+            else:
+                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                return redirect('user-profile', user_id)
+    else:
+        messages.success(request, "You don't have permission to visit that page")
+        return redirect('home')
+    return render(request, 'authenticate/user_password.html', {'form': form, 'userid': userid})
