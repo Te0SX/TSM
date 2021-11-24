@@ -8,6 +8,7 @@ class UserRoles(models.Model):
         ('Student', 'Student'),
         ('Verifier', 'Verifier'),
         ('Payer', 'Payer'),
+        ('Graduate', 'Graduate'),
         ('Admin', 'Admin'),
     )
 
