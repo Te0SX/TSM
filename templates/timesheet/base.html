@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 {% load staticfiles %}
 
 <html lang="en">
@@ -29,8 +29,9 @@
     <!-- Import my basic stylesheet css -->
     <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}"/>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <title>TMS</title>
-
+    <title>
+        {% block title %}{% endblock %}
+    </title>
   </head>
   <body>
 

@@ -1,24 +1,25 @@
 {% extends 'timesheet/base.html' %}
 
-    {% block content %}
+{% block title %}Role of {{ user.user }} | UGTMS{% endblock %}
+
+{% block content %}
 <div class="container shadow w-50 p-3 mb-5 my-5 bg-white rounded" >
-<div class="container w-75 bg-white rounded" >
+    <div class="container w-75 bg-white rounded" >
 
        <center> <h1>Update Role</h1></center>
-    <br>
-    <form action="" method=POST>
-        {% csrf_token %}
+        <br>
+        <form action="" method=POST>
+            {% csrf_token %}
 
-        StudentID: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ user.user }}" disabled> <br/><br/>
-        Last Name: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ user.user.last_name }}" disabled><br/> <br/>
+            StudentID: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ user.user }}" disabled> <br/><br/>
+            Last Name: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ user.user.last_name }}" disabled><br/> <br/>
 
 
-        {{ form.as_p }}
-        <br/>
-        <center><input type="submit" value="Update" class="btn btn-primary"></center>
+            {{ form.as_p }}
+            <br/>
+            <center><input type="submit" value="Update" class="btn btn-primary"></center>
 
-    </form>
+        </form>
+    </div>
 </div>
-</div>
-
-    {% endblock %}
+{% endblock %}

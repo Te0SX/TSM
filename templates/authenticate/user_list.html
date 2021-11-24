@@ -1,9 +1,11 @@
 {% extends 'timesheet/base.html' %}
 
-    {% block content %}
+{% block title %}Users List | UGTMS{% endblock %}
+
+{% block content %}
 <div class="container p-3">
     <center>
-        <h1>Users</h1>
+        <h1>Users List</h1>
       <hr/>
     <form action="" method=POST>
         {% csrf_token %}
@@ -89,4 +91,4 @@
     </nav>
     </center>
 </div>
-    {% endblock %}
+{% endblock %}

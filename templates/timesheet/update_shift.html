@@ -1,12 +1,14 @@
 {% extends 'timesheet/base.html' %}
 
-    {% block content %}
+{% block title %}Update Shift | UGTMS{% endblock %}
+
+{% block content %}
 <div class="container shadow w-50 p-3 mb-5 my-5 bg-white rounded" >
 
-        <h1>Update Shift #{{ shift.id }}</h1>
-        <br/>
-        <form action="" method=POST>
-            {% csrf_token %}
+    <h1>Update Shift #{{ shift.id }}</h1>
+    <br/>
+    <form action="" method=POST>
+        {% csrf_token %}
 
         StudentID: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ user }}" disabled> <br/> <br/>
         Role of the shift {{ form.role }} <br/> <br/>
@@ -19,6 +21,6 @@
             <input type="submit" value="Submit" class="btn btn-primary">
             <a class="btn btn-danger" href="{% url 'delete-shift' shift.id %}" role="button">Delete</a>
 
-        </form>
+    </form>
 </div>
-    {% endblock %}
+{% endblock %}

@@ -1,15 +1,13 @@
 {% extends 'timesheet/base.html' %}
+{% load has_role %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Profile</title>
-</head>
+{% block title %}Profile of {{ userid }} | UGTMS{% endblock %}
 
-    {% block content %}
+{% block content %}
 
 <div class="container shadow w-50 p-3 mb-5 my-5 bg-white rounded" >
 <div class="container w-75 bg-white rounded" >
-    <center><h1> Update Profile</h1></center> <br>
+    <center><h1>Profile of {{ userid }}</h1></center> <br>
     <form action="" method=POST>
         {% csrf_token %}
 
@@ -23,8 +21,10 @@
         Phone: {{ profileForm.phone }}<br>
         <br/>
         <div class="text-center">
-            <a class="btn btn-warning" href="{% url 'user-password' userid.id %}" role="button">Change Password</a>
-            <input type="submit" value="Update" class="btn btn-primary">
+            {% if request.user|has_role:"Student" %}
+                <a class="btn btn-warning" href="{% url 'user-password' userid.id %}" role="button">Change Password</a>
+            {% endif %}
+            <input type="submit" value="Update Profile" class="btn btn-primary">
         </div>
 
 

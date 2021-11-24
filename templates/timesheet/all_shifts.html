@@ -1,119 +1,111 @@
 {% extends 'timesheet/base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>TMS</title>
-</head>
-<body>
-    {% block content %}
-    <center>
+{% block title %}All Shifts | UGTMS{% endblock %}
 
-    <div class="container p-3">
-        <h1>All Shifts</h1>
-        <hr/>
-        <a class="btn btn-primary" href="{% url 'shift-csv' %}" role="button">Export CSV</a>
+{% block content %}
+<center>
+<div class="container p-3">
+    <h1>All Shifts</h1>
+    <hr/>
+    <a class="btn btn-primary" href="{% url 'shift-csv' %}" role="button">Export CSV</a>
 
-        <table class="table table-striped shadow my-4 bg-white">
-          <thead>
+    <table class="table table-striped shadow my-4 bg-white">
+      <thead>
+        <tr>
+            <th scope="col">ShiftID</th>
+            <th scope="col">StudentID</th>
+            <th scope="col">Date Added</th>
+            <th scope="col">Role</th>
+            <th scope="col">Start of Shift</th>
+            <th scope="col">Finish of Shift</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Verified</th>
+            <th scope="col">Paid</th>
+        </tr>
+      </thead>
+        {% for shift in shiftsPerPage %}
             <tr>
-                <th scope="col">ShiftID</th>
-                <th scope="col">StudentID</th>
-                <th scope="col">Date Added</th>
-                <th scope="col">Role</th>
-                <th scope="col">Start of Shift</th>
-                <th scope="col">Finish of Shift</th>
-                <th scope="col">Amount</th>
-                <th scope="col">Verified</th>
-                <th scope="col">Paid</th>
+                <td>
+                #{{ shift.id }}
+                </td>
+                <td>
+                {{ shift.studentID }}
+                </td>
+                <td>
+                {{ shift.date.date }}
+                </td>
+                <td>
+                {{ shift.role }}
+                </td>
+                <td>
+                {{ shift.startHour }}
+                </td>
+                <td>
+                {{ shift.endHour }}
+                </td>
+                <td>
+                {{ shift.payment }}
+                </td>
+
+                <td align="center">
+                    <a href="{% url 'verify-shift' shift.id %}">
+                        {% if shift.verified %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#007ff4" class="bi bi-file-earmark-check" viewBox="0 0 16 16">
+                          <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+                          <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                        </svg>
+                        {% else %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="grey" class="bi bi-file-earmark-check" viewBox="0 0 16 16">
+                          <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+                          <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                        </svg>
+                        {% endif %}
+                    </a>
+                </td>
+                <td align="center">
+                    <a href="{% url 'pay-shift' shift.id %}">
+                        {% if shift.paid %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="green" class="bi bi-credit-card" viewBox="0 0 16 16">
+                              <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
+                              <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/>
+                            </svg>
+                        {% else %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="grey" class="bi bi-credit-card" viewBox="0 0 16 16">
+                              <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
+                              <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/>
+                            </svg>
+                        {% endif %}
+                    </a>
+                </td>
             </tr>
-          </thead>
-            {% for shift in shiftsPerPage %}
-                <tr>
-                    <td>
-                    #{{ shift.id }}
-                    </td>
-                    <td>
-                    {{ shift.studentID }}
-                    </td>
-                    <td>
-                    {{ shift.date.date }}
-                    </td>
-                    <td>
-                    {{ shift.role }}
-                    </td>
-                    <td>
-                    {{ shift.startHour }}
-                    </td>
-                    <td>
-                    {{ shift.endHour }}
-                    </td>
-                    <td>
-                    {{ shift.payment }}
-                    </td>
+        {% endfor %}
+    </table>
 
-                    <td align="center">
-                        <a href="{% url 'verify-shift' shift.id %}">
-                            {% if shift.verified %}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#007ff4" class="bi bi-file-earmark-check" viewBox="0 0 16 16">
-                              <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
-                              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-                            </svg>
-                            {% else %}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="grey" class="bi bi-file-earmark-check" viewBox="0 0 16 16">
-                              <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
-                              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-                            </svg>
-                            {% endif %}
-                        </a>
-                    </td>
-                    <td align="center">
-                        <a href="{% url 'pay-shift' shift.id %}">
-                            {% if shift.paid %}
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="green" class="bi bi-credit-card" viewBox="0 0 16 16">
-                                  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
-                                  <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/>
-                                </svg>
-                            {% else %}
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="grey" class="bi bi-credit-card" viewBox="0 0 16 16">
-                                  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
-                                  <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/>
-                                </svg>
-                            {% endif %}
-                        </a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-
-    </div>
+</div>
 
 <!--Show number of pages> -->
-    <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
-        {% if shiftsPerPage.has_previous %}
-            <li class="page-item"><a class="page-link" href="?page={{ shiftsPerPage.previous_page_number }}">Previous</a></li>
-        {% else %}
-            <li class="page-item disabled">
-              <a class="page-link">Previous</a>
-            </li>
-        {% endif %}
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    {% if shiftsPerPage.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ shiftsPerPage.previous_page_number }}">Previous</a></li>
+    {% else %}
+        <li class="page-item disabled">
+          <a class="page-link">Previous</a>
+        </li>
+    {% endif %}
 
-          <li class="page-item"><a class="page-link" href="#">Page {{ shiftsPerPage.number }} of {{ shiftsPerPage.paginator.num_pages }}</a> </li>
-        <!-- Page number -->
-        {% if shiftsPerPage.has_next %}
-            <li class="page-item"><a class="page-link" href="?page={{ shiftsPerPage.next_page_number }}">Next</a></li>
-        {% else %}
-            <li class="page-item disabled">
-              <a class="page-link">Next</a>
-            </li>
-        {% endif %}
-      </ul>
-    </nav>
+      <li class="page-item"><a class="page-link" href="#">Page {{ shiftsPerPage.number }} of {{ shiftsPerPage.paginator.num_pages }}</a> </li>
+    <!-- Page number -->
+    {% if shiftsPerPage.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ shiftsPerPage.next_page_number }}">Next</a></li>
+    {% else %}
+        <li class="page-item disabled">
+          <a class="page-link">Next</a>
+        </li>
+    {% endif %}
+  </ul>
+</nav>
 
-    <br/> <br/>
-    </center>
-    {% endblock %}
-</body>
-</html>
+<br/> <br/>
+</center>
+{% endblock %}
