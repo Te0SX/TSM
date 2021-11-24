@@ -250,7 +250,7 @@ def pay_salary(request, user_id):
 
 def user_salary_list(request):
     users = User.objects.all().exclude(is_superuser=True)
-    p = Paginator(users.order_by('id'), 5)  # filter User's shifts only
+    p = Paginator(users.order_by('-id'), 5)  # filter User's shifts only
     page = request.GET.get('page')
     usersPerPage = p.get_page(page)
 
@@ -258,7 +258,7 @@ def user_salary_list(request):
 
 def user_timesheets_list(request):
     users = User.objects.filter(userprofile__title=1)
-    p = Paginator(users.order_by('id'), 10)  # filter User's shifts only
+    p = Paginator(users.order_by('-id'), 10)  # filter User's shifts only
     page = request.GET.get('page')
     usersPerPage = p.get_page(page)
 

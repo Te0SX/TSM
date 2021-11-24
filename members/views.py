@@ -51,7 +51,7 @@ def register_user(request):
 
 def user_list(request):
     users = User.objects.all().exclude(is_superuser=True)
-    p = Paginator(users.order_by('id'), 5)  # filter User's shifts only
+    p = Paginator(users.order_by('-id'), 5)  # filter User's shifts only
     page = request.GET.get('page')
     usersPerPage = p.get_page(page)
     return render(request, 'authenticate/user_list.html', {'users': usersPerPage})
