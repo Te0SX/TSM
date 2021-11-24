@@ -135,7 +135,7 @@ def verify_shift(request, shift_id):
             shift.save()
 
             salary -= shift.payment()
-            ownerID.userprofile.salary = salary
+            ownerID.userprofile.salary = round(salary,2)
             ownerID.userprofile.save()
 
             messages.success(request, "Shift #" + shift_id + " has been unverified")
@@ -146,7 +146,7 @@ def verify_shift(request, shift_id):
             shift.save()
 
             salary += shift.payment()
-            ownerID.userprofile.salary = salary
+            ownerID.userprofile.salary = round(salary,2)
             ownerID.userprofile.save()
 
             messages.success(request, "Shift #" +shift_id +" has been verified")
