@@ -45,6 +45,7 @@ def register_user(request):
             return redirect('user-info', user.id)
 
         else:
+            messages.success(request, ("Reistration failed, be sure to read the password requirements"))
             form = RegisterUserForm
 
     return render(request, 'authenticate/register_user.html', {'form': form})
