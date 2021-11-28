@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'timesheet',
     'members',
     'tempus_dominus',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -140,3 +141,6 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 # for heroku
 django_heroku.settings(locals())
+
+#redirect to log in page for @login_required
+LOGIN_URL='login'

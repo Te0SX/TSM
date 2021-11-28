@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.core.paginator import Paginator
 from .form import RegisterUserForm, UserForm, UserFormUpdate, UserProfileUpdate, UserPasswordUpdate
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 from members.models import UserProfile
 
@@ -30,7 +31,7 @@ def logout_user(request):
     messages.success(request, ("Logout successfully"))
     return redirect('login')
 
-
+@login_required
 def register_user(request):
     form = RegisterUserForm(request.POST)
     if request.method == "POST":
@@ -48,7 +49,7 @@ def register_user(request):
 
     return render(request, 'authenticate/register_user.html', {'form': form})
 
-
+@login_required
 def user_list(request):
     users = User.objects.all().exclude(is_superuser=True)
     p = Paginator(users.order_by('-id'), 5)  # filter User's shifts only
@@ -57,6 +58,7 @@ def user_list(request):
     return render(request, 'authenticate/user_list.html', {'users': usersPerPage})
 
 # Admin view of update profile
+@login_required
 def user_info(request, user_id):
     userSelected = User.objects.get(pk=user_id)
     userSelected, created = UserProfile.objects.get_or_create(user=userSelected)
@@ -71,6 +73,7 @@ def user_info(request, user_id):
     return render(request, 'authenticate/user_info.html', {'user': userSelected, 'form': form})
 
 # User's view of update profile
+@login_required
 def user_profile(request, user_id):
     userid = User.objects.get(pk=user_id)
     if request.user == userid or request.user.is_superuser:
@@ -99,7 +102,7 @@ def user_profile(request, user_id):
 
     return render(request, 'authenticate/user_profile.html', {'form': form, 'profileForm': profileForm, 'userid': userid})
 
-
+@login_required
 def user_password(request,user_id):
     userid = User.objects.get(pk=user_id)
     if request.user == userid or request.user.is_superuser:

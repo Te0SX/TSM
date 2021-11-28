@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from calendar import HTMLCalendar
+from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from django.http import HttpResponseRedirect, HttpResponse
 import csv
@@ -14,27 +14,20 @@ from django.core.paginator import Paginator
 
 # Create your views here.
 def home(request):
-    name = "John"
+    return render(request, 'timesheet/home.html', {})
 
-    #Get current year
-    now = datetime.now()
-    current_year = now.year
-    month = now.month
+def about(request):
+    return render(request, 'timesheet/about.html', {})
 
-    # create a calendar
-    cal = HTMLCalendar().formatmonth(current_year,month)
+def support(request):
+    return render(request, 'timesheet/support.html', {})
 
-    #Get current time
-    time = now.strftime('%H:%M')       #https://docs.python.org/3/library/datetime.html
+def warning(request, shift_id):
+    shift = Shift.objects.get(pk=shift_id)
+    if shift.verified:
+        messages.success(request, "Shift #" + shift_id + " has been verified and can't be modified anymore")
 
-    return render(request, 'timesheet/home.html', {
-        "name": name,
-        "year": current_year,
-        "cal": cal,
-        "current_year": current_year,
-        "time": time,
-    })
-
+@login_required
 def shifts(request):
     shifts = Shift.objects.all().order_by('-date')
     userTitle = str(request.user.userprofile.title)
@@ -59,11 +52,13 @@ def shifts(request):
             'shiftsPerPage': shiftsPerPage
             })
 
+@login_required
 def verified_shifts(request):
     shifts = Shift.objects.all().order_by('-date')
 
     return render(request, 'timesheet/verified_shifts.html', {'shifts': shifts})
 
+@login_required
 def add_shift(request):
     userTitle = str(request.user.userprofile.title) # Without str, it's a Role object, gives an error
     form = ShiftForm(request.POST)
@@ -87,7 +82,7 @@ def add_shift(request):
         messages.success(request, "You don't have permissions to add a shift")
         return redirect('shifts')
 
-
+@login_required
 def update_shift(request, shift_id):
     shift = Shift.objects.get(pk=shift_id)
     if request.user == shift.studentID:
@@ -109,8 +104,7 @@ def update_shift(request, shift_id):
         messages.success(request, "You don't have permission to modify #" + shift_id +". Don't be sneaky!!!")
         return redirect('shifts')
 
-
-
+@login_required
 def delete_shift(request, shift_id):
     shift = Shift.objects.get(pk=shift_id)
     if request.user == shift.studentID:
@@ -121,6 +115,7 @@ def delete_shift(request, shift_id):
 
     return redirect('shifts')
 
+@login_required
 def verify_shift(request, shift_id):
     shift = Shift.objects.get(pk=shift_id)
     userTitle = str(request.user.userprofile.title) # Without str, it's a Role object, gives an error
@@ -158,6 +153,7 @@ def verify_shift(request, shift_id):
         messages.success(request, "You don't have the permission to verify shifts")
         return redirect('shifts')
 
+@login_required
 def pay_shift(request, shift_id):
     shift = Shift.objects.get(pk=shift_id)
     userTitle = str(request.user.userprofile.title) # Without str, it's a Role object, gives an error
@@ -178,11 +174,7 @@ def pay_shift(request, shift_id):
         messages.success(request, "You don't have the permission to verify payments")
         return redirect('shifts')
 
-def warning(request, shift_id):
-    shift = Shift.objects.get(pk=shift_id)
-    if shift.verified:
-        messages.success(request, "Shift #" + shift_id + " has been verified and can't be modified anymore")
-
+@login_required
 def shifts_csv(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename=shifts.csv'
@@ -210,6 +202,7 @@ def shifts_csv(request):
 
     return response
 
+@login_required
 def salary(request, user_id):
     user = User.objects.get(pk=user_id)
 
@@ -223,6 +216,7 @@ def salary(request, user_id):
 
     return render(request, 'timesheet/salary.html',{'shifts': shifts, 'salary': salary, 'salariesPerPage': salariesPerPage})
 
+@login_required
 def pay_salary(request, user_id):
     user = User.objects.get(pk=user_id)
     shifts = Shift.objects.filter(studentID=user, verified=True, paid=False).order_by('-date')
@@ -247,7 +241,7 @@ def pay_salary(request, user_id):
 
     return redirect('user-salary-list')
 
-
+@login_required
 def user_salary_list(request):
     users = User.objects.all().exclude(is_superuser=True)
     p = Paginator(users.order_by('-id'), 5)  # filter User's shifts only
@@ -256,6 +250,7 @@ def user_salary_list(request):
 
     return render(request, 'timesheet/user_salary_list.html', {'users': usersPerPage})
 
+@login_required
 def user_timesheets_list(request):
     users = User.objects.filter(userprofile__title=1)
     p = Paginator(users.order_by('-id'), 10)  # filter User's shifts only
@@ -265,12 +260,7 @@ def user_timesheets_list(request):
     return render(request, 'timesheet/user_timesheets_list.html', {'users': usersPerPage})
 
 
-def about(request):
-    return render(request, 'timesheet/about.html', {})
-
-def support(request):
-    return render(request, 'timesheet/support.html', {})
-
+@login_required
 def shifts_of(request, user_id):
     userid = User.objects.get(pk=user_id)
     shifts = Shift.objects.filter(studentID=user_id).order_by('-date')
@@ -289,5 +279,4 @@ def shifts_of(request, user_id):
     # if someone tries to sneak into someone's else timesheet
     else:
         messages.success(request, "You don't have permissions to view this page. Gtfo.")
-
         return redirect('shifts')
