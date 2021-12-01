@@ -13,6 +13,7 @@ urlpatterns = [
     path('verified_shifts', views.verified_shifts, name="verified-shifts"),
 
     path('shifts_csv', views.shifts_csv, name='shift-csv'),
+    path('salaries_csv', views.salaries_csv, name='salaries-csv'),
 
     path('update_shift/<shift_id>', views.update_shift, name='update-shift'),
     path('delete_shift/<shift_id>', views.delete_shift, name='delete-shift'),

@@ -16,14 +16,14 @@
         </div>
         <hr/>
 
-        <h4> Paid Salaries </h4>
+        <h3> Paid Salaries </h3>
+            <center><a class="btn btn-primary" href="{% url 'salaries-csv' %}" role="button">Export CSV</a></center>
             <table class="table table-striped shadow my-4 bg-white square">
                   <thead>
                     <tr>
                         <th scope="col">PaymentID</th>
                         <th scope="col">Date Paid</th>
                         <th scope="col">Amount</th>
-
                     </tr>
                   </thead>
                 {% for salary in salariesPerPage %}

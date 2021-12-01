@@ -203,6 +203,28 @@ def shifts_csv(request):
     return response
 
 @login_required
+def salaries_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=salaries.csv'
+
+    # Create a csv writer
+    writer = csv.writer(response)
+
+    # Designate the Model
+    userid = request.user.id
+    userTitle = str(request.user.userprofile.title) # Without str, it's a Role object, gives an error
+    if userTitle == 'Student':
+        salaries = Salary.objects.filter(studentID=userid).order_by('-date')
+        # Add column heading to the csv file
+        writer.writerow(['SalaryID', 'Date Paid', 'Amount'])
+        # Loop through and output
+        for salary in salaries:
+            writer.writerow(
+                [salary.id, salary.date, salary.amount])
+
+    return response
+
+@login_required
 def salary(request, user_id):
     user = User.objects.get(pk=user_id)
 
