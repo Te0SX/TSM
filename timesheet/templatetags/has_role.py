@@ -6,7 +6,4 @@ register = template.Library()
 @register.filter(name='has_role')
 def has_role(user,role_name):
     userRole = str(user.userprofile.title)
-    if userRole == role_name:
-        return True
-    else:
-        return False
+    return userRole == role_name
