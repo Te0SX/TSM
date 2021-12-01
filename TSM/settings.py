@@ -15,6 +15,7 @@ import django_heroku
 import dj_database_url
 import whitenoise.storage
 from decouple import config
+import socket
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,10 +31,13 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = '!$_darosoet%q8$%-9#arj-=7$9ra$l+t24d(959(tx(uvy=+*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['localhost', ]
-
+# Make an if statement so don't have error 500 for DEBUG each time you run it locally
+if socket.gethostname().endswith('lapitopi'): # True in your local computer
+    DEBUG = True
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+else:
+    DEBUG = False
+    ALLOWED_HOSTS = ['.herokuapp.com']
 
 # Application definition
 
