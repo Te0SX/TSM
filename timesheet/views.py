@@ -35,7 +35,7 @@ def shifts(request):
     if userTitle == 'Student':
         userid = request.user.id
         #Paginator setup
-        p = Paginator(Shift.objects.filter(studentID=userid).order_by('-date'),4)   #filter User's shifts only
+        p = Paginator(Shift.objects.filter(studentID=userid).order_by('-date'),5)   #filter User's shifts only
         page = request.GET.get('page')
         shiftsPerPage = p.get_page(page)
 

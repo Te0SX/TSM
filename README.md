@@ -18,6 +18,7 @@ You can use the web application at: https://ugtms.herokuapp.com/
 To run the project locally run the following commands.
 
 ```
+brew install postgresql (on a Desktop for psycopg2)
 pip install -r requirements.txt
 python manage.py makemigrations
 python manage.py migrate

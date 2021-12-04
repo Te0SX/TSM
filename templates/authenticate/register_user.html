@@ -10,7 +10,7 @@
         <form action="" method=POST>
             {% csrf_token %}
 
-            Username: {{ form.username }} <br><br>
+            StudentID: {{ form.username }} <br><br>
             First Name: {{ form.first_name }}<br><br>
             Last Name: {{ form.last_name }}<br><br>
             Email: {{ form.email }}<br><br>
@@ -18,14 +18,15 @@
             Password Confirmation: {{ form.password2 }}<br>
 
              <br/>
-            <input type="submit" value="Submit" class="btn btn-primary">
+            <center><input type="submit" value="Submit" class="btn btn-primary"></center>
         </form>
     </div>
      <hr/>
+            <div class="container">
             - Password can't be too similar to your other personal information. <br>
             - Password must contain at least 8 characters.<br>
             - Password can't be a commonly used password.<br>
             - Password can't be entirely numeric.<br>
-
+            </div>
 </div>
 {% endblock %}
