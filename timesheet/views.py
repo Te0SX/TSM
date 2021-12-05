@@ -227,16 +227,18 @@ def salaries_csv(request):
 @login_required
 def salary(request, user_id):
     user = User.objects.get(pk=user_id)
+    userTitle = str(request.user.userprofile.title)
+    if request.user == user or userTitle == "Admin":
+        salaries = Salary.objects.filter(studentID=user).order_by('-date')
+        #Paginator for Paid Salaries, to show only # number per page
+        p = Paginator(salaries, 5)  # filter User's shifts only
+        page = request.GET.get('page')
+        salariesPerPage = p.get_page(page)
 
-    shifts = Shift.objects.filter(studentID=user, verified=True, paid=False).order_by('-date')
-    salaries = Salary.objects.filter(studentID=user).order_by('-date')
-
-    #Paginator for Paid Salaries, to show only # number per page
-    p = Paginator(salaries, 5)  # filter User's shifts only
-    page = request.GET.get('page')
-    salariesPerPage = p.get_page(page)
-
-    return render(request, 'timesheet/salary.html',{'shifts': shifts, 'salary': salary, 'salariesPerPage': salariesPerPage})
+        return render(request, 'timesheet/salary.html',{'salariesPerPage': salariesPerPage})
+    else:
+        messages.success(request, "You don't view the salary page for that person")
+        return redirect('home')
 
 @login_required
 def pay_salary(request, user_id):
