@@ -235,7 +235,7 @@ def salary(request, user_id):
         page = request.GET.get('page')
         salariesPerPage = p.get_page(page)
 
-        return render(request, 'timesheet/salary.html',{'salariesPerPage': salariesPerPage})
+        return render(request, 'timesheet/salary.html',{'salariesPerPage': salariesPerPage, 'user': user})
     else:
         messages.success(request, "You don't view the salary page for that person")
         return redirect('home')
@@ -276,7 +276,7 @@ def user_salary_list(request):
 
 @login_required
 def user_timesheets_list(request):
-    users = User.objects.filter(userprofile__title=1)
+    users = User.objects.filter(userprofile__title=1) #Students
     p = Paginator(users.order_by('-id'), 10)  # filter User's shifts only
     page = request.GET.get('page')
     usersPerPage = p.get_page(page)
