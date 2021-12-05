@@ -66,7 +66,7 @@ html {
  /*Carousel */
 /**/
 .carousel-item{
-    height:36rem;
+    height:40rem;
     /*background:#255;*/
     color:white;
     position: relative;
@@ -87,7 +87,7 @@ html {
 /* Container of text */
 .sliderContainer{
     position:absolute;
-    bottom:50px;
+    bottom:100px;
     left:300px;
     right:0;
     padding-bottom:50px;
