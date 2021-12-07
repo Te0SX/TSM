@@ -26,27 +26,27 @@
 {# categories on the left   #}
       <ul class="navbar-nav ml-auto">
         {% if request.user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a></li>
+                <li class="nav-item"><a class="btn btn-primary-nav" aria-current="page" href="{% url 'home' %}">Home</a></li>
             {#  if user is Admin  #}
             {% if request.user.is_superuser %}
-                <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'user-list' %}">Users</a> </li>
-                <li class="nav-item"> <a class="nav-link" aria-current="page" href="{% url 'user-timesheets-list' %}">Timesheets</a> </li>
-                <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'user-salary-list' %}">Salaries</a> </li>
-                <li class="nav-item"> <a class="nav-link" aria-current="page" href="/admin">Admin Panel</a></li>
+                <li class="nav-item"><a class="btn btn-primary-nav" aria-current="page" href="{% url 'user-list' %}">Users</a> </li>
+                <li class="nav-item"> <a class="btn btn-primary-nav" aria-current="page" href="{% url 'user-timesheets-list' %}">Timesheets</a> </li>
+                <li class="nav-item"><a class="btn btn-primary-nav" aria-current="page" href="{% url 'user-salary-list' %}">Salaries</a> </li>
+                <li class="nav-item"> <a class="btn btn-primary-nav" aria-current="page" href="/admin">Admin Panel</a></li>
             {% endif %}
             {#  if user is Student  #}
             {% if request.user|has_role:"Student" %}
-                 <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'shifts' %}">Timesheet</a> </li>
-                 <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'salary' user.id %}">Salary</a></li>
+                 <li class="nav-item"><a class="btn btn-primary-nav" aria-current="page" href="{% url 'shifts' %}">Timesheet</a> </li>
+                 <li class="nav-item"><a class="btn btn-primary-nav" aria-current="page" href="{% url 'salary' user.id %}">Salary</a></li>
             {#  if user is Verifier  #}
             {% elif request.user|has_role:"Verifier"  %}
-                <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'user-timesheets-list' %}">Timesheets</a> </li>
-                <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'shifts' %}">All Shifts</a> </li>
+                <li class="nav-item"><a class="btn btn-primary-nav" aria-current="page" href="{% url 'user-timesheets-list' %}">Timesheets</a> </li>
+                <li class="nav-item"><a class="btn btn-primary-nav" aria-current="page" href="{% url 'shifts' %}">All Shifts</a> </li>
            {#  if user is Payer  #}
             {% elif request.user|has_role:"Payer" %}
-                <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'user-salary-list' %}">User List</a> </li>
+                <li class="nav-item"><a class="btn btn-primary-nav" aria-current="page" href="{% url 'user-salary-list' %}">User List</a> </li>
             {% endif %}
-                    <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'support' %}">Support</a> </li>
+                    <li class="nav-item"><a class="btn btn-primary-nav" aria-current="page" href="{% url 'support' %}">Support</a> </li>
         {% else %}
         {% endif %}
 

@@ -17,7 +17,11 @@
                 <th scope="col">UserID</th>
                 <th scope="col">email</th>
                 <th scope="col">Remaining Amount</th>
+                {% if request.user|has_role:"Payer" %}
                 <th scope="col">Pay</th>
+                {% else %}
+                <th scope="col">Payments</th>
+                {% endif %}
             </tr>
           </thead>
           <tbody>

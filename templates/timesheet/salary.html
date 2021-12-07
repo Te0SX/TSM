@@ -1,13 +1,18 @@
 {% extends 'timesheet/base.html' %}
 {%  load static %}
+{% load has_role %}
 
-{% block title %}Salary | UGTMS{% endblock %}
+{% block title %}Salary of {{ user }} | UGTMS{% endblock %}
 
 {% block content %}
 <center>
 
 <div class="container p-3" style="min-height: 550px;">
-    <h1>Salary</h1>
+    {% if request.user|has_role:"Student" %}
+        <h1>Salary</h1>
+    {% else %}
+        <h1>Salary of {{ user }}</h1>
+    {% endif %}
     <hr/>
     <div class="container-salary-table w-50">
 
