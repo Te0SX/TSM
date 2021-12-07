@@ -25,5 +25,11 @@ urlpatterns = [
     path('user_salary_list', views.user_salary_list, name='user-salary-list'),
 
     path('shifts/<user_id>', views.shifts_of, name='shifts-of'),
-    path('user_timesheets_list', views.user_timesheets_list, name='user-timesheets-list')
+    path('user_timesheets_list', views.user_timesheets_list, name='user-timesheets-list'),
+
+    path('send_message/<user_id>/<shift_id>', views.send_message, name='send-message'),
+    path('read_message/<message_id>', views.read_message, name='read-message'),
+    path('resolve/<message_id>', views.resolve, name='resolve'),
+    path('inbox', views.inbox, name='inbox'),
+
 ]

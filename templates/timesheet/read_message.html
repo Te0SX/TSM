@@ -1,0 +1,41 @@
+{% extends 'timesheet/base.html' %}
+{%  load static %}
+
+{% block title %}Read Message | UGTMS{% endblock %}
+
+{% block content %}
+<div class="container p-3">
+       <center><h1>Message #{{ message.id }}</h1></center>
+       <hr/>
+    <div class="container shadow w-50 p-3 my-5 bg-white rounded">
+        <form action="">
+            {% csrf_token %}
+
+            <div class="input-group">
+              <span class="input-group-text w-25">Sender</span>
+              <text class="form-control" aria-label="With textarea">{{ message.sender }}</text>
+            </div>
+            <div class="input-group">
+              <span class="input-group-text w-25">Message</span>
+              <text class="form-control" aria-label="With textarea">{{ message.sender_role }}</text>
+            </div>
+            <div class="input-group">
+              <span class="input-group-text w-25">Staff</span>
+              <text class="form-control" aria-label="With textarea">{{ message.msg_title }}</text>
+            </div>
+            <div class="input-group">
+              <span class="input-group-text w-25">Message</span>
+              <text class="form-control" aria-label="With textarea">{{ message.msg_content }}</text>
+            </div>
+
+            <hr/>
+            <p>Please go and check the submitted shift that has an issue. When you modify it, you can click the button below
+            to let the Verifier know that he can review it again in order to verify it.</p>
+            <hr/>
+            <center><a class="btn btn-success" href="{% url 'resolve' message.id %}" role="button">Resolve</a></center>
+
+        </form>
+    </div>
+
+</div>
+{% endblock %}

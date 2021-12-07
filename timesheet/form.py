@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm, DateInput
-from .models import Shift
+from .models import Shift, Message
 from tempus_dominus.widgets import DateTimePicker
 from django.contrib.auth.models import User
 
@@ -27,4 +27,12 @@ class ShiftForm(ModelForm):
                 'data-target': '#datetimepicker2'
             })
         }
+
+class MessageForm(ModelForm):
+    msg_content = forms.CharField(max_length=3000)
+
+    class Meta:
+        model = Message
+        exclude = ['sender', 'receiver','sender_role', 'msg_title']
+        field = ('msg_content')
 
