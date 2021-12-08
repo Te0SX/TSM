@@ -1,5 +1,6 @@
 {% extends 'timesheet/base.html' %}
 {%  load static %}
+{% load has_role %}
 
 {% block title %}Read Message | UGTMS{% endblock %}
 
@@ -27,13 +28,13 @@
               <span class="input-group-text w-25">Message</span>
               <text class="form-control" aria-label="With textarea">{{ message.msg_content }}</text>
             </div>
-
+            {% if request.user|has_role:"Student" %}
             <hr/>
             <p>Please go and check the submitted shift that has an issue. When you modify it, you can click the button below
             to let the Verifier know that he can review it again in order to verify it.</p>
             <hr/>
             <center><a class="btn btn-success" href="{% url 'resolve' message.id %}" role="button">Resolve</a></center>
-
+            {% endif %}
         </form>
     </div>
 

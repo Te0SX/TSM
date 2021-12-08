@@ -9,6 +9,9 @@ import csv
 from .models import Shift, Salary, Message
 from .form import ShiftForm, MessageForm
 
+from members.models import UserProfile
+from members.form import changeInboxNotification
+
 #import Pegination stuff
 from django.core.paginator import Paginator
 
@@ -308,6 +311,7 @@ def shifts_of(request, user_id):
 @login_required
 def send_message(request, user_id, shift_id):
     receiver = User.objects.get(pk=user_id)
+    userSelected, created = UserProfile.objects.get_or_create(user=user_id)
     senderRole = str(request.user.userprofile.title)
     title =  str('Ticket for Shift #' + shift_id)
     form = MessageForm(request.POST)
@@ -321,6 +325,9 @@ def send_message(request, user_id, shift_id):
             messages.success(request, "Message sent successfully")
             message.notification = True
             message.save()
+            userSelected.inboxNotification = True
+            userSelected.save()
+
             return redirect('home')
         else:
             messages.success(request, "Message form wasn't filled successfully")
@@ -355,6 +362,10 @@ def inbox(request):
     p = Paginator(messages, 5)  # filter User's shifts only
     page = request.GET.get('page')
     messagesPerPage = p.get_page(page)
+
+    if userTitle == 'Student':
+        request.user.userprofile.inboxNotification = False
+        request.user.userprofile.save()
 
     return render(request, 'timesheet/inbox.html', {'messagesPerPage': messagesPerPage})
 

@@ -54,7 +54,6 @@ class Message(models.Model):
     msg_content = models.CharField("Content of message", max_length=3000)
     sender_role = models.CharField("Role of Sender", max_length=50)
     date = models.DateTimeField('Date added', auto_now_add=True)
-    notification = models.BooleanField(default=True)
     read = models.BooleanField(default=False)
     resolved =  models.BooleanField(default=False)
 
