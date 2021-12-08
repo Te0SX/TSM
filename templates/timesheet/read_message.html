@@ -15,18 +15,18 @@
             <div class="input-group">
               <span class="input-group-text w-25">Sender</span>
               <text class="form-control" aria-label="With textarea">{{ message.sender }}</text>
-            </div>
+            </div> <br>
             <div class="input-group">
-              <span class="input-group-text w-25">Message</span>
+              <span class="input-group-text w-25">Receiver</span>
               <text class="form-control" aria-label="With textarea">{{ message.sender_role }}</text>
-            </div>
+            </div> <br>
             <div class="input-group">
               <span class="input-group-text w-25">Staff</span>
               <text class="form-control" aria-label="With textarea">{{ message.msg_title }}</text>
-            </div>
+            </div> <br>
             <div class="input-group">
               <span class="input-group-text w-25">Message</span>
-              <text class="form-control" aria-label="With textarea">{{ message.msg_content }}</text>
+                <textarea disabled cols="34" rows="3" name="content">{{ message.msg_content }}</textarea>
             </div>
             {% if request.user|has_role:"Student" %}
             <hr/>

@@ -29,10 +29,9 @@ class ShiftForm(ModelForm):
         }
 
 class MessageForm(ModelForm):
-    msg_content = forms.CharField(max_length=3000)
 
     class Meta:
         model = Message
-        exclude = ['sender', 'receiver','sender_role', 'msg_title']
-        field = ('msg_content')
+        exclude = ['sender', 'receiver','sender_role', 'msg_title', 'msg_content']
+        field = ()
 

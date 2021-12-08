@@ -4,20 +4,38 @@
 
 {% block content %}
 <div class="container shadow w-50 p-3 mb-5 my-5 bg-white rounded" >
+    <center><h1>Register a New User </h1></center>
+    <hr>
     <div class="container w-75 bg-white rounded" >
-            <center><h1>Register a new user </h1></center>
-        <br>
         <form action="" method=POST>
             {% csrf_token %}
-
-            StudentID: {{ form.username }} <br><br>
-            First Name: {{ form.first_name }}<br><br>
-            Last Name: {{ form.last_name }}<br><br>
-            Email: {{ form.email }}<br><br>
-            Password: {{ form.password1 }}<br><br>
-            Password Confirmation: {{ form.password2 }}<br>
-
-             <br/>
+            <div class="container">
+                <div class="row" >
+                  <div class="col col-lg-4"> StudentID:</div>
+                  <div class="col col-lg-2">{{ form.username }}</div>
+                </div> <hr>
+                <div class="row" >
+                  <div class="col col-lg-4"> First Name:</div>
+                  <div class="col col-lg-2">{{ form.first_name }}</div>
+                </div><hr>
+                <div class="row" >
+                  <div class="col col-lg-4"> Last Name:</div>
+                  <div class="col col-lg-2">{{ form.last_name }}</div>
+                </div><hr>
+                <div class="row" >
+                  <div class="col col-lg-4"> Email:</div>
+                  <div class="col col-lg-2">{{ form.email }}</div>
+                </div><hr>
+                <div class="row" >
+                  <div class="col col-lg-4"> Password*:</div>
+                  <div class="col col-lg-2">{{ form.password1 }}</div>
+                </div><hr>
+                <div class="row" >
+                  <div class="col col-lg-4"> Password**:</div>
+                  <div class="col col-lg-2">{{ form.password2 }}</div>
+                </div>
+            </div>
+             <hr/>
             <center><input type="submit" value="Submit" class="btn btn-primary"></center>
         </form>
     </div>

@@ -323,6 +323,7 @@ def send_message(request, user_id, shift_id):
             message.sender_role = str(senderRole)
             messages.success(request, "Message sent successfully")
             message.notification = True
+            message.msg_content = request.POST['content']
             message.save()
             userSelected.inboxNotification = True
             userSelected.save()
@@ -375,9 +376,9 @@ def inbox(request):
     page = request.GET.get('page')
     messagesPerPage = p.get_page(page)
 
-    if userTitle == 'Student':
-        request.user.userprofile.inboxNotification = False
-        request.user.userprofile.save()
+    #Delete the notification for inbox icon to change back to normal
+    request.user.userprofile.inboxNotification = False
+    request.user.userprofile.save()
 
     return render(request, 'timesheet/inbox.html', {'messagesPerPage': messagesPerPage})
 
@@ -387,6 +388,12 @@ def resolve(request, message_id):
     if request.user == message.receiver or request.user.is_superuser:
         message.resolved = True
         message.save()
+        sender = message.sender
+        #Notification back to Verifier or Admin
+        userSelected, created = UserProfile.objects.get_or_create(user=sender)
+        userSelected.inboxNotification = True
+        userSelected.save()
+
         messages.success(request, "Issue with Message #" + message_id + " resolved!")
 
     return redirect('inbox')

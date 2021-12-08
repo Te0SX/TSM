@@ -11,14 +11,25 @@
 
         <form action="" method=POST>
             {% csrf_token %}
-            Sender: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ user }}" disabled> <br/> <br/>
-            Receiver: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ receiver }}" disabled> <br/> <br/>
-            Title: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ title }}" disabled> <br/> <br/>
-            Message: {{ form.msg_content }}
 
-            </script>
+            <div class="input-group">
+              <span class="input-group-text w-25">Sender</span>
+              <text class="form-control" aria-label="With textarea">{{ user }}</text>
+            </div> <br>
+            <div class="input-group">
+              <span class="input-group-text w-25">Receiver</span>
+              <text class="form-control" aria-label="With textarea">{{ receiver }}</text>
+            </div> <br>
+            <div class="input-group">
+              <span class="input-group-text w-25">Title</span>
+              <text class="form-control" aria-label="With textarea">{{ title }}</text>
+            </div> <br>
+            <div class="input-group">
+                <span class="input-group-text w-25">Message</span>
+                <textarea class="form-control z-depth-1" cols="36" rows="3" name="content" placeholder="Type your message..."></textarea>
+            </div>
 
-            <br/>
+            <hr>
             <center><input type="submit" value="Submit" class="btn btn-primary"></center>
 
         </form>
