@@ -34,6 +34,9 @@
             to let the Verifier know that he can review it again in order to verify it.</p>
             <hr/>
             <center><a class="btn btn-success" href="{% url 'resolve' message.id %}" role="button">Resolve</a></center>
+            {% else %}
+            <hr>
+            <center><a class="btn btn-danger" href="{% url 'delete-message' message.id %}" role="button">Delete</a></center>
             {% endif %}
         </form>
     </div>

@@ -10,7 +10,6 @@ from .models import Shift, Salary, Message
 from .form import ShiftForm, MessageForm
 
 from members.models import UserProfile
-from members.form import changeInboxNotification
 
 #import Pegination stuff
 from django.core.paginator import Paginator
@@ -349,6 +348,19 @@ def read_message(request, message_id):
     return render(request, 'timesheet/read_message.html', {'form': form, 'message':message})
 
 @login_required
+def delete_message(request, message_id):
+    message = Message.objects.get(pk=message_id)
+    userTitle = str(request.user.userprofile.title)
+    if userTitle == 'Verifier' or userTitle == 'Admin':
+        message.delete()
+        messages.success(request, "Message #" + message_id +" deleted successfully")
+    else:
+        messages.success(request, "You don't have permission to delete #" + message_id +". Don't be sneaky!!!")
+
+    return redirect('inbox')
+
+
+@login_required
 def inbox(request):
     userTitle = str(request.user.userprofile.title)
     if userTitle == 'Student' or userTitle == 'Payer' or userTitle == 'Graduate':
@@ -372,9 +384,10 @@ def inbox(request):
 @login_required
 def resolve(request, message_id):
     message = Message.objects.get(pk=message_id)
-    message.resolved = True
-    message.save()
-    messages.success(request, "Issue with Message #" + message_id + " resolved!")
+    if request.user == message.receiver or request.user.is_superuser:
+        message.resolved = True
+        message.save()
+        messages.success(request, "Issue with Message #" + message_id + " resolved!")
 
     return redirect('inbox')
 
