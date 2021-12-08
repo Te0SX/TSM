@@ -1,0 +1,39 @@
+{% extends 'timesheet/base.html' %}
+{%  load static %}
+
+{% block title %}Send Message to {{ receiver }} | UGTMS{% endblock %}
+
+{% block content %}
+<div class="container p-3">
+       <center><h1>New Message</h1></center>
+       <hr/>
+    <div class="container shadow w-50 p-3 mb-5 my-5 bg-white rounded">
+
+        <form action="" method=POST>
+            {% csrf_token %}
+
+            <div class="input-group">
+              <span class="input-group-text w-25">Sender</span>
+              <text class="form-control" aria-label="With textarea">{{ user }}</text>
+            </div> <br>
+            <div class="input-group">
+              <span class="input-group-text w-25">Receiver</span>
+              <text class="form-control" aria-label="With textarea">{{ receiver }}</text>
+            </div> <br>
+            <div class="input-group">
+              <span class="input-group-text w-25">Title</span>
+              <text class="form-control" aria-label="With textarea">{{ title }}</text>
+            </div> <br>
+            <div class="input-group">
+                <span class="input-group-text w-25">Message</span>
+                <textarea class="form-control z-depth-1" cols="36" rows="3" name="content" placeholder="Type your message..."></textarea>
+            </div>
+
+            <hr>
+            <center><input type="submit" value="Submit" class="btn btn-primary"></center>
+
+        </form>
+    </div>
+
+</div>
+{% endblock %}

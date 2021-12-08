@@ -6,8 +6,10 @@ from datetime import datetime
 from django.http import HttpResponseRedirect, HttpResponse
 import csv
 
-from .models import Shift, Salary
-from .form import ShiftForm
+from .models import Shift, Salary, Message
+from .form import ShiftForm, MessageForm
+
+from members.models import UserProfile
 
 #import Pegination stuff
 from django.core.paginator import Paginator
@@ -292,7 +294,7 @@ def shifts_of(request, user_id):
     # Students view
     if userTitle == 'Verifier' or userTitle == 'Admin':
         # Paginator setup
-        p = Paginator(shifts, 4)  # filter User's shifts only
+        p = Paginator(shifts, 5)  # filter User's shifts only
         page = request.GET.get('page')
         shiftsPerPage = p.get_page(page)
 
@@ -304,3 +306,95 @@ def shifts_of(request, user_id):
     else:
         messages.success(request, "You don't have permissions to view this page. Gtfo.")
         return redirect('shifts')
+
+@login_required
+def send_message(request, user_id, shift_id):
+    receiver = User.objects.get(pk=user_id)
+    userSelected, created = UserProfile.objects.get_or_create(user=user_id)
+    senderRole = str(request.user.userprofile.title)
+    title =  str('Ticket for Shift #' + shift_id)
+    form = MessageForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.sender = request.user  # Save the sender instantly without input in the form
+            message.receiver = receiver
+            message.msg_title = title
+            message.sender_role = str(senderRole)
+            messages.success(request, "Message sent successfully")
+            message.notification = True
+            message.msg_content = request.POST['content']
+            message.save()
+            userSelected.inboxNotification = True
+            userSelected.save()
+
+            return redirect('home')
+        else:
+            messages.success(request, "Message form wasn't filled successfully")
+            return redirect('home')
+    else:
+        form = MessageForm
+
+    return render(request, 'timesheet/send_message.html', {'form': form, 'receiver': receiver, 'title': title})
+
+@login_required
+def read_message(request, message_id):
+    message = Message.objects.get(pk=message_id)
+    form = MessageForm(instance=message)
+    userTitle = str(request.user.userprofile.title)
+    if userTitle == "Student":
+        message.read = True
+        message.save()
+
+    return render(request, 'timesheet/read_message.html', {'form': form, 'message':message})
+
+@login_required
+def delete_message(request, message_id):
+    message = Message.objects.get(pk=message_id)
+    userTitle = str(request.user.userprofile.title)
+    if userTitle == 'Verifier' or userTitle == 'Admin':
+        message.delete()
+        messages.success(request, "Message #" + message_id +" deleted successfully")
+    else:
+        messages.success(request, "You don't have permission to delete #" + message_id +". Don't be sneaky!!!")
+
+    return redirect('inbox')
+
+
+@login_required
+def inbox(request):
+    userTitle = str(request.user.userprofile.title)
+    if userTitle == 'Student' or userTitle == 'Payer' or userTitle == 'Graduate':
+        userid = request.user.id
+        messages = Message.objects.filter(receiver=userid).order_by("-date")
+
+    elif userTitle == 'Verifier' or userTitle == 'Admin':
+        messages = Message.objects.all().order_by('-date')
+
+    # Paginator setup
+    p = Paginator(messages, 5)  # filter User's shifts only
+    page = request.GET.get('page')
+    messagesPerPage = p.get_page(page)
+
+    #Delete the notification for inbox icon to change back to normal
+    request.user.userprofile.inboxNotification = False
+    request.user.userprofile.save()
+
+    return render(request, 'timesheet/inbox.html', {'messagesPerPage': messagesPerPage})
+
+@login_required
+def resolve(request, message_id):
+    message = Message.objects.get(pk=message_id)
+    if request.user == message.receiver or request.user.is_superuser:
+        message.resolved = True
+        message.save()
+        sender = message.sender
+        #Notification back to Verifier or Admin
+        userSelected, created = UserProfile.objects.get_or_create(user=sender)
+        userSelected.inboxNotification = True
+        userSelected.save()
+
+        messages.success(request, "Issue with Message #" + message_id + " resolved!")
+
+    return redirect('inbox')
+

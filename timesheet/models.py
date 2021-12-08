@@ -46,3 +46,16 @@ class Salary(models.Model):
 
     def __int__(self):
         return self.amount
+
+class Message(models.Model):
+    sender = models.ForeignKey(User, related_name="sender", on_delete=models.CASCADE)
+    receiver = models.ForeignKey(User, related_name="receiver", on_delete=models.CASCADE)
+    msg_title = models.CharField("Title", max_length=50)
+    msg_content = models.CharField("Content of message", max_length=3000)
+    sender_role = models.CharField("Role of Sender", max_length=50)
+    date = models.DateTimeField('Date added', auto_now_add=True)
+    read = models.BooleanField(default=False)
+    resolved =  models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.receiver)

@@ -1,0 +1,45 @@
+{% extends 'timesheet/base.html' %}
+{%  load static %}
+{% load has_role %}
+
+{% block title %}Read Message | UGTMS{% endblock %}
+
+{% block content %}
+<div class="container p-3">
+       <center><h1>Message #{{ message.id }}</h1></center>
+       <hr/>
+    <div class="container shadow w-50 p-3 my-5 bg-white rounded">
+        <form action="">
+            {% csrf_token %}
+
+            <div class="input-group">
+              <span class="input-group-text w-25">Sender</span>
+              <text class="form-control" aria-label="With textarea">{{ message.sender }}</text>
+            </div> <br>
+            <div class="input-group">
+              <span class="input-group-text w-25">Receiver</span>
+              <text class="form-control" aria-label="With textarea">{{ message.sender_role }}</text>
+            </div> <br>
+            <div class="input-group">
+              <span class="input-group-text w-25">Staff</span>
+              <text class="form-control" aria-label="With textarea">{{ message.msg_title }}</text>
+            </div> <br>
+            <div class="input-group">
+              <span class="input-group-text w-25">Message</span>
+                <textarea disabled cols="34" rows="3" name="content">{{ message.msg_content }}</textarea>
+            </div>
+            {% if request.user|has_role:"Student" %}
+            <hr/>
+            <p>Please go and check the submitted shift that has an issue. When you modify it, you can click the button below
+            to let the Verifier know that he can review it again in order to verify it.</p>
+            <hr/>
+            <center><a class="btn btn-success" href="{% url 'resolve' message.id %}" role="button">Resolve</a></center>
+            {% else %}
+            <hr>
+            <center><a class="btn btn-danger" href="{% url 'delete-message' message.id %}" role="button">Delete</a></center>
+            {% endif %}
+        </form>
+    </div>
+
+</div>
+{% endblock %}

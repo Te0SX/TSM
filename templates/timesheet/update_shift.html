@@ -4,22 +4,33 @@
 
 {% block content %}
 <div class="container shadow w-50 p-3 mb-5 my-5 bg-white rounded" >
-    <div class="container w-50 my-3 bg-white rounded" >
-        </center><h1>Update Shift #{{ shift.id }}</h1></center>
-        <br/>
+    <center><h1>Update Shift #{{ shift.id }}</h1></center>
+    <hr/>
+    <div class="container w-75 bg-white rounded" >
         <form action="" method=POST>
+
             {% csrf_token %}
 
-            StudentID: <input class="col-xs-2" id="disabledInput" type="text" placeholder="{{ user }}" disabled> <br/> <br/>
-            Role of the shift {{ form.role }} <br/> <br/>
-            <label for="disabledTextInput" class="form-label">Start of Shift</label>
-            <div class="col-xs-2">{{  form.startHour }}</div> <br/>
+            <div class="container">
+                <div class="row" >
+                  <div class="col col-lg-4"> StudentID:</div>
+                 <div class="col col-lg-4"> {{ user }}</div>
+                </div> <hr>
+                <div class="row" >
+                  <div class="col col-lg-4"> Role:</div>
+                  <div class="col col-lg-2">{{ form.role }}</div>
+                </div><hr>
+                 <label for="disabledTextInput" class="form-label">Start of Shift</label>
+                <div class="col-xs-2">{{  form.startHour }}</div>
+                <hr>
+                <label for="disabledTextInput" class="form-label">End of the Shift</label>
+                <div class="col-xs-2">{{  form.endHour }}</div>
+            </div>
 
-            <label for="disabledTextInput" class="form-label">End of the Shift</label>
-            <div class="col-xs-2">{{  form.endHour }}</div> <br/>
+            <hr/>
             <center>
-                <input type="submit" value="Submit" class="btn btn-primary">
                 <a class="btn btn-danger" href="{% url 'delete-shift' shift.id %}" role="button">Delete</a>
+                <input type="submit" value="Submit" class="btn btn-primary">
             </center>
         </form>
     </div>

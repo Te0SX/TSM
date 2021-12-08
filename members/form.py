@@ -16,7 +16,8 @@ class RegisterUserForm(UserCreationForm):
 
 # Admin profile view
 class UserForm(ModelForm):
-
+    title = forms.Select()
+    phone = forms.CharField(max_length=50)
     class Meta:
         model = UserProfile
         exclude = ['user', 'salary',]         # Will be taken from the request
