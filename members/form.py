@@ -41,6 +41,10 @@ class UserFormUpdate(ModelForm):
         labels = {
             'phone': 'phone number',
             }
+        widgets = {
+            'phone': forms.TextInput(attrs={'placeholder': 'Mobile number', 'box-shadow': 'red'}),
+
+        }
 
 class UserProfileUpdate(forms.ModelForm):
     email = forms.EmailField()
@@ -51,6 +55,10 @@ class UserProfileUpdate(forms.ModelForm):
         model = User
         exclude = ('password1', 'password2')
         fields = ('first_name', 'last_name', 'email')
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'formclass'}),
+
+        }
 
 
 class UserPasswordUpdate(UserCreationForm):

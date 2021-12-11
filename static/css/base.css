@@ -157,11 +157,11 @@ h1{
     text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);;
 }
 h2 {
-    color: #093a63;
+    color: #014e6c;
 }
 
 h3,h4 {
-    color: #0c518b;
+    color: #014e6c;
 }
 
 p {
@@ -176,3 +176,44 @@ p-amount{
 tr{
     text-align: left;
 }
+
+/*Form is the default of the input boxes*/
+.form-control{
+    background-color: white;
+    border: 1px solid rgba(136, 136, 136, 0.25);
+    box-shadow: 0 0 0 0.1rem rgba(141, 141, 141, 0.55);
+}
+
+.form-control:focus {
+    /*background-color: rgba(234, 236, 239, 0.69);*/
+    border: 1px solid rgb(0, 127, 244, 1);
+    box-shadow: 0 0 0 0.2rem rgb(0, 127, 244, 0.45);
+}
+
+#messageTitles{
+    border: 1px solid rgba(136, 136, 136, 0.25);
+    box-shadow: 0 0 0 0.1rem rgba(141, 141, 141, 0.55);
+    background-color: #014e6c;
+    color: white;
+}
+
+#formReadOnly {
+    background-color: #eaecef;
+
+}
+
+.container-readonly{
+    border: 1px solid rgb(158, 117, 178, 1);
+}
+
+#aligncenter {
+    width: 75%;
+    text-align: center;
+}
+#cleanColumn{
+    box-shadow: none;
+    background-color: white;
+    border-color: white;
+}
+
+/*Based on form-control, for the boxes that is readonly*/

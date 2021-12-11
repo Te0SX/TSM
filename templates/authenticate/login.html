@@ -6,26 +6,30 @@
 </head>
     {% block content %}
     <br>
-    <div class="container shadow w-50 p-3 my-5 bg-white rounded">
+    <div class="container shadow w-50 p-3 my-5 bg-white rounded" >
         <center><h1>Login</h1></center>
         <hr>
-    <div class="container w-75 bg-white rounded">
-        <form action="" method=POST>
-            {% csrf_token %}
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">StudentID</label>
-            <input type="text" class="form-control" name="username" aria-describedby="emailHelp">
-          </div>
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" name="password">
-          </div>
+        <div class="container w-75 bg-white rounded">
+            <div class="container w-75 bg-white rounded">
+                <form action="" method=POST>
+                    {% csrf_token %}
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Username</label>
+                    <input type="text" class="form-control" name="username" placeholder="StudentID" >
+                  </div>
+                    <hr/>
+                  <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" placeholder="******">
+                  </div>
 
-          <center><input type="submit" value="Submit" class="btn btn-primary"></center>
-        </form>
+                  <center><input type="submit" value="Submit" class="btn btn-primary"></center>
+                </form>
+            </div>
         <hr class="my-4">
+        - The login credentials are keys sensitive.<br/>
         - For any issue, <a href="{% url 'support' %}"> contact us.</a>
-    </div>
+        </div>
     </div>
     <br>
     {% endblock %}

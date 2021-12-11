@@ -6,28 +6,29 @@
 
 {% block content %}
 <div class="container p-3">
-       <center><h1>Message #{{ message.id }}</h1></center>
-       <hr/>
     <div class="container shadow w-50 p-3 my-5 bg-white rounded">
+        <center><h1>Message #{{ message.id }}</h1></center>
+       <hr/>
         <form action="">
             {% csrf_token %}
-
-            <div class="input-group">
-              <span class="input-group-text w-25">Sender</span>
-              <text class="form-control" aria-label="With textarea">{{ message.sender }}</text>
+            <center>
+            <div class="input-group w-75">
+              <span class="input-group-text w-25" id="messageTitles">Sender</span>
+              <text class="form-control " id="formReadOnly" aria-label="With textarea" >{{ message.sender }}</text>
             </div> <br>
-            <div class="input-group">
-              <span class="input-group-text w-25">Staff Role</span>
-              <text class="form-control" aria-label="With textarea">{{ message.sender_role }}</text>
+            <div class="input-group w-75">
+              <span class="input-group-text w-25" id="messageTitles">Staff Role</span>
+              <text class="form-control" id="formReadOnly" aria-label="With textarea">{{ message.sender_role }}</text>
             </div> <br>
-            <div class="input-group">
-              <span class="input-group-text w-25">Staff</span>
-              <text class="form-control" aria-label="With textarea">{{ message.msg_title }}</text>
+            <div class="input-group w-75">
+              <span class="input-group-text w-25" id="messageTitles">Title</span>
+              <text class="form-control" id="formReadOnly" aria-label="With textarea">{{ message.msg_title }}</text>
             </div> <br>
-            <div class="input-group">
-              <span class="input-group-text w-25">Message</span>
-                <textarea disabled cols="34" rows="3" name="content">{{ message.msg_content }}</textarea>
+            <div class="input-group w-75">
+              <span class="input-group-text w-25" id="messageTitles">Message</span>
+                <textarea readonly class="form-control" cols="25" rows="3">{{ message.msg_content }}</textarea>
             </div>
+
             {% if request.user|has_role:"Student" %}
             <hr/>
             <p>Please go and check the submitted shift that has an issue. When you modify it, you can click the button below
@@ -38,6 +39,7 @@
             <hr>
             <center><a class="btn btn-danger" href="{% url 'delete-message' message.id %}" role="button">Delete</a></center>
             {% endif %}
+            </center>
         </form>
     </div>
 

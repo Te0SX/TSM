@@ -1,5 +1,6 @@
 {% extends 'timesheet/base.html' %}
 
+{% load widget_tweaks %}
 {% block title %}Register User | UGTMS{% endblock %}
 
 {% block content %}
@@ -11,28 +12,28 @@
             {% csrf_token %}
             <div class="container">
                 <div class="row" >
-                  <div class="col col-lg-4"> StudentID:</div>
-                  <div class="col col-lg-2">{{ form.username }}</div>
+                  <div class="col col-lg-4"> Username:</div>
+                  <div class="col col-lg-7">{% render_field form.username class="form-control" placeholder="StudentID" %}</div>
                 </div> <hr>
                 <div class="row" >
                   <div class="col col-lg-4"> First Name:</div>
-                  <div class="col col-lg-2">{{ form.first_name }}</div>
+                  <div class="col col-lg-7">{% render_field form.first_name class="form-control" placeholder="First Name" %}</div>
                 </div><hr>
                 <div class="row" >
                   <div class="col col-lg-4"> Last Name:</div>
-                  <div class="col col-lg-2">{{ form.last_name }}</div>
+                  <div class="col col-lg-7">{% render_field form.last_name class="form-control" placeholder="Last Name" %}</div>
                 </div><hr>
                 <div class="row" >
                   <div class="col col-lg-4"> Email:</div>
-                  <div class="col col-lg-2">{{ form.email }}</div>
+                  <div class="col col-lg-7">{% render_field form.email class="form-control" placeholder="Email" %}</div>
                 </div><hr>
                 <div class="row" >
                   <div class="col col-lg-4"> Password:</div>
-                  <div class="col col-lg-2">{{ form.password1 }}</div>
+                  <div class="col col-lg-7">{% render_field form.password1 class="form-control" placeholder="Password" %}</div>
                 </div><hr>
                 <div class="row" >
                   <div class="col col-lg-4"> Password*:</div>
-                  <div class="col col-lg-2">{{ form.password2 }}</div>
+                  <div class="col col-lg-7">{% render_field form.password2 class="form-control" placeholder="Confirm Password" %}</div>
                 </div>
             </div>
              <hr/>

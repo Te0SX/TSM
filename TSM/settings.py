@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'members',
     'tempus_dominus',
     'django_extensions',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

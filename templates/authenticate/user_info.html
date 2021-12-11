@@ -1,4 +1,5 @@
 {% extends 'timesheet/base.html' %}
+{% load widget_tweaks %}
 
 {% block title %}Role of {{ user.user }} | UGTMS{% endblock %}
 
@@ -13,20 +14,20 @@
 
             <div class="container">
                 <div class="row" >
-                  <div class="col col-lg-4"> StudentID:</div>
-                 <div class="col col-lg-4"> {{ user.user }}</div>
+                 <div class="col col-lg-4"> StudentID:</div>
+                 <div class="col col-lg-6"><input class="form-control" id="formReadOnly" value={{ user.user }} readonly></div>
                 </div> <hr>
                 <div class="row" >
                   <div class="col col-lg-4"> First Name:</div>
-                  <div class="col col-lg-2">{{ user.user.first_name }}</div>
+                  <div class="col col-lg-6"><input class="form-control" id="formReadOnly" value={{ user.user.first_name }} readonly></div>
                 </div><hr>
                 <div class="row" >
-                  <div class="col col-lg-4"> Role:</div>
-                  <div class="col col-lg-2">{{ form.title }}</div>
+                  <div class="col col-lg-4"> User Role:</div>
+                  <div class="col col-lg-7">{% render_field form.title class="form-control" %}</div>
                 </div><hr>
                 <div class="row" >
                   <div class="col col-lg-4"> Phone:</div>
-                  <div class="col col-lg-2">{{ form.phone }}</div>
+                  <div class="col col-lg-7">{% render_field form.phone class="form-control" placeholder="Phone Number" %}</div>
                 </div><hr>
             </div>
             <br/>
