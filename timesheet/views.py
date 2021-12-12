@@ -150,7 +150,7 @@ def verify_shift(request, shift_id):
         return redirect('shifts-of', shift.studentID.id)
     elif userTitle == 'Payer' or isAdmin:
         messages.success(request, "You don't have the permission to verify shifts")
-        return redirect('all-shifts')
+        return redirect('home')
     else:
         messages.success(request, "You don't have the permission to verify shifts")
         return redirect('shifts')
@@ -386,15 +386,20 @@ def inbox(request):
 def resolve(request, message_id):
     message = Message.objects.get(pk=message_id)
     if request.user == message.receiver or request.user.is_superuser:
-        message.resolved = True
-        message.save()
-        sender = message.sender
-        #Notification back to Verifier or Admin
-        userSelected, created = UserProfile.objects.get_or_create(user=sender)
-        userSelected.inboxNotification = True
-        userSelected.save()
+        if message.resolved == False:
+            message.resolved = True
+            message.save()
+            sender = message.sender
+            #Notification back to Verifier or Admin
+            userSelected, created = UserProfile.objects.get_or_create(user=sender)
+            userSelected.inboxNotification = True
+            userSelected.save()
 
-        messages.success(request, "Issue with Message #" + message_id + " resolved!")
+            messages.success(request, "Issue with Message #" + message_id + " resolved!")
+        else:
+            messages.success(request, "This issue has been already resolved. Wait for the Verifier to review it.")
+    else:
+        messages.success(request, "You have permission to resolve that issue.")
 
     return redirect('inbox')
 

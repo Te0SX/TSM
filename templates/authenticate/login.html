@@ -14,16 +14,16 @@
                 <form action="" method=POST>
                     {% csrf_token %}
                   <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">StudentID</label>
-                    <input type="text" class="form-control" name="username" placeholder="" >
+                    <label for="exampleInputEmail1" class="form-label">Username</label>
+                    <input type="text" class="form-control" name="username" placeholder="StudentID" >
                   </div>
-                    <hr/>
+{#                    <hr/>#}
                   <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" name="password" placeholder="">
+                    <input type="password" class="form-control" name="password" placeholder="******">
                   </div>
-
-                  <center><input type="submit" value="Submit" class="btn btn-primary"></center>
+                    <hr/>
+                  <center><input type="submit" value="Log In" class="btn btn-primary"></center>
                 </form>
             </div>
         <hr class="my-4">
