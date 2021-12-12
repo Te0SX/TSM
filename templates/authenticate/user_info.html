@@ -4,33 +4,29 @@
 {% block title %}Role of {{ user.user }} | UGTMS{% endblock %}
 
 {% block content %}
-<div class="container shadow w-50 p-3 mb-5 my-5 bg-white rounded" >
+<div class="container shadow w-50 p-3 mb-5 my-5 bg-white rounded">
    <center> <h1>Update Role</h1></center>
     <hr>
     <div class="container w-75 bg-white rounded" >
 
         <form action="" method=POST>
             {% csrf_token %}
-
-            <div class="container">
-                <div class="row" >
-                 <div class="col col-lg-4"> StudentID:</div>
-                 <div class="col col-lg-6"><input class="form-control" id="formReadOnly" value={{ user.user }} readonly></div>
-                </div> <hr>
-                <div class="row" >
-                  <div class="col col-lg-4"> First Name:</div>
-                  <div class="col col-lg-6"><input class="form-control" id="formReadOnly" value={{ user.user.first_name }} readonly></div>
-                </div><hr>
-                <div class="row" >
-                  <div class="col col-lg-4"> User Role:</div>
-                  <div class="col col-lg-7">{% render_field form.title class="form-control" %}</div>
-                </div><hr>
-                <div class="row" >
-                  <div class="col col-lg-4"> Phone:</div>
-                  <div class="col col-lg-7">{% render_field form.phone class="form-control" placeholder="Phone Number" %}</div>
-                </div><hr>
-            </div>
-            <br/>
+            <div class="row" >
+              <div class="col col-lg-4 align-self-center">StudentID:</div>
+              <div class="col col-lg-6"><input class="form-control" id="formReadOnly" value={{ user.user }} readonly></div>
+            </div> <hr>
+            <div class="row" >
+              <div class="col col-lg-4 align-self-center">First Name:</div>
+              <div class="col col-lg-6"><input class="form-control" id="formReadOnly" value={{ user.user.first_name }} readonly></div>
+            </div> <hr>
+            <div class="row" >
+              <div class="col col-lg-4 align-self-center">User Role:</div>
+              <div class="col col-lg-6">{% render_field form.title class="form-control" %}</div>
+            </div> <hr>
+            <div class="row" >
+              <div class="col col-lg-4 align-self-center">Phone:</div>
+              <div class="col col-lg-6">{% render_field form.phone class="form-control" placeholder="Phone Number" %}</div>
+            </div> <hr>
             <center><input type="submit" value="Update" class="btn btn-primary"></center>
 
         </form>

@@ -189,6 +189,10 @@ tr{
     border: 1px solid rgb(0, 127, 244, 1);
     box-shadow: 0 0 0 0.2rem rgb(0, 127, 244, 0.45);
 }
+.form-control:active {
+    border: 1px solid rgb(0, 127, 244, 1);
+    box-shadow: 0 0 0 0.2rem rgb(0, 127, 244, 0.45);
+}
 
 #messageTitles{
     border: 1px solid rgba(136, 136, 136, 0.25);
@@ -199,7 +203,11 @@ tr{
 
 #formReadOnly {
     background-color: #eaecef;
+}
 
+#formReadOnlyCenter {
+    text-align: center;
+    background-color: #eaecef;
 }
 
 .container-readonly{
@@ -207,13 +215,16 @@ tr{
 }
 
 #aligncenter {
-    width: 75%;
     text-align: center;
 }
 #cleanColumn{
     box-shadow: none;
     background-color: white;
     border-color: white;
+}
+
+#MessageContent{
+    width: 60%;
 }
 
 /*Based on form-control, for the boxes that is readonly*/

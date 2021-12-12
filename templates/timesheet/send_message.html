@@ -4,29 +4,30 @@
 {% block title %}Send Message to {{ receiver }} | UGTMS{% endblock %}
 
 {% block content %}
-<div class="container p-3">
-    <div class="container shadow w-50 p-3 mb-5 my-5 bg-white rounded">
-        <center><h1>New Message</h1></center>
-       <hr/>
+<div class="container shadow w-50 p-3 mb-5 my-5 bg-white rounded">
+    <center><h1>New Message</h1></center>
+   <hr/>
+    <div class="container w-75 bg-white rounded" >
         <form action="" method=POST>
             {% csrf_token %}
             <center>
-            <div class="input-group w-75">
-              <span class="input-group-text w-25" id="messageTitles">Sender</span>
-              <text class="form-control" id="formReadOnly" aria-label="With textarea">{{ user }}</text>
-            </div> <br>
-            <div class="input-group w-75">
-              <span class="input-group-text w-25" id="messageTitles">Receiver</span>
-              <text class="form-control" id="formReadOnly" aria-label="With textarea">{{ receiver }}</text>
-            </div> <br>
-            <div class="input-group w-75">
-              <span class="input-group-text w-25" id="messageTitles">Title</span>
-              <text class="form-control" id="formReadOnly"  aria-label="With textarea">{{ title }}</text>
-            </div> <br>
-            <div class="input-group w-75">
-                <span class="input-group-text w-25" id="messageTitles">Message</span>
-                <textarea class="form-control z-depth-1" cols="36" rows="3" name="content" placeholder="Type your message..."></textarea>
+            <div class="row" >
+              <div class="col col-lg-4 align-self-center">Sender:</div>
+              <div class="col col-lg-6"><input class="form-control" id="formReadOnly" value={{ user }} readonly></div>
+            </div> <hr>
+            <div class="row" >
+              <div class="col col-lg-4 align-self-center">Staff Role:</div>
+              <div class="col col-lg-6"><input class="form-control" id="formReadOnly" value={{ receiver }} readonly></div>
+            </div> <hr>
+            <div class="row" >
+              <div class="col col-lg-4 align-self-center">Title:</div>
+              <div class="col col-lg-6 align-left"><div class="form-control text-left" id="formReadOnly">{{ title }}</div></div>
+            </div> <hr>
+            <div class="row" >
+              <div class="col col-lg-4 align-self-center">Message:</div>
+              <textarea class="form-control" cols="35" rows="3" name="content" id="MessageContent" placeholder="Type your message..."></textarea>
             </div>
+
             </center>
             <hr>
             <center><input type="submit" value="Submit" class="btn btn-primary"></center>

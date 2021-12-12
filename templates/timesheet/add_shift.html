@@ -1,5 +1,6 @@
 {% extends 'timesheet/base.html' %}
 {%  load static %}
+{%  load widget_tweaks %}
 
 {% block title %}Add Shift | UGTMS{% endblock %}
 
@@ -13,14 +14,13 @@
         <form action="" method=POST>
             {% csrf_token %}
 
-            <div class="container">
                 <div class="row" >
-                  <div class="col col-lg-4"> StudentID:</div>
-                 <div class="col col-lg-4"> {{ user }}</div>
+                  <div class="col col-lg-4 align-self-center">StudentID:</div>
+                  <div class="col col-lg-6"><input class="form-control" id="formReadOnly" value={{ user }} readonly></div>
                 </div> <hr>
                 <div class="row" >
-                  <div class="col col-lg-4"> Role:</div>
-                  <div class="col col-lg-2">{{ form.role }}</div>
+                  <div class="col col-lg-4 align-self-center"> Role:</div>
+                  <div class="col col-lg-6">{% render_field form.role class="form-control" %}</div>
                 </div><hr>
 
     {#        startHour box with calendar picker #}
@@ -34,6 +34,7 @@
 
                 <hr/>
                 {#        endHour box with calendar picker #}
+
                 <label for="disabledTextInput" class="form-label">End Time:</label>
                 <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
                     <div class="col-xs-2 ">{{  form.endHour }}</div>
@@ -43,7 +44,6 @@
                 </div>
                 <hr/>
 
-            </div>
             <script>
               $(function () {
                 $("#datetimepicker1").datetimepicker({
@@ -58,10 +58,9 @@
 
             <center><input type="submit" value="Submit" class="btn btn-primary"></center>
             {{ form.non_field_errors }}
-
+            <hr/>
         </form>
         </div>
-        <hr/>
         <div class="container">
             - You can modify entries in case of a mistake.<br>
             - Shift won't get verified in case of wrong details.<br>

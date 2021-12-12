@@ -6,51 +6,48 @@
 
 {% block content %}
 
-<div class="container p-3">
+<div class="container shadow w-50 p-3 mb-5 my-5 bg-white rounded">
+    <center><h1>Profile of {{ userid }}</h1></center>
+    <hr/>
+    <div class="container w-75 bg-white rounded" >
 
-
-    <div class="container shadow w-50 p-3 my-5 bg-white rounded">
-        <center><h1>Profile of {{ userid }}</h1></center>
-        <hr/>
         <form action="" method=POST>
             {% csrf_token %}
-            <center>
-            <div class="input-group w-75">
-                <span class="input-group-text w-25" id="messageTitles">StudentID:</span>
-                <text class="form-control " id="formReadOnly" aria-label="With textarea" >{{ userid.username }}</text>
-            </div> <br/>
-            <div class="input-group w-75">
-                <span class="input-group-text w-25" id="messageTitles">User Role</span>
-                <text class="form-control " id="formReadOnly" aria-label="With textarea" >{{ userid.userprofile.title }}</text>
-            </div> <br/>
-            <div class="input-group w-75">
-                <span class="input-group-text w-25" id="messageTitles">First Name</span>
-                {% render_field form.first_name class="form-control" id='aligncenter'  placeholder="First Name" %}
-            </div> <br/>
-            <div class="input-group w-75">
-                <span class="input-group-text w-25" id="messageTitles">Last Name</span>
-                {% render_field form.last_name class="form-control" id='aligncenter' placeholder="Last Name" %}
-            </div> <br/>
-            <div class="input-group w-75">
-                <span class="input-group-text w-25" id="messageTitles">Email</span>
-                {% render_field form.email class="form-control" id='aligncenter' placeholder="Email Address" %}
-            </div> <br/>
-            <div class="input-group w-75">
-                <span class="input-group-text w-25" id="messageTitles">Phone</span>
-                {% render_field profileForm.phone class="form-control" id='aligncenter' placeholder="Phone Number" %}
+            <div class="row" >
+              <div class="col col-lg-4 align-self-center">StudentID:</div>
+              <div class="col col-lg-6"><input class="form-control" id="formReadOnly" value={{ userid.username }} readonly></div>
             </div> <hr>
-            </center>
+            <div class="row" >
+              <div class="col col-lg-4 align-self-center">User Role:</div>
+              <div class="col col-lg-6"><input class="form-control" id="formReadOnly" value={{ userid.userprofile.title }} readonly></div>
+            </div><hr>
+            <div class="row" >
+              <div class="col col-lg-4 align-self-center">First Name:</div>
+              <div class="col col-lg-6">{% render_field form.first_name class="form-control" placeholder="First Name" %}</div>
+            </div><hr>
+            <div class="row" >
+               <div class="col col-lg-4 align-self-center">Last Name:</div>
+              <div class="col col-lg-6">{% render_field form.last_name class="form-control" placeholder="Last Name" %}</div>
+            </div><hr>
+            <div class="row" >
+               <div class="col col-lg-4 align-self-center">Email:</div>
+              <div class="col col-lg-6">{% render_field form.email class="form-control"  placeholder="Email Address" %}</div>
+            </div><hr>
+            <div class="row" >
+               <div class="col col-lg-4 align-self-center">Phone</div>
+              <div class="col col-lg-6">{% render_field profileForm.phone class="form-control" placeholder="Phone Number" %}</div>
+            </div><hr>
+
          <div class="text-center">
         {% if request.user|has_role:"Student" %}
             <a class="btn btn-warning" href="{% url 'user-password' userid.id %}" role="button">Change Password</a>
         {% endif %}
-        <input type="submit" value="Update Profile" class="btn btn-success">
+        <input type="submit" value="Update Profile" class="btn btn-primary">
 
         </div>
+        </form>
     </div>
 
-    </form>
-</div>
 </div>
 
 

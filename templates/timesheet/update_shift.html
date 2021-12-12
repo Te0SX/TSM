@@ -1,5 +1,5 @@
 {% extends 'timesheet/base.html' %}
-
+{% load widget_tweaks %}
 {% block title %}Update Shift | UGTMS{% endblock %}
 
 {% block content %}
@@ -13,18 +13,22 @@
 
             <div class="container">
                 <div class="row" >
-                  <div class="col col-lg-4"> StudentID:</div>
-                 <div class="col col-lg-4"> {{ user }}</div>
+                  <div class="col col-lg-4 align-self-center">StudentID:</div>
+                  <div class="col col-lg-7"><input class="form-control" id="formReadOnly" value={{ user }} readonly></div>
                 </div> <hr>
                 <div class="row" >
-                  <div class="col col-lg-4"> Role:</div>
-                  <div class="col col-lg-2">{{ form.role }}</div>
+                  <div class="col col-lg-4 align-self-center"> Role:</div>
+                  <div class="col col-lg-7">{% render_field form.role class="form-control" %}</div>
                 </div><hr>
-                 <label for="disabledTextInput" class="form-label">Start of Shift</label>
-                <div class="col-xs-2">{{  form.startHour }}</div>
+                <div class="row" >
+                   <div class="col col-lg-4 align-self-center"> Start of Shift:</div>
+                   <div class="col-lg-7">{{  form.startHour }}</div>
+                </div>
                 <hr>
-                <label for="disabledTextInput" class="form-label">End of the Shift</label>
-                <div class="col-xs-2">{{  form.endHour }}</div>
+                <div class="row" >
+                    <div class="col col-lg-4 align-self-center">End of Shift:</div>
+                    <div class="col-lg-7">{{  form.endHour }}</div>
+                </div>
             </div>
 
             <hr/>
