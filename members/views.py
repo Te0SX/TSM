@@ -17,7 +17,7 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             user = User.objects.get(pk=user.id)
-            if user.userprofile.title:
+            if user.userprofile.title or user.is_superuser:
                 login(request, user)
                 messages.success(request, ("Welcome back " + user.first_name ))
                 return redirect('home')  # Redirect to a success page.

@@ -37,3 +37,14 @@ userSelected, created = UserProfile.objects.get_or_create(user=userSelected)
 ```
 
 then go to Admin Panel and add the User Roles available and you're ready to go.
+
+---
+
+Commands for heroku, after making the necessary changes to the code. https://devcenter.heroku.com/articles/django-app-configuration
+```
+heroku create
+heroku rename yourname
+heroku config:set SECRET_KEY='*****'
+git push heroku master or git push heroku yourbranch:master
+heroku run bash 
+```
