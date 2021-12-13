@@ -29,7 +29,20 @@ class UserForm(ModelForm):
         widgets = {
             # 'studentID': forms.Select(attrs={'class':'form-select'}),
             'title': forms.Select(attrs={'class':'form-select'}),
+        }
 
+class UserRoleForm(ModelForm):
+    title = forms.Select()
+    class Meta:
+        model = UserProfile
+        exclude = ['user', 'salary', 'phone']         # Will be taken from the request
+        fields = ('title',)
+        labels = {
+            'title': 'Type of member',
+            }
+        widgets = {
+            # 'studentID': forms.Select(attrs={'class':'form-select'}),
+            'title': forms.Select(attrs={'class':'form-select'}),
         }
 
 # User's profile view

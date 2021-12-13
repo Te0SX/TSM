@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.core.paginator import Paginator
-from .form import RegisterUserForm, UserForm, UserFormUpdate, UserProfileUpdate, UserPasswordUpdate
+from .form import RegisterUserForm, UserForm, UserFormUpdate, UserProfileUpdate, UserPasswordUpdate, UserRoleForm
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 from members.models import UserProfile
@@ -16,19 +16,23 @@ def login_user(request):
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request, user)
             user = User.objects.get(pk=user.id)
-            messages.success(request, ("Welcome back " + user.first_name ))
-            return redirect('home')             # Redirect to a success page.
+            if user.userprofile.title:
+                login(request, user)
+                messages.success(request, ("Welcome back " + user.first_name ))
+                return redirect('home')  # Redirect to a success page.
+            else:
+                messages.success(request, ("Contact staff, you need to be given a role in order to use the site" ))
+                return redirect('login')  # Redirect to a success page.
         else:
-            messages.success(request,("There was an error login in, try again"))
+            messages.success(request,("There was an error logging, try again"))
             return redirect('login')  # Redirect to a success page.
     else:
         return render(request, 'authenticate/login.html', {})
 
 def logout_user(request):
     logout(request)
-    messages.success(request, ("Logout successfully"))
+    messages.success(request, ("Logged Out Successfully"))
     return redirect('login')
 
 @login_required
@@ -41,7 +45,7 @@ def register_user(request):
             password = form.cleaned_data['password1']
             user = authenticate(username=username,password=password)
             new_profile, created = UserProfile.objects.get_or_create(user=user)
-            messages.success(request,("Registration successful."))
+            messages.success(request,("Registration successful. Don't forget to give the user a role."))
             return redirect('user-info', user.id)
 
         else:
@@ -67,11 +71,23 @@ def user_info(request, user_id):
     if form.is_valid():
         form.save()
         userSelected.save()
-        messages.success(request, "User's profile has been updated")
+        messages.success(request, "Profile has been updated")
         return redirect('user-list')
 
-
     return render(request, 'authenticate/user_info.html', {'user': userSelected, 'form': form})
+
+@login_required
+def user_role(request, user_id):
+    userSelected = User.objects.get(pk=user_id)
+    userSelected, created = UserProfile.objects.get_or_create(user=userSelected)
+    form = UserRoleForm(request.POST or None, instance=userSelected)
+    if form.is_valid():
+        form.save()
+        userSelected.save()
+        messages.success(request, "Profile has been updated")
+        return redirect('user-list')
+
+    return render(request, 'authenticate/user_role.html', {'user': userSelected, 'form': form})
 
 # User's view of update profile
 @login_required

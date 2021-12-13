@@ -11,5 +11,6 @@ urlpatterns = [
 
     path('user_list',views.user_list, name='user-list'),
     path('user_info/<user_id>', views.user_info, name='user-info'),
+    path('user_role/<user_id>', views.user_role, name='user-role'),
 
 ]

@@ -61,6 +61,32 @@ def verified_shifts(request):
     return render(request, 'timesheet/verified_shifts.html', {'shifts': shifts})
 
 @login_required
+def shifts_of(request, user_id):
+    userid = User.objects.get(pk=user_id)
+    shifts = Shift.objects.filter(studentID=user_id).order_by('-date')
+    userTitle = str(request.user.userprofile.title)
+    # Students view
+    if userTitle == 'Verifier' or userTitle == 'Admin':
+        # Notification for Verifier, turns to False when he enters someone updated timesheet
+        if userTitle == 'Verifier':
+            userSelected, created = UserProfile.objects.get_or_create(user=userid)
+            userSelected.addedToTimesheet = False
+            userSelected.save()
+        # Paginator setup
+        p = Paginator(shifts, 5)  # filter User's shifts only
+        page = request.GET.get('page')
+        shiftsPerPage = p.get_page(page)
+
+        return render(request, 'timesheet/shifts_of.html', {
+            'shiftsPerPage': shiftsPerPage,
+            'user': userid,
+        })
+    # if someone tries to sneak into someone's else timesheet
+    else:
+        messages.success(request, "You don't have permissions to view this page. Gtfo.")
+        return redirect('shifts')
+
+@login_required
 def add_shift(request):
     userTitle = str(request.user.userprofile.title) # Without str, it's a Role object, gives an error
     form = ShiftForm(request.POST)
@@ -71,6 +97,10 @@ def add_shift(request):
                 currentShift.studentID = request.user       # Save the studentID instantly without input in the form
                 currentShift.save()
                 messages.success(request, "Shift added successfully")
+                # Notification for Verifier to his list for updated timesheet
+                userSelected, created = UserProfile.objects.get_or_create(user=request.user)
+                userSelected.addedToTimesheet = True
+                userSelected.save()
                 return HttpResponseRedirect('shifts')
             else:
                 messages.success(request, "Start of the Shift is not earlier than the End of the Shift. Try again.")
@@ -284,28 +314,6 @@ def user_timesheets_list(request):
     usersPerPage = p.get_page(page)
 
     return render(request, 'timesheet/user_timesheets_list.html', {'users': usersPerPage})
-
-
-@login_required
-def shifts_of(request, user_id):
-    userid = User.objects.get(pk=user_id)
-    shifts = Shift.objects.filter(studentID=user_id).order_by('-date')
-    userTitle = str(request.user.userprofile.title)
-    # Students view
-    if userTitle == 'Verifier' or userTitle == 'Admin':
-        # Paginator setup
-        p = Paginator(shifts, 5)  # filter User's shifts only
-        page = request.GET.get('page')
-        shiftsPerPage = p.get_page(page)
-
-        return render(request, 'timesheet/shifts_of.html', {
-            'shiftsPerPage': shiftsPerPage,
-            'user': userid,
-        })
-    # if someone tries to sneak into someone's else timesheet
-    else:
-        messages.success(request, "You don't have permissions to view this page. Gtfo.")
-        return redirect('shifts')
 
 @login_required
 def send_message(request, user_id, shift_id):
