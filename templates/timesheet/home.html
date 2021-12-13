@@ -18,7 +18,7 @@
                 <h1-car>UGTMS</h1-car>
                 <p-car>Welcome to the University of Glasgow Timesheet Management Service. </p-car>
                 {% if request.user.is_authenticated %}
-                    <a href="{% url 'logout' %}" class="btn btn-lg btn-carousel">Logout</a>
+                    <a href="{% url 'logout' %}" class="btn btn-lg btn-carousel">Log Out</a>
                 {% else %}
                     <a href="{% url 'login' %}" class="btn btn-lg btn-carousel">Log In</a>
                 {% endif %}

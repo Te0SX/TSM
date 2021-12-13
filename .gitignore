@@ -6,3 +6,4 @@ db.sqlite3
 .idea
 *.key
 .env
+.DS_Store
