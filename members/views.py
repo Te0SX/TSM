@@ -25,8 +25,8 @@ def login_user(request):
                 messages.success(request, ("Contact staff, you need to be given a role in order to use the site" ))
                 return redirect('login')  # Redirect to a success page.
         else:
-            messages.success(request,("There was an error logging, try again"))
-            return redirect('login')  # Redirect to a success page.
+            messages.success(request,("There was an error trying to log in, try again"))
+            return redirect('login-again', username)  # Redirect to a success page.
     else:
         return render(request, 'authenticate/login.html', {})
 
@@ -129,7 +129,8 @@ def user_password(request,user_id):
                 user = form.save()
                 messages.success(request, ("Password updated successfully"))
             else:
-                messages.success(request, ("form isn't valid"))
+                messages.success(request, ("There was a mistake, please try again after reading the password requirements."))
+                return redirect('user-password', user_id)
             # Redirect user based on if the user is Student or Admin
             if request.user.is_superuser:
                 return redirect('user-list')
@@ -140,3 +141,24 @@ def user_password(request,user_id):
         messages.success(request, "You don't have permission to visit that page")
         return redirect('home')
     return render(request, 'authenticate/user_password.html', {'form': form, 'userid': userid})
+
+# A quick way to keep the same username on input if a user fail to write password correctly
+def login_user_again(request, username):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            user = User.objects.get(pk=user.id)
+            if user.userprofile.title or user.is_superuser:
+                login(request, user)
+                messages.success(request, ("Welcome back " + user.first_name ))
+                return redirect('home')  # Redirect to a success page.
+            else:
+                messages.success(request, ("Contact staff, you need to be given a role in order to use the site" ))
+                return redirect('login')  # Redirect to a success page.
+        else:
+            messages.success(request,("There was an error trying to log in, try again"))
+            return redirect('login-again', username)  # Redirect to a success page.
+    else:
+        return render(request, 'authenticate/login-again.html', {"username":username})
