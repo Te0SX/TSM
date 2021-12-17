@@ -3,13 +3,14 @@
     padding: 1rem 2rem
     }
 .btn-primary{
-    background-color: #00648b;
+    background-color: #00597c;
     border-color: #093a63;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
 }
 .btn-primary:hover {
     background-color: #007ff4;
-    border-color: #007ff4;
+    border-color: #00529d;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
     color: #fff;
 }
 
