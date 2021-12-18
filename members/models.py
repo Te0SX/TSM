@@ -19,7 +19,7 @@ class UserRoles(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE) #if user is deleted the profile will be deleted as well,but if profile is deleted , user won’t be deleted
-    phone = models.CharField(max_length=100, null=True, blank=True)
+    phone = models.CharField(max_length=15, null=True, blank=True)
     title = models.ForeignKey(UserRoles, null=True, on_delete=models.SET_NULL) #Student, Verifier, FinancialGuy
     salary = models.FloatField(default=0)
     inboxNotification = models.BooleanField(default=False)

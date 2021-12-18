@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.forms import ModelForm, DateInput
 from .models import UserRoles, UserProfile
 
-
+#Registering Form layout
 class RegisterUserForm(UserCreationForm):
     email = forms.EmailField()
     first_name = forms.CharField(max_length=50)
@@ -14,7 +14,7 @@ class RegisterUserForm(UserCreationForm):
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
 
-# Admin profile view
+# Admin User Role profile view when registering
 class UserForm(ModelForm):
     title = forms.Select()
     phone = forms.CharField(max_length=50)
@@ -31,6 +31,7 @@ class UserForm(ModelForm):
             'title': forms.Select(attrs={'class':'form-select'}),
         }
 
+#Form for the Role of a user
 class UserRoleForm(ModelForm):
     title = forms.Select()
     class Meta:
@@ -45,7 +46,7 @@ class UserRoleForm(ModelForm):
             'title': forms.Select(attrs={'class':'form-select'}),
         }
 
-# User's profile view
+# User's phone update, to include this to the User Profile with other details.
 class UserFormUpdate(ModelForm):
     class Meta:
         model = UserProfile
@@ -59,6 +60,7 @@ class UserFormUpdate(ModelForm):
 
         }
 
+# User's Profile view, with all details to be instanced and able to beupdated.
 class UserProfileUpdate(forms.ModelForm):
     email = forms.EmailField()
     first_name = forms.CharField(max_length=50)
@@ -73,7 +75,7 @@ class UserProfileUpdate(forms.ModelForm):
 
         }
 
-
+# Form for the Update Password view, where only password can change for a user.
 class UserPasswordUpdate(UserCreationForm):
     class Meta:
         model = User

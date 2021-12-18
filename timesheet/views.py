@@ -96,7 +96,7 @@ def add_shift(request):
                 currentShift = form.save(commit=False)
                 currentShift.studentID = request.user       # Save the studentID instantly without input in the form
                 currentShift.save()
-                messages.success(request, "Shift added successfully")
+                messages.success(request, "Shift was added successfully")
                 # Notification for Verifier to his list for updated timesheet
                 userSelected, created = UserProfile.objects.get_or_create(user=request.user)
                 userSelected.addedToTimesheet = True
