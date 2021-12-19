@@ -10,7 +10,6 @@ urlpatterns = [
     path('shifts', views.shifts, name="shifts"),
     path('all_shifts', views.shifts, name="all-shifts"),
     path('add_shift', views.add_shift, name="add-shift"),
-    path('verified_shifts', views.verified_shifts, name="verified-shifts"),
 
     path('shifts_csv', views.shifts_csv, name='shift-csv'),
     path('salaries_csv', views.salaries_csv, name='salaries-csv'),

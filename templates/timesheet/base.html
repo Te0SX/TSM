@@ -34,8 +34,10 @@
     </title>
   </head>
   <body>
-
+    {#  Navbar  #}
     {% include 'timesheet/navbar.html' %}
+
+    {#  Notification pop up Message  #}
     <div class="container">
         {% if messages %}
             <br/>
@@ -47,9 +49,11 @@
         {% endif %}
     </div>
 
+    {# block of contect from each timesheet that extends base  #}
     {% block content %}
     {% endblock %}
 
+    {# footer #}
     {% include 'timesheet/footer.html' %}
   </body>
 </html>

@@ -7,8 +7,8 @@ from .models import UserRoles, UserProfile
 #Registering Form layout
 class RegisterUserForm(UserCreationForm):
     email = forms.EmailField()
-    first_name = forms.CharField(max_length=50)
-    last_name = forms.CharField(max_length=50)
+    first_name = forms.CharField(max_length=20)
+    last_name = forms.CharField(max_length=20)
 
     class Meta:
         model = User
@@ -17,7 +17,7 @@ class RegisterUserForm(UserCreationForm):
 # Admin User Role profile view when registering
 class UserForm(ModelForm):
     title = forms.Select()
-    phone = forms.CharField(max_length=50)
+    phone = forms.CharField(max_length=13)
     class Meta:
         model = UserProfile
         exclude = ['user', 'salary',]         # Will be taken from the request
@@ -63,8 +63,8 @@ class UserFormUpdate(ModelForm):
 # User's Profile view, with all details to be instanced and able to beupdated.
 class UserProfileUpdate(forms.ModelForm):
     email = forms.EmailField()
-    first_name = forms.CharField(max_length=50)
-    last_name = forms.CharField(max_length=50)
+    first_name = forms.CharField(max_length=20)
+    last_name = forms.CharField(max_length=20)
 
     class Meta:
         model = User

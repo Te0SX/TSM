@@ -1,3 +1,6 @@
+# ------------------ Theodoros Vrakas -------------- #
+# -------------------------------------------------- #
+# ------------------ Import modules ---------------- #
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
@@ -8,6 +11,9 @@ from .form import RegisterUserForm, UserForm, UserFormUpdate, UserProfileUpdate,
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 from members.models import UserProfile
+
+# -------------------------------------------------- #
+# ------------------ Main Body --------------------- #
 
 # Logic behind the login page
 def login_user(request):
@@ -140,28 +146,33 @@ def user_profile(request, user_id):
             else:
                 login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                 return redirect('user-profile', user_id)
+    # if someone else try to access this profile
     else:
-        messages.success(request, "You don't have permission to view other users informations")
+        messages.success(request, "You don't have permission to view other users information")
         return redirect('home')
 
     return render(request, 'authenticate/user_profile.html', {'form': form, 'profileForm': profileForm, 'userid': userid})
 
 @login_required
 def user_password(request,user_id):
+    # select the specific user object with id == user_id
     userid = User.objects.get(pk=user_id)
+    # if active user owns the profile or the user is admin, the has access to the profile
     if request.user == userid or request.user.is_superuser:
         form = UserPasswordUpdate(request.POST or None, instance=userid)
         if request.method == "POST":
+            # if password form typed successfully
             if form.is_valid():
                 user = form.save()
-                messages.success(request, ("Password updated successfully"))
+                messages.success(request, "Password updated successfully")
             else:
-                messages.success(request, ("There was a mistake, please try again after reading the password requirements."))
+                messages.success(request, "There was a mistake, please try again after reading the password requirements.")
                 return redirect('user-password', user_id)
             # Redirect user based on if the user is Student or Admin
             if request.user.is_superuser:
                 return redirect('user-list')
             else:
+                #if user changes his own password the system authenticates user again with new credentials
                 login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                 return redirect('user-profile', user_id)
     else:
@@ -177,10 +188,12 @@ def login_user_again(request, username):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             user = User.objects.get(pk=user.id)
+            # if user has a user role or user is admin, log in
             if user.userprofile.title or user.is_superuser:
                 login(request, user)
                 messages.success(request, ("Welcome back " + user.first_name ))
-                return redirect('home')  # Redirect to a success page.
+                return redirect('home')  # Redirect home
+            # if not, then this user needs a user role
             else:
                 messages.success(request, ("Contact staff, you need to be given a role in order to use the site" ))
                 return redirect('login')  # Redirect to a success page.
@@ -188,4 +201,6 @@ def login_user_again(request, username):
             messages.success(request,("There was an error trying to log in, try again"))
             return redirect('login-again', username)  # Redirect to a success page.
     else:
+        # Load the duplicate template, but this time loaad the username the user typed the last time,
+        # so he has to enter only a password
         return render(request, 'authenticate/login-again.html', {"username":username})

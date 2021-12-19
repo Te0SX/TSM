@@ -5,8 +5,7 @@ from tempus_dominus.widgets import DateTimePicker
 from django.contrib.auth.models import User
 
 
-# Create a Shift form
-
+# Add a Shift to Timesheet
 class ShiftForm(ModelForm):
 
     class Meta:
@@ -28,6 +27,7 @@ class ShiftForm(ModelForm):
             })
         }
 
+# Message form
 class MessageForm(ModelForm):
 
     class Meta:
