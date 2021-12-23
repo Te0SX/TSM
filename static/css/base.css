@@ -229,3 +229,7 @@ tr{
 }
 
 /*Based on form-control, for the boxes that is readonly*/
+
+#mainlinks {
+    color: #007ff4;
+}
