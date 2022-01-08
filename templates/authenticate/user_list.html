@@ -5,8 +5,8 @@
 
 {% block content %}
 <div class="container p-3" style="min-height: 500px;">
-    <center>
-        <h1>Users List</h1>
+
+    <h1>Users List</h1>
       <hr/>
     <form action="" method=POST>
         {% csrf_token %}
@@ -97,6 +97,5 @@
         {% endif %}
       </ul>
     </nav>
-    </center>
 </div>
 {% endblock %}

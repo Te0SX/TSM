@@ -5,15 +5,15 @@
 {% block title %}Salary of {{ user }} | UGTMS{% endblock %}
 
 {% block content %}
-<center>
 
-<div class="container p-3" style="min-height: 550px;">
+<div class="container p-3 " style="min-height: 550px; text-align: center;">
     {% if request.user|has_role:"Student" %}
         <h1>Salary</h1>
     {% else %}
         <h1>Salary of {{ user }}</h1>
     {% endif %}
     <hr/>
+    <center>
     <div class="container-salary-table w-50">
 
         <div class="container shadow p-3 mb-5 my-5 bg-white rounded font-weight-bold">
@@ -46,7 +46,7 @@
                 {% endfor %}
             </table>
     </div>
-
+    </center>
     <!--Show number of pages> -->
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
@@ -70,5 +70,4 @@
       </ul>
     </nav>
 </div>
-</center>
 {% endblock %}
