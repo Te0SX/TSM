@@ -4,13 +4,12 @@
 {% block title %}Salaries | UGTMS{% endblock %}
 
 {% block content %}
-<center>
 <div class="container p-3" style="min-height: 500px;">
     <h1>Salaries</h1>
     <hr/>
     <form action="" method=POST>
         {% csrf_token %}
-
+    <div class="container w-75">
         <table class="table table-striped shadow my-4 bg-white">
           <thead>
             <tr>
@@ -31,7 +30,7 @@
                     <td>{{ user.email }} </td>
                     <td>{{ user.userprofile.salary }}</td>
                     {% if request.user|has_role:"Payer" %}
-                        <td align="center">
+                        <td>
                             <a href="{% url 'pay-salary' user.id %}">
                                 {% if user.userprofile.salary > 0 %}
                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="green" class="bi bi-credit-card" viewBox="0 0 16 16">
@@ -68,7 +67,7 @@
             </tr>
           </tbody>
         </table>
-
+    </div>
     </form>
 <!--Show number of pages> -->
    <nav aria-label="Page navigation example">
@@ -93,5 +92,4 @@
       </ul>
     </nav>
 </div>
-</center>
 {% endblock %}

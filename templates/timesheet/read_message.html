@@ -9,7 +9,6 @@
      <h1>Message #{{ message.id }}</h1>
      <hr/>
     <div class="container w-75 bg-white rounded" >
-
         <form action="">
             {% csrf_token %}
             <div class="row" >
@@ -33,10 +32,14 @@
             <p>- Please go and check the submitted shift that has an issue. When you modify it, you can click the button below
             to let the Verifier know that it can be reviewed again.</p>
             <hr/>
-            <center><a class="btn btn-primary" href="{% url 'resolve' message.id %}" role="button">Resolve</a></center>
+            <div class="buttonCenter">
+                <a class="btn btn-primary" href="{% url 'resolve' message.id %}" role="button">Resolve</a>
+            </div>
             {% else %}
             <hr>
-            <center><a class="btn btn-danger" href="{% url 'delete-message' message.id %}" role="button">Delete</a></center>
+            <div class="buttonCenter">
+                <a class="btn btn-danger" href="{% url 'delete-message' message.id %}" role="button">Delete</a>
+            </div>
             {% endif %}
         </form>
     </div>

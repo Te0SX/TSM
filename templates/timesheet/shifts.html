@@ -8,8 +8,9 @@
 <div class="container p-3" style="min-height: 500px;">
     <h1>Timesheet</h1>
    <hr/>
+    <div class="buttonCenter">
        <a class="btn btn-primary " href="{% url 'add-shift' %}" role="button">Add Shift</a> <a class="btn btn-primary" href="{% url 'shift-csv' %}" role="button">Export CSV</a>
-
+    </div>
     {# timesheet table #}
     <table class="table table-striped shadow my-4 bg-white">
       <thead>
@@ -49,7 +50,7 @@
                         <td>
                         {{ shift.payment }}
                         </td>
-                        <td align="center">
+                        <td class="td-center">
                             <a href="{% url 'update-shift' shift.id %}">
                                 {% if shift.verified %}
                                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="grey" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -62,7 +63,7 @@
                                 {% endif %}
                             </a>
                         </td>
-                        <td align="center">
+                        <td class="td-center">
                             <a href="{% url 'verify-shift' shift.id %}">
                                 {% if shift.verified %}
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#007ff4" class="bi bi-file-earmark-check" viewBox="0 0 16 16">
@@ -77,7 +78,7 @@
                                 {% endif %}
                             </a>
                         </td>
-                        <td align="center">
+                        <td class="td-center">
                             <a href="{% url 'pay-shift' shift.id %}">
                                 {% if shift.paid %}
                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="green" class="bi bi-credit-card" viewBox="0 0 16 16">

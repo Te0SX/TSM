@@ -1,12 +1,72 @@
+/* General */
+
+.container-salary-table{
+    text-align: center;
+}
+
+.alert {
+    text-align: center;
+}
+
+h1{
+    text-align: center;
+    color: #00648b;
+    text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);;
+}
+h2 {
+    text-align: center;
+    color: #014e6c;
+}
+
+h3,h4 {
+    text-align: center;
+    color: #014e6c;
+}
+
+p {
+    color: #093a63;
+}
+
+p-amount{
+    text-align: center;
+    color: #014e6c;
+    font-size: 24px;
+}
+
+containerCenter{
+    text-align: center;
+}
+
+tr{
+    text-align: left;
+}
+
+.container-readonly{
+    border: 1px solid rgb(158, 117, 178, 1);
+}
+
+/* table */
+.td-center {
+    text-align: center;
+}
+
+.col-lg-4 {
+    text-align: center;
+}
 /*buttons*/
+.buttonCenter {
+    text-align: center;
+}
 .btn-xl {
     padding: 1rem 2rem
-    }
+}
+
 .btn-primary{
     background-color: #00597c;
     border-color: #093a63;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
 }
+
 .btn-primary:hover {
     background-color: #007ff4;
     border-color: #00529d;
@@ -149,37 +209,6 @@ p-car:after{
 
 /* end of carousel*/
 
-/*body {*/
-/*    background-color: transparent;*/
-/*}*/
-
-h1{
-    text-align: center;
-    color: #00648b;
-    text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);;
-}
-h2 {
-    text-align: center;
-    color: #014e6c;
-}
-
-h3,h4 {
-    color: #014e6c;
-}
-
-p {
-    color: #093a63;
-}
-
-p-amount{
-    color: #014e6c;
-    font-size: 24px;
-}
-
-tr{
-    text-align: left;
-}
-
 /*Form is the default of the input boxes*/
 .form-control{
     background-color: white;
@@ -197,6 +226,7 @@ tr{
     box-shadow: 0 0 0 0.2rem rgb(0, 127, 244, 0.45);
 }
 
+/* Specific ID ones*/
 #messageTitles{
     border: 1px solid rgba(136, 136, 136, 0.25);
     box-shadow: 0 0 0 0.1rem rgba(141, 141, 141, 0.55);
@@ -211,10 +241,6 @@ tr{
 #formReadOnlyCenter {
     text-align: center;
     background-color: #eaecef;
-}
-
-.container-readonly{
-    border: 1px solid rgb(158, 117, 178, 1);
 }
 
 #aligncenter {

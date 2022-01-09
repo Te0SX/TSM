@@ -10,7 +10,7 @@
     <div class="container w-75 bg-white rounded" >
         <form action="" method=POST>
             {% csrf_token %}
-            <center>
+
             <div class="row" >
               <div class="col col-lg-4 align-self-center">Sender:</div>
               <div class="col col-lg-6"><input class="form-control" id="formReadOnly" value={{ user }} readonly></div>
@@ -28,10 +28,11 @@
               <textarea class="form-control" cols="35" rows="3" name="content" id="MessageContent" placeholder="Type your message..."></textarea>
             </div>
 
-            </center>
-            <hr>
-            <center><input type="submit" value="Submit" class="btn btn-primary"></center>
 
+            <hr>
+            <div class="buttonCenter">
+                <input type="submit" value="Submit" class="btn btn-primary">
+            </div>
         </form>
     </div>
 

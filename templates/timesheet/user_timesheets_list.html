@@ -3,13 +3,12 @@
 {% block title %}Timesheets | UGTMS{% endblock %}
 
 {% block content %}
-<center>
 <div class="container p-3" style="min-height: 500px;">
     <h1>Timesheets</h1>
     <hr/>
     <form action="" method=POST>
         {% csrf_token %}
-
+    <div class="container w-75">
         <table class="table table-striped shadow my-4 bg-white">
           <thead>
             <tr>
@@ -40,7 +39,7 @@
             </tr>
           </tbody>
         </table>
-
+    </div>
     </form>
 <!--Show number of pages> -->
    <nav aria-label="Page navigation example">
@@ -65,5 +64,4 @@
       </ul>
     </nav>
 </div>
-</center>
 {% endblock %}

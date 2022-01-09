@@ -6,23 +6,25 @@
 
 {% block content %}
 
-<div class="container p-3 " style="min-height: 550px; text-align: center;">
+<div class="container p-3 " style="min-height: 550px;">
     {% if request.user|has_role:"Student" %}
         <h1>Salary</h1>
     {% else %}
         <h1>Salary of {{ user }}</h1>
     {% endif %}
     <hr/>
-    <center>
-    <div class="container-salary-table w-50">
+    <div class="d-flex justify-content-center">
+        <div class="container-salary-table w-50">
 
-        <div class="container shadow p-3 mb-5 my-5 bg-white rounded font-weight-bold">
-            <p-amount>Verified Remaining Amount:  £{{ user.userprofile.salary }}</p-amount>
-        </div>
-        <hr/>
+            <div class="containerCenter shadow p-3 mb-5 my-5 bg-white rounded font-weight-bold">
+                <p-amount>Verified Remaining Amount:  £{{ user.userprofile.salary }}</p-amount>
+            </div>
+            <hr/>
 
-        <h3> Paid Salaries </h3>
-            <center><a class="btn btn-primary" href="{% url 'salaries-csv' %}" role="button">Export CSV</a></center>
+            <h3> Paid Salaries </h3>
+            <div class="buttonCenter">
+                <a class="btn btn-primary" href="{% url 'salaries-csv' %}" role="button">Export CSV</a>
+            </div>
             <table class="table table-striped shadow my-4 bg-white square">
                   <thead>
                     <tr>
@@ -45,8 +47,8 @@
                     </tr>
                 {% endfor %}
             </table>
+        </div>
     </div>
-    </center>
     <!--Show number of pages> -->
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">

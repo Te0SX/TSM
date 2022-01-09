@@ -42,7 +42,9 @@
         {% if request.user|has_role:"Student" %}
             <a class="btn btn-warning" href="{% url 'user-password' userid.id %}" role="button">Change Password</a>
         {% endif %}
-        <input type="submit" value="Update Profile" class="btn btn-primary">
+         <div class="buttonCenter">
+            <input type="submit" value="Update Profile" class="btn btn-primary">
+         </div>
 
         </div>
         </form>

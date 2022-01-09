@@ -7,7 +7,7 @@
     {% block content %}
     <br>
     <div class="container shadow w-50 p-3 my-5 bg-white rounded" >
-        <center><h1>Login</h1></center>
+       <h1>Login</h1>
         <hr>
         <div class="container w-75 bg-white rounded">
             <div class="container w-75 bg-white rounded">
@@ -15,7 +15,7 @@
                     {% csrf_token %}
                   <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Username</label>
-                    <input type="text" class="form-control" name="username" placeholder="StudentID" value={{ username }}>
+                    <input type="text" class="form-control" name="username" placeholder="StudentID" >
                   </div>
 {#                    <hr/>#}
                   <div class="mb-3">
@@ -23,12 +23,17 @@
                     <input type="password" class="form-control" name="password" placeholder="******">
                   </div>
                     <hr/>
-                  <center><input type="submit" value="Log In" class="btn btn-primary"></center>
+                    <div class="buttonCenter">
+                        <input type="submit" value="Log In" class="btn btn-primary">
+                    </div>
                 </form>
             </div>
         <hr class="my-4">
+        <p>
+        - Existing users credentials  can be found <a href="https://github.com/Te0SX/TSM" id='mainlinks'> here.</a> <br>
         - The login credentials are keys sensitive.<br/>
-        - For any issue, <a href="{% url 'support' %}"> contact us.</a>
+        - For any issue, <a href="{% url 'support' %}" id='mainlinks'> contact us.</a>
+        </p>
         </div>
     </div>
     <br>
