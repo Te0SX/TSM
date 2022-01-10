@@ -1,5 +1,9 @@
+:root {
+    --mainNavColor: #093a63;
+}
+
 .navbar-custom {
-    background-color: #093a63;
+    background-color: var(--mainNavColor);
 }/* change the brand and text color */
 .navbar-custom .navbar-brand {
     color: rgba(255,255,255,1); }
@@ -26,15 +30,15 @@
         padding: 1rem 2rem
     }
 .btn-primary-nav{
-    background-color: #093a63;
-    border-color: #093a63;
+    background-color: var(--mainNavColor);
+    border-color: var(--mainNavColor);
     color: #fff
 
 }
 
 .btn-primary-nav:visited{
-    background-color: #093a63;
-    border-color: #093a63;
+    background-color: var(--mainNavColor);
+    border-color: var(--mainNavColor);
     color: #fff
 
 }

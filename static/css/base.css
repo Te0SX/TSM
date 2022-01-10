@@ -1,3 +1,7 @@
+:root {
+    --mainNavColor: #093a63;
+}
+
 /* General */
 
 .container-salary-table{
@@ -24,7 +28,7 @@ h3,h4 {
 }
 
 p {
-    color: #093a63;
+    color: var(--mainNavColor);
 }
 
 p-amount{
@@ -63,7 +67,7 @@ tr{
 
 .btn-primary{
     background-color: #00597c;
-    border-color: #093a63;
+    border-color: var(--mainNavColor);
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
 }
 
