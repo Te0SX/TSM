@@ -147,5 +147,5 @@ DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 # for heroku
 django_heroku.settings(locals())
 
-#redirect to log in page for @login_required
+# redirect to log in page for @login_required
 LOGIN_URL='login'
