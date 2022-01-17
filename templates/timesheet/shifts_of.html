@@ -14,8 +14,9 @@
             <th scope="col">ShiftID</th>
             <th scope="col">Date Added</th>
             <th scope="col">Role</th>
-            <th scope="col">Start of Shift</th>
-            <th scope="col">Finish of Shift</th>
+            <th scope="col">Date Worked</th>
+            <th scope="col">Start Time</th>
+            <th scope="col">Finish Time</th>
             <th scope="col">Amount</th>
             <th scope="col">Contact</th>
             <th scope="col">Verified</th>
@@ -36,10 +37,13 @@
                 {{ shift.role }}
                 </td>
                 <td>
-                {{ shift.startHour }}
+                {{ shift.startHour.date }}
                 </td>
                 <td>
-                {{ shift.endHour }}
+                {{ shift.startHour.time }}
+                </td>
+                <td>
+                {{ shift.endHour.time }}
                 </td>
                 <td>
                 {{ shift.payment }}
