@@ -49,3 +49,13 @@ heroku config:set SECRET_KEY='*****'
 git push heroku master or git push heroku yourbranch:master
 heroku run bash 
 ```
+
+---
+
+### Screenshots
+
+![](https://i.imgur.com/Klrk7FV.jpg)
+
+![](https://i.imgur.com/sQRYRkk.png)
+
+![](https://i.imgur.com/uq7jl4f.jpg)
